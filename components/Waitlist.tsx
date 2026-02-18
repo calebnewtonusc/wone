@@ -1,181 +1,67 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Users, Rocket, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
-type FormState = "idle" | "submitting" | "success" | "error";
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const trustSignals = [
-  {
-    icon: Users,
-    label: "500+ founders on waitlist",
-  },
-  {
-    icon: Rocket,
-    label: "Launch Q2 2026",
-  },
-  {
-    icon: Sparkles,
-    label: "Free during beta",
-  },
-];
+type State = "idle" | "loading" | "success";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
-  const [formState, setFormState] = useState<FormState>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const isValidEmail = (value: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const [state, setState] = useState<State>("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!isValidEmail(email)) {
-      setErrorMessage("Please enter a valid email address.");
-      inputRef.current?.focus();
-      return;
-    }
-
-    setErrorMessage("");
-    setFormState("submitting");
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1400));
-
-    // In production, replace with real API integration:
-    // const res = await fetch("/api/waitlist", { method: "POST", body: JSON.stringify({ email }) });
-    // if (!res.ok) { setFormState("error"); return; }
-
-    setFormState("success");
+    if (!email || state !== "idle") return;
+    setState("loading");
+    await new Promise((r) => setTimeout(r, 1200));
+    setState("success");
+    setEmail("");
   };
 
   return (
     <section
       id="waitlist"
-      className="relative w-full overflow-hidden py-32 px-4"
-      style={{
-        background: "linear-gradient(to bottom, #0f0f0f 0%, #000000 100%)",
-      }}
+      className="relative py-28 px-6 overflow-hidden"
+      style={{ background: "#000", borderTop: "1px solid #1a1a1a" }}
     >
-      {/* Amber glow orb */}
+      {/* Subtle blue glow */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(77,142,255,0.12) 0%, rgba(77,142,255,0.04) 50%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
-        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.1) 0%, transparent 60%)" }}
       />
 
-      {/* Violet accent orb */}
-      <div
-        className="pointer-events-none absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Top border gradient */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, rgba(77,142,255,0.5), rgba(139,92,246,0.5), transparent)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 mx-auto max-w-2xl text-center">
-        {/* Badge */}
+      <div className="relative z-10 max-w-2xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
-          <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">
-            Early Access Open
-          </span>
-        </motion.div>
+          <p className="text-xs font-semibold tracking-widest uppercase text-blue-500 mb-4">Early Access</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5">
+            Be first to launch on Wone.
+          </h2>
+          <p className="text-base text-[#71717a] mb-10 max-w-md mx-auto">
+            Join 500+ founders on the waitlist. We&apos;re onboarding a select group of founders for our Q2 2026 beta launch.
+          </p>
 
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-5 text-4xl font-extrabold leading-tight tracking-tight text-[#ffffff] sm:text-5xl md:text-6xl"
-        >
-          Be First.{" "}
-          <span
-            className="gradient-text"
-            style={{
-              backgroundImage:
-                "linear-gradient(135deg, #4D8EFF 0%, #8b5cf6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Shape What&apos;s Next.
-          </span>
-        </motion.h2>
-
-        {/* Subtext */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-10 text-base leading-relaxed text-[#a1a1a1] sm:text-lg"
-        >
-          Join the waitlist for early access to Wone&apos;s beta platform.
-          Limited spots available for Q2 launch.
-        </motion.p>
-
-        {/* Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+          {/* Form */}
           <AnimatePresence mode="wait">
-            {formState === "success" ? (
+            {state === "success" ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.92 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.4 }}
-                className="flex flex-col items-center gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 px-8 py-8"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: EASE }}
+                className="flex flex-col items-center gap-3 py-8"
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-                >
-                  <CheckCircle2
-                    className="text-green-400"
-                    size={40}
-                    strokeWidth={1.5}
-                  />
-                </motion.div>
-                <p className="text-lg font-semibold text-[#ffffff]">
-                  You&apos;re on the list!
-                </p>
-                <p className="text-sm text-[#a1a1a1]">
-                  We&apos;ll be in touch before Q2 launch.
-                </p>
+                <CheckCircle2 size={36} className="text-blue-500" />
+                <p className="text-lg font-semibold text-white">You&apos;re on the list!</p>
+                <p className="text-sm text-[#71717a]">We&apos;ll reach out when your spot opens up.</p>
               </motion.div>
             ) : (
               <motion.form
@@ -184,114 +70,51 @@ export default function Waitlist() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex flex-col gap-3 sm:flex-row"
-                noValidate
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >
-                <div className="relative flex-1">
-                  <input
-                    ref={inputRef}
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (errorMessage) setErrorMessage("");
-                    }}
-                    placeholder="your@email.com"
-                    disabled={formState === "submitting"}
-                    aria-label="Email address"
-                    className="w-full rounded-xl border border-[#1a1a1a] bg-[#0f0f0f] px-5 py-4 text-[#ffffff] placeholder-[#525252] outline-none ring-0 transition-all duration-200 focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-50 sm:text-base text-sm"
-                    style={{ fontSize: "16px" }}
-                  />
-                  {errorMessage && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-6 left-0 text-xs text-red-400"
-                    >
-                      {errorMessage}
-                    </motion.p>
-                  )}
-                </div>
-
-                <motion.button
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@startup.com"
+                  required
+                  className="flex-1 px-4 py-3 rounded-xl text-sm text-white placeholder:text-[#52525b] border border-[#222] focus:border-blue-500/60 focus:outline-none transition-colors duration-150"
+                  style={{ background: "#0a0a0a" }}
+                />
+                <button
                   type="submit"
-                  disabled={formState === "submitting"}
-                  whileHover={{ scale: formState === "submitting" ? 1 : 1.03 }}
-                  whileTap={{ scale: formState === "submitting" ? 1 : 0.97 }}
-                  className="group relative flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-xl px-7 py-4 text-sm font-bold text-white shadow-lg transition-all duration-200 disabled:opacity-70 sm:text-base"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #4D8EFF 0%, #1D4ED8 50%, #1E40AF 100%)",
-                    boxShadow: "0 0 30px rgba(77,142,255,0.35)",
-                  }}
+                  disabled={state === "loading"}
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-xl transition-all duration-150 disabled:opacity-70"
+                  style={{ background: "#2563EB" }}
+                  onMouseEnter={(e) => { if (state === "idle") e.currentTarget.style.background = "#1d4ed8"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "#2563EB"; }}
                 >
-                  {/* Shimmer */}
-                  <span
-                    className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-                    aria-hidden="true"
-                  />
-
-                  {formState === "submitting" ? (
-                    <>
-                      <svg
-                        className="h-4 w-4 animate-spin"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8v8H4z"
-                        />
-                      </svg>
-                      <span>Joining...</span>
-                    </>
+                  {state === "loading" ? (
+                    <Loader2 size={15} className="animate-spin" />
                   ) : (
                     <>
-                      <span>Join the Waitlist</span>
-                      <ArrowRight
-                        size={16}
-                        className="transition-transform duration-200 group-hover:translate-x-1"
-                      />
+                      Request Access
+                      <ArrowRight size={15} />
                     </>
                   )}
-                </motion.button>
+                </button>
               </motion.form>
             )}
           </AnimatePresence>
-        </motion.div>
 
-        {/* Trust Signals */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-8"
-        >
-          {trustSignals.map(({ icon: Icon, label }) => (
-            <div
-              key={label}
-              className="flex items-center gap-2 text-sm text-[#a1a1a1]"
-            >
-              <Icon
-                size={15}
-                className="shrink-0 text-blue-500"
-                strokeWidth={1.8}
-              />
-              <span>{label}</span>
-            </div>
-          ))}
+          {/* Trust signals */}
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-10">
+            {[
+              "500+ founders waitlisted",
+              "Q2 2026 beta launch",
+              "Free during beta",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-1.5">
+                <div className="w-1 h-1 rounded-full bg-blue-500" />
+                <span className="text-xs text-[#52525b]">{item}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

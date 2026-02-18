@@ -1,226 +1,89 @@
-/* ============================================================
-   Tailwind Directives
-   ============================================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   CSS Custom Properties — Wone Design System
-   ============================================================ */
 :root {
   --bg:             #000000;
-  --surface:        #0f0f0f;
-  --surface-raised: #1a1a1a;
-  --border:         #1f1f1f;
+  --surface:        #0d0d0d;
+  --surface-raised: #161616;
+  --border:         #222222;
   --border-hover:   #333333;
   --text:           #ffffff;
-  --text-secondary: #a1a1a1;
-  --text-muted:     #525252;
-  --amber:          #4D8EFF;
-  --orange:         #2563EB;
-  --teal:           #14b8a6;
+  --text-secondary: #a1a1aa;
+  --text-muted:     #52525b;
+  --blue:           #2563EB;
+  --blue-light:     #3B82F6;
+  --blue-dim:       rgba(37,99,235,0.15);
   --radius:         10px;
   --radius-sm:      6px;
   --radius-lg:      16px;
-  --radius-full:    9999px;
 }
 
-/* ============================================================
-   Base Styles
-   ============================================================ */
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: #ffffff;
+    background-color: #000000;
     color: #ffffff;
   }
 
   body {
-    background-color: #ffffff;
+    background-color: #000000;
     color: #ffffff;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
   *:focus-visible {
-    outline: 2px solid rgba(245, 158, 11, 0.6);
+    outline: 2px solid rgba(37, 99, 235, 0.6);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+  * { scrollbar-width: thin; scrollbar-color: #333 #111; }
 
-  ::-webkit-scrollbar-track {
-    background: #1f1f1f;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #333333;
-    border-radius: 9999px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #525252;
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #333333 #1f1f1f;
-  }
-
-  /* Selection */
-  ::selection {
-    background-color: #4D8EFF;
-    color: #ffffff;
-  }
-
-  ::-moz-selection {
-    background-color: #4D8EFF;
-    color: #ffffff;
-  }
+  ::selection { background-color: #2563EB; color: #fff; }
+  ::-moz-selection { background-color: #2563EB; color: #fff; }
 }
 
-/* ============================================================
-   Component Layer
-   ============================================================ */
 @layer components {
-
-  /* ----------------------------------------------------------
-     Gradient Text — amber to orange
-  ---------------------------------------------------------- */
   .gradient-text {
-    background: linear-gradient(135deg, #4D8EFF, #2563EB);
+    background: linear-gradient(135deg, #3B82F6, #2563EB);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* ----------------------------------------------------------
-     Gradient Text Cool — white to secondary
-  ---------------------------------------------------------- */
-  .gradient-text-cool {
-    background: linear-gradient(135deg, #ffffff, #a1a1a1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ----------------------------------------------------------
-     Card — base surface
-  ---------------------------------------------------------- */
   .card {
-    background: #0f0f0f;
-    border: 1px solid #1f1f1f;
+    background: #0d0d0d;
+    border: 1px solid #222;
     border-radius: var(--radius);
   }
 
-  /* ----------------------------------------------------------
-     Card Hover — interactive card
-  ---------------------------------------------------------- */
   .card-hover {
-    background: #0f0f0f;
-    border: 1px solid #1f1f1f;
+    background: #0d0d0d;
+    border: 1px solid #222;
     border-radius: var(--radius);
-    transition:
-      border-color 200ms ease,
-      background   200ms ease,
-      box-shadow   200ms ease;
+    transition: border-color 200ms ease, background 200ms ease;
   }
+  .card-hover:hover { border-color: #333; background: #111; }
 
-  .card-hover:hover {
-    border-color: #333333;
-    background: #141414;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-  }
-
-  /* ----------------------------------------------------------
-     Glow — ambient orange outer glow
-  ---------------------------------------------------------- */
-  .glow {
-    box-shadow: 0 0 80px rgba(249, 115, 22, 0.12);
-  }
-
-  /* ----------------------------------------------------------
-     Glow SM — subtle ambient glow
-  ---------------------------------------------------------- */
-  .glow-sm {
-    box-shadow: 0 0 30px rgba(249, 115, 22, 0.08);
-  }
-
-  /* ----------------------------------------------------------
-     Noise — grain texture overlay via SVG filter
-  ---------------------------------------------------------- */
-  .noise {
-    position: relative;
-  }
-
-  .noise::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-    mix-blend-mode: overlay;
-    z-index: 1;
-  }
-
-  /* ----------------------------------------------------------
-     Grain — photographic grain background texture
-  ---------------------------------------------------------- */
-  .grain {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 128px 128px;
-  }
-
-  /* ----------------------------------------------------------
-     Chip — small label pill
-  ---------------------------------------------------------- */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid #1f1f1f;
-    border-radius: 9999px;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #a1a1a1;
-    background: transparent;
-    line-height: 1.5;
-  }
-
-  /* ----------------------------------------------------------
-     Button Primary — amber to orange gradient
-  ---------------------------------------------------------- */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #4D8EFF, #2563EB);
+    background: #2563EB;
     color: #ffffff;
     font-weight: 500;
     font-size: 0.875rem;
@@ -228,23 +91,12 @@
     border-radius: var(--radius);
     border: none;
     cursor: pointer;
-    transition: opacity 150ms ease, transform 150ms ease;
+    transition: background 150ms ease, transform 150ms ease;
     white-space: nowrap;
   }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
 
-  .btn-primary:hover {
-    opacity: 0.90;
-    transform: translateY(-1px);
-  }
-
-  .btn-primary:active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ----------------------------------------------------------
-     Button Ghost — transparent with border
-  ---------------------------------------------------------- */
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -256,197 +108,50 @@
     font-size: 0.875rem;
     padding: 0.625rem 1.25rem;
     border-radius: var(--radius);
-    border: 1px solid #1f1f1f;
+    border: 1px solid #222;
     cursor: pointer;
-    transition:
-      border-color 150ms ease,
-      background   150ms ease;
+    transition: border-color 150ms ease, background 150ms ease;
     white-space: nowrap;
   }
+  .btn-ghost:hover { border-color: #444; background: rgba(255,255,255,0.04); }
 
-  .btn-ghost:hover {
-    border-color: #333333;
-    background: rgba(255, 255, 255, 0.03);
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #222;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a1a1aa;
+    background: transparent;
+    line-height: 1.5;
   }
 
-  /* ----------------------------------------------------------
-     Section Divider
-  ---------------------------------------------------------- */
   .section-divider {
     height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      #1f1f1f 20%,
-      #1f1f1f 80%,
-      transparent
-    );
+    background: linear-gradient(to right, transparent, #222 20%, #222 80%, transparent);
   }
 }
 
-/* ============================================================
-   Utility Layer — Animations & Keyframes
-   ============================================================ */
 @layer utilities {
-
-  /* ----------------------------------------------------------
-     Shimmer — horizontal gradient sweep
-  ---------------------------------------------------------- */
-  @keyframes shimmer {
-    0% {
-      background-position: -200% center;
-    }
-    100% {
-      background-position: 200% center;
-    }
-  }
-
-  .animate-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.06) 50%,
-      transparent 100%
-    );
-    background-size: 200% auto;
-    animation: shimmer 2.5s linear infinite;
-  }
-
-  /* ----------------------------------------------------------
-     Float — gentle vertical drift
-  ---------------------------------------------------------- */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-6px);
-    }
-  }
-
-  .animate-float {
-    animation: float 5s ease-in-out infinite;
-  }
-
-  .animate-float-delayed {
-    animation: float 6s ease-in-out infinite;
-    animation-delay: 1.5s;
-  }
-
-  /* ----------------------------------------------------------
-     Fade Up — entrance animation
-  ---------------------------------------------------------- */
   @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
+  .animate-fade-up { animation: fade-up 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
 
-  .animate-fade-up {
-    animation: fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  /* ----------------------------------------------------------
-     Fade In — simple opacity entrance
-  ---------------------------------------------------------- */
   @keyframes fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  .animate-fade-in { animation: fade-in 0.4s ease forwards; }
 
-  .animate-fade-in {
-    animation: fade-in 0.4s ease forwards;
-  }
-
-  /* ----------------------------------------------------------
-     Spin Slow — 360deg over 20s
-  ---------------------------------------------------------- */
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  .animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
-  }
-
-  /* ----------------------------------------------------------
-     Counter Tick — number counting pulse
-  ---------------------------------------------------------- */
-  @keyframes counter-tick {
-    0%   { transform: translateY(0);     opacity: 1; }
-    45%  { transform: translateY(-8px);  opacity: 0; }
-    55%  { transform: translateY(8px);   opacity: 0; }
-    100% { transform: translateY(0);     opacity: 1; }
-  }
-
-  .animate-counter-tick {
-    animation: counter-tick 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* ----------------------------------------------------------
-     Border Glow — border color pulse
-  ---------------------------------------------------------- */
-  @keyframes border-glow {
-    0%, 100% {
-      border-color: #1f1f1f;
-      box-shadow: none;
-    }
-    50% {
-      border-color: #4D8EFF;
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
-    }
-  }
-
-  .animate-border-glow {
-    animation: border-glow 3s ease-in-out infinite;
-  }
-
-  /* ----------------------------------------------------------
-     Scale In — scale + fade entrance
-  ---------------------------------------------------------- */
-  @keyframes scale-in {
-    from {
-      opacity: 0;
-      transform: scale(0.92);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  /* ----------------------------------------------------------
-     Pulse Slow — gentle opacity pulse
-  ---------------------------------------------------------- */
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.5; }
-    50%       { opacity: 1; }
-  }
-
-  .animate-pulse-slow {
-    animation: pulse-slow 4s ease-in-out infinite;
-  }
-
-  /* ----------------------------------------------------------
-     Animation Delays
-  ---------------------------------------------------------- */
-  .delay-75  { animation-delay: 75ms; }
   .delay-100 { animation-delay: 100ms; }
-  .delay-150 { animation-delay: 150ms; }
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
   .delay-500 { animation-delay: 500ms; }
-  .delay-700 { animation-delay: 700ms; }
-  .delay-1000 { animation-delay: 1000ms; }
 }
