@@ -22,33 +22,30 @@ export default function Waitlist() {
   };
 
   return (
-    <section
-      id="waitlist"
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "#000", borderTop: "1px solid #1a1a1a" }}
-    >
-      {/* Subtle blue glow */}
+    <section id="waitlist" className="relative bg-blue-600 py-28 px-6 overflow-hidden">
+      {/* Subtle noise/texture */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.1) 0%, transparent 60%)" }}
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #fff 1px, transparent 1px)`,
+          backgroundSize: "24px 24px",
+        }}
       />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <p className="text-xs font-semibold tracking-widest uppercase text-blue-500 mb-4">Early Access</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5">
-            Be first to launch on Wone.
+            Apply for Early Access.
           </h2>
-          <p className="text-base text-[#71717a] mb-10 max-w-md mx-auto">
-            Join 500+ founders on the waitlist. We&apos;re onboarding a select group of founders for our Q2 2026 beta launch.
+          <p className="text-lg text-blue-100 mb-10 max-w-md mx-auto">
+            Join 500+ founders on the waitlist. We&apos;re onboarding a select group for our Q2 2026 beta launch. Free during beta.
           </p>
 
-          {/* Form */}
           <AnimatePresence mode="wait">
             {state === "success" ? (
               <motion.div
@@ -57,11 +54,11 @@ export default function Waitlist() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: EASE }}
-                className="flex flex-col items-center gap-3 py-8"
+                className="flex flex-col items-center gap-3 py-6"
               >
-                <CheckCircle2 size={36} className="text-blue-500" />
-                <p className="text-lg font-semibold text-white">You&apos;re on the list!</p>
-                <p className="text-sm text-[#71717a]">We&apos;ll reach out when your spot opens up.</p>
+                <CheckCircle2 size={40} className="text-white" />
+                <p className="text-xl font-semibold text-white">You&apos;re on the list!</p>
+                <p className="text-blue-100 text-sm">We&apos;ll be in touch when your spot opens up.</p>
               </motion.div>
             ) : (
               <motion.form
@@ -78,16 +75,12 @@ export default function Waitlist() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@startup.com"
                   required
-                  className="flex-1 px-4 py-3 rounded-xl text-sm text-white placeholder:text-[#52525b] border border-[#222] focus:border-blue-500/60 focus:outline-none transition-colors duration-150"
-                  style={{ background: "#0a0a0a" }}
+                  className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/40"
                 />
                 <button
                   type="submit"
                   disabled={state === "loading"}
-                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-xl transition-all duration-150 disabled:opacity-70"
-                  style={{ background: "#2563EB" }}
-                  onMouseEnter={(e) => { if (state === "idle") e.currentTarget.style.background = "#1d4ed8"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "#2563EB"; }}
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 px-6 py-3 rounded-xl transition-colors duration-150 disabled:opacity-70 whitespace-nowrap"
                 >
                   {state === "loading" ? (
                     <Loader2 size={15} className="animate-spin" />
@@ -102,18 +95,28 @@ export default function Waitlist() {
             )}
           </AnimatePresence>
 
-          {/* Trust signals */}
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-10">
-            {[
-              "500+ founders waitlisted",
-              "Q2 2026 beta launch",
-              "Free during beta",
-            ].map((item) => (
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
+            {["500+ founders waitlisted", "Q2 2026 beta", "Free during beta"].map((item) => (
               <div key={item} className="flex items-center gap-1.5">
-                <div className="w-1 h-1 rounded-full bg-blue-500" />
-                <span className="text-xs text-[#52525b]">{item}</span>
+                <div className="w-1 h-1 rounded-full bg-blue-200" />
+                <span className="text-xs text-blue-100">{item}</span>
               </div>
             ))}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="#"
+              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors duration-150"
+            >
+              Schedule a Demo
+            </a>
+            <a
+              href="#"
+              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors duration-150"
+            >
+              Donate Now
+            </a>
           </div>
         </motion.div>
       </div>

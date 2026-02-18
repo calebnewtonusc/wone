@@ -10,23 +10,26 @@ const steps = [
   {
     number: "01",
     icon: UserPlus,
-    title: "Create Your Profile",
+    title: "Sign Up & Build Your Profile",
     description:
-      "Sign up in minutes. Tell us about your startup — stage, sector, fundraising goals, and what kind of support you need. Our platform personalizes your experience from day one.",
+      "Create your startup profile in minutes. Add your deck, traction metrics, fundraising targets, and team. Wone uses this to match you with the most relevant investors and advisors in our network.",
+    cta: "Get Started Free",
   },
   {
     number: "02",
     icon: Rocket,
-    title: "Launch Your Campaign",
+    title: "Publish Your Campaign",
     description:
-      "Build a transparent fundraising campaign with your deck, data room, and terms. Wone distributes your round to matched investors in our network and surfaces warm introductions.",
+      "Launch a transparent fundraising campaign to our curated network of 200+ SoCal investors. Share your data room, set terms, and receive structured introductions — no cold emails required.",
+    cta: "See How Campaigns Work",
   },
   {
     number: "03",
     icon: TrendingUp,
     title: "Connect, Close & Scale",
     description:
-      "Track investor engagement in real time, schedule advisor sessions on demand, and close your round with built-in SPV tooling. Then use Wone's analytics to plan your next phase.",
+      "Track investor engagement live, book advisor sessions on-demand, and close your round with built-in SPV tooling. After close, use Wone's analytics to plan your next milestone.",
+    cta: "View Success Stories",
   },
 ];
 
@@ -35,66 +38,53 @@ export default function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section
-      id="how-it-works"
-      ref={ref}
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}
-    >
+    <section id="how-it-works" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
           className="text-center mb-20"
         >
-          <p className="text-xs font-semibold tracking-widest uppercase text-blue-500 mb-4">How It Works</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
-            From signup to funded
-            <br />
-            <span className="text-[#71717a]">in three steps.</span>
+          <p className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-4">How It Works</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+            From signup to funded.
           </h2>
         </motion.div>
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden md:block absolute left-1/2 top-14 bottom-14 w-px -translate-x-1/2 bg-gradient-to-b from-[#1a1a1a] via-blue-500/20 to-[#1a1a1a]" />
-
-          <div className="flex flex-col gap-16">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
-              const isLeft = i % 2 === 0;
-              return (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.12, ease: EASE }}
-                  className={`relative flex items-start gap-8 md:gap-12 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
-                >
-                  {/* Content */}
-                  <div className={`flex-1 ${isLeft ? "md:text-right" : "md:text-left"}`}>
-                    <p className="text-xs font-bold tracking-widest uppercase text-[#333] mb-3">{step.number}</p>
-                    <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                    <p className="text-sm text-[#71717a] leading-relaxed max-w-sm mx-auto md:mx-0 md:ml-auto">{step.description}</p>
+        <div className="flex flex-col gap-0">
+          {steps.map((step, i) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, x: -20 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
+                className={`flex gap-8 md:gap-12 items-start pb-12 ${i < steps.length - 1 ? "border-b border-gray-100 mb-12" : ""}`}
+              >
+                {/* Step icon + line */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center">
+                    <Icon size={20} className="text-white" />
                   </div>
+                  {i < steps.length - 1 && (
+                    <div className="w-px flex-1 bg-gray-100 mt-4 min-h-[48px] hidden md:block" />
+                  )}
+                </div>
 
-                  {/* Center icon */}
-                  <div
-                    className="relative z-10 flex-shrink-0 w-14 h-14 rounded-2xl border flex items-center justify-center"
-                    style={{ background: "#0a0a0a", borderColor: "#1a1a1a" }}
-                  >
-                    <Icon size={22} className="text-blue-500" />
-                  </div>
-
-                  {/* Spacer */}
-                  <div className="flex-1 hidden md:block" />
-                </motion.div>
-              );
-            })}
-          </div>
+                {/* Content */}
+                <div className="flex-1 pt-1">
+                  <p className="text-xs font-bold tracking-widest uppercase text-gray-300 mb-2">{step.number}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-lg mb-4">{step.description}</p>
+                  <a href="#waitlist" className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                    {step.cta} →
+                  </a>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

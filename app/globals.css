@@ -3,20 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --bg:             #000000;
-  --surface:        #0d0d0d;
-  --surface-raised: #161616;
-  --border:         #222222;
-  --border-hover:   #333333;
-  --text:           #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted:     #52525b;
-  --blue:           #2563EB;
-  --blue-light:     #3B82F6;
-  --blue-dim:       rgba(37,99,235,0.15);
-  --radius:         10px;
-  --radius-sm:      6px;
-  --radius-lg:      16px;
+  --bg:       #ffffff;
+  --surface:  #F9FAFB;
+  --border:   #E5E7EB;
+  --text:     #111827;
+  --text-2:   #6B7280;
+  --text-3:   #9CA3AF;
+  --blue:     #2563EB;
+  --blue-h:   #1D4ED8;
+  --blue-lt:  #EFF6FF;
+  --blue-br:  #BFDBFE;
+  --radius:   10px;
 }
 
 @layer base {
@@ -25,115 +22,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #111827;
   }
-
   body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #111827;
     min-height: 100vh;
     overflow-x: hidden;
   }
-
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  *:focus-visible {
-    outline: 2px solid rgba(37, 99, 235, 0.6);
-    outline-offset: 3px;
-    border-radius: var(--radius-sm);
-  }
-
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: #111; }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #555; }
-  * { scrollbar-width: thin; scrollbar-color: #333 #111; }
-
-  ::selection { background-color: #2563EB; color: #fff; }
-  ::-moz-selection { background-color: #2563EB; color: #fff; }
-}
-
-@layer components {
-  .gradient-text {
-    background: linear-gradient(135deg, #3B82F6, #2563EB);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .card {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    border-radius: var(--radius);
-  }
-
-  .card-hover {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    border-radius: var(--radius);
-    transition: border-color 200ms ease, background 200ms ease;
-  }
-  .card-hover:hover { border-color: #333; background: #111; }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: #2563EB;
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: var(--radius);
-    border: none;
-    cursor: pointer;
-    transition: background 150ms ease, transform 150ms ease;
-    white-space: nowrap;
-  }
-  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: transparent;
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: var(--radius);
-    border: 1px solid #222;
-    cursor: pointer;
-    transition: border-color 150ms ease, background 150ms ease;
-    white-space: nowrap;
-  }
-  .btn-ghost:hover { border-color: #444; background: rgba(255,255,255,0.04); }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid #222;
-    border-radius: 9999px;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #a1a1aa;
-    background: transparent;
-    line-height: 1.5;
-  }
-
-  .section-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, #222 20%, #222 80%, transparent);
-  }
+  *, *::before, *::after { box-sizing: border-box; }
+  *:focus-visible { outline: 2px solid rgba(37,99,235,0.5); outline-offset: 3px; border-radius: 4px; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #F3F4F6; }
+  ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+  ::selection { background: #BFDBFE; color: #1E3A8A; }
 }
 
 @layer utilities {
@@ -153,5 +57,4 @@
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
 }
