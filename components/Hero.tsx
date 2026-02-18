@@ -270,10 +270,10 @@ export default function Hero() {
               className="flex gap-8 flex-wrap"
             >
               {[
-                ["500+", "Founders"],
-                ["200+", "Investors"],
-                ["$4.2M", "Capital Raised"],
-                ["60d",   "Avg. Close"],
+                ["50+",       "Pilot Partners"],
+                ["200+",      "Vetted Investors"],
+                ["3",         "Focus Industries"],
+                ["Free",      "During Beta"],
               ].map(([v, l]) => (
                 <div key={l}>
                   <p className="text-2xl font-bold text-gray-900 tracking-tight leading-none">{v}</p>
@@ -290,14 +290,20 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Logo strip */}
+      {/* Ecosystem strip */}
       <div className="border-t border-gray-100 bg-gray-50/60">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5">
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
             <p className="text-[10px] font-bold tracking-widest uppercase text-gray-300 w-full sm:w-auto text-center">
-              Backed by operators from
+              Part of the SoCal startup ecosystem
             </p>
-            {["Techstars", "Y Combinator", "500 Global", "Founders Fund", "a16z"].map((n) => (
+            {[
+              "Techstars LA",
+              "USC Marshall",
+              "UCLA Anderson",
+              "UCI Beall",
+              "LACI",
+            ].map((n) => (
               <span key={n} className="text-sm font-semibold text-gray-300">{n}</span>
             ))}
           </div>
