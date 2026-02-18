@@ -1,356 +1,475 @@
 "use client";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowRight, Zap, TrendingUp, Users } from "lucide-react";
 
-// ─── Cubic-bezier expressed as a named easing string framer-motion accepts ──
-// framer-motion v12 strict types require Easing[], not raw number[].
-// Use the string form which is always valid.
-const EASE_OUT_EXPO = "easeOut" as const;
+import { motion, useReducedMotion, useAnimation, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+// ─── Easing ──────────────────────────────────────────────────────────────────
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
 // ─── Animation variants ───────────────────────────────────────────────────────
-
 const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.15,
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
     },
   },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: EASE_OUT_EXPO },
+    transition: { duration: 0.7, ease: EASE_OUT_EXPO },
   },
 };
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.5, ease: EASE_OUT_EXPO },
-  },
-};
+// ─── Counter hook ─────────────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 1400, decimals = 0, delay = 0) {
+  const [value, setValue] = useState(0);
+  const started = useRef(false);
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (started.current) return;
+      started.current = true;
 
-function GradientOrb({
-  className,
-  color,
-  size,
-  delay = 0,
-}: {
-  className: string;
-  color: string;
-  size: number;
-  delay?: number;
-}) {
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(parseFloat((eased * target).toFixed(decimals)));
+        if (progress < 1) requestAnimationFrame(step);
+        else setValue(target);
+      };
+      requestAnimationFrame(step);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [target, duration, decimals, delay]);
+
+  return value;
+}
+
+// ─── Animated progress bar ────────────────────────────────────────────────────
+function ProgressBar({ target, delay = 0 }: { target: number; delay?: number }) {
+  const controls = useAnimation();
+  useEffect(() => {
+    const t = setTimeout(() => {
+      controls.start({ width: `${target}%`, transition: { duration: 1.2, ease: EASE_OUT_EXPO } });
+    }, delay);
+    return () => clearTimeout(t);
+  }, [target, delay, controls]);
+
+  return (
+    <div className="w-full h-1.5 rounded-full bg-[#1f1f1f] overflow-hidden">
+      <motion.div
+        className="h-full rounded-full"
+        style={{ background: "linear-gradient(90deg, #4D8EFF, #2563EB)" }}
+        initial={{ width: "0%" }}
+        animate={controls}
+      />
+    </div>
+  );
+}
+
+// ─── Activity row ─────────────────────────────────────────────────────────────
+interface ActivityItem {
+  text: string;
+  time: string;
+}
+
+function ActivityRow({ item, index }: { item: ActivityItem; index: number }) {
+  return (
+    <motion.div
+      className="flex items-start gap-2.5"
+      initial={{ opacity: 0, x: -8 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 1.1 + index * 0.12, duration: 0.5, ease: "easeOut" }}
+    >
+      <span className="mt-[5px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#4D8EFF]" />
+      <span className="text-[11px] text-[#a1a1a1] leading-tight flex-1">{item.text}</span>
+      <span className="text-[10px] text-[#525252] flex-shrink-0 tabular-nums">{item.time}</span>
+    </motion.div>
+  );
+}
+
+// ─── Dashboard mockup ─────────────────────────────────────────────────────────
+function DashboardMockup() {
   const prefersReducedMotion = useReducedMotion();
+  const investorCount = useCountUp(24, 1200, 0, 800);
+  const avgCheck = useCountUp(180, 1200, 0, 900);
+
+  const activity: ActivityItem[] = [
+    { text: "Tiger VC committed $500K", time: "2h ago" },
+    { text: "Maya Chen joined as advisor", time: "1d ago" },
+    { text: "KPI report sent to investors", time: "2d ago" },
+  ];
 
   return (
     <motion.div
-      className={`absolute rounded-full pointer-events-none ${className}`}
+      initial={{ opacity: 0, y: 32, rotate: 2 }}
+      animate={{ opacity: 1, y: 0, rotate: 0 }}
+      transition={{ delay: 0.5, duration: 0.85, ease: EASE_OUT_EXPO }}
       style={{
-        width: size,
-        height: size,
-        background: color,
-        filter: "blur(80px)",
+        animationName: prefersReducedMotion ? "none" : undefined,
       }}
-      animate={
-        prefersReducedMotion
-          ? {}
-          : {
-              scale: [1, 1.12, 1],
-              opacity: [0.55, 0.75, 0.55],
-            }
-      }
-      transition={{
-        duration: 7,
-        delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
+    >
+      {/* Float wrapper */}
+      <motion.div
+        animate={prefersReducedMotion ? {} : { y: [0, -8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* Outer ambient glow */}
+        <div
+          className="relative rounded-2xl"
+          style={{
+            filter: "drop-shadow(0 0 40px rgba(77,142,255,0.12)) drop-shadow(0 24px 48px rgba(0,0,0,0.6))",
+          }}
+        >
+          {/* Card */}
+          <div
+            className="relative rounded-2xl overflow-hidden"
+            style={{
+              background: "#0f0f0f",
+              border: "1px solid #1f1f1f",
+              width: "100%",
+              maxWidth: 420,
+            }}
+          >
+            {/* Subtle inner top gradient */}
+            <div
+              className="absolute top-0 left-0 right-0 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(77,142,255,0.3), transparent)" }}
+            />
+
+            {/* Header bar */}
+            <div
+              className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: "1px solid #1f1f1f" }}
+            >
+              <div className="flex items-center gap-2">
+                <div
+                  className="h-5 w-5 rounded-md flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, #4D8EFF, #2563EB)" }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M5 1L9 5L5 9L1 5L5 1Z" fill="#000" />
+                  </svg>
+                </div>
+                <span className="text-[11px] font-semibold text-[#a1a1a1] tracking-wide">Wone Dashboard</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ef4444]/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#4D8EFF]/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e]/70" />
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="px-4 pt-4 pb-5 space-y-4">
+
+              {/* Round info */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-semibold text-white">Series A Round</span>
+                  <span
+                    className="text-[10px] font-medium px-1.5 py-0.5 rounded-full"
+                    style={{ background: "rgba(77,142,255,0.12)", color: "#4D8EFF", border: "1px solid rgba(77,142,255,0.2)" }}
+                  >
+                    Active
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-1.5 mb-2">
+                  <span className="text-[22px] font-bold text-white leading-none">$2.4M</span>
+                  <span className="text-[11px] text-[#525252]">raised of $5M target</span>
+                </div>
+                <ProgressBar target={48} delay={700} />
+                <div className="flex justify-between mt-1">
+                  <span className="text-[10px] text-[#525252]">48% funded</span>
+                  <span className="text-[10px] text-[#525252]">$2.6M remaining</span>
+                </div>
+              </div>
+
+              {/* Stat mini-cards */}
+              <div className="grid grid-cols-2 gap-2">
+                <div
+                  className="rounded-lg px-3 py-2.5"
+                  style={{ background: "#161616", border: "1px solid #1f1f1f" }}
+                >
+                  <div className="text-[18px] font-bold text-white leading-none tabular-nums">
+                    {Math.round(investorCount)}
+                  </div>
+                  <div className="text-[10px] text-[#525252] mt-0.5 uppercase tracking-widest">Investors</div>
+                </div>
+                <div
+                  className="rounded-lg px-3 py-2.5"
+                  style={{ background: "#161616", border: "1px solid #1f1f1f" }}
+                >
+                  <div className="text-[18px] font-bold text-white leading-none tabular-nums">
+                    ${Math.round(avgCheck)}K
+                  </div>
+                  <div className="text-[10px] text-[#525252] mt-0.5 uppercase tracking-widest">Avg Check</div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div style={{ height: 1, background: "#1f1f1f" }} />
+
+              {/* Recent activity */}
+              <div>
+                <div className="text-[10px] font-semibold text-[#525252] uppercase tracking-widest mb-2.5">
+                  Recent Activity
+                </div>
+                <div className="space-y-2">
+                  {activity.map((item, i) => (
+                    <ActivityRow key={i} item={item} index={i} />
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA button inside card */}
+              <motion.button
+                className="w-full rounded-lg py-2 text-[11px] font-semibold text-[#4D8EFF] flex items-center justify-center gap-1.5 transition-colors"
+                style={{ background: "rgba(77,142,255,0.08)", border: "1px solid rgba(77,142,255,0.18)" }}
+                whileHover={{ backgroundColor: "rgba(77,142,255,0.14)" }}
+              >
+                View Round Dashboard
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M2 5H8M8 5L5.5 2.5M8 5L5.5 7.5" stroke="#4D8EFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
-function GeometricShape({
-  className,
-  delay = 0,
-}: {
-  className: string;
-  delay?: number;
-}) {
-  const prefersReducedMotion = useReducedMotion();
-
-  return (
-    <motion.div
-      className={`absolute pointer-events-none ${className}`}
-      animate={
-        prefersReducedMotion
-          ? {}
-          : {
-              y: [0, -14, 0],
-              rotate: [0, 6, 0],
-              opacity: [0.4, 0.65, 0.4],
-            }
-      }
-      transition={{
-        duration: 6 + delay * 1.5,
-        delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-  );
-}
-
-// ─── Stat pill ────────────────────────────────────────────────────────────────
-
-const stats = [
-  {
-    icon: Users,
-    value: "500+",
-    label: "Founders",
-    iconColor: "text-[#f59e0b]",
-  },
-  {
-    icon: TrendingUp,
-    value: "120+",
-    label: "Investors",
-    iconColor: "text-[#8b5cf6]",
-  },
-  {
-    icon: Zap,
-    value: "$2M+",
-    label: "Facilitated",
-    iconColor: "text-[#f59e0b]",
-  },
+// ─── Stats row ────────────────────────────────────────────────────────────────
+const statsData = [
+  { raw: 500, suffix: "+", label: "Founders", decimals: 0 },
+  { raw: 120, suffix: "+", label: "Investors", decimals: 0 },
+  { raw: 4.2, suffix: "M+", label: "Facilitated", prefix: "$", decimals: 1 },
 ];
 
-// ─── Main component ───────────────────────────────────────────────────────────
+function StatItem({
+  raw,
+  suffix,
+  prefix = "",
+  label,
+  decimals,
+  delay,
+}: {
+  raw: number;
+  suffix: string;
+  prefix?: string;
+  label: string;
+  decimals: number;
+  delay: number;
+}) {
+  const val = useCountUp(raw, 1300, decimals, delay);
+  const display = decimals > 0 ? val.toFixed(decimals) : Math.round(val).toString();
 
+  return (
+    <div className="flex flex-col items-start">
+      <span className="text-3xl font-bold text-white leading-none tabular-nums">
+        {prefix}{display}{suffix}
+      </span>
+      <span
+        className="mt-1 text-[10px] uppercase tracking-widest"
+        style={{ color: "#525252" }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+// ─── Main Hero component ──────────────────────────────────────────────────────
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#030712] pt-16"
+      className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-16"
+      style={{ background: "#000000" }}
     >
-      {/* ── Background layer ── */}
-      <div className="absolute inset-0 pointer-events-none select-none">
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#f9fafb 1px, transparent 1px), linear-gradient(90deg, #f9fafb 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
+      {/* ── Background: dot grid ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          opacity: 0.15,
+        }}
+      />
 
-        {/* Primary amber orb — top left */}
-        <GradientOrb
-          className="-top-32 -left-24"
-          color="radial-gradient(circle, rgba(245,158,11,0.35) 0%, transparent 70%)"
-          size={700}
-          delay={0}
-        />
+      {/* ── Background: single amber glow top-right ── */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "-10%",
+          right: "-5%",
+          width: 700,
+          height: 700,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(77,142,255,0.22) 0%, rgba(37,99,235,0.08) 50%, transparent 70%)",
+          filter: "blur(150px)",
+          opacity: 0.3,
+        }}
+      />
 
-        {/* Violet orb — top right */}
-        <GradientOrb
-          className="-top-20 right-0"
-          color="radial-gradient(circle, rgba(139,92,246,0.28) 0%, transparent 70%)"
-          size={600}
-          delay={1.5}
-        />
+      {/* ── Main content wrapper ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-12 xl:gap-20">
 
-        {/* Subtle center bloom */}
-        <GradientOrb
-          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          color="radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%)"
-          size={900}
-          delay={3}
-        />
+          {/* ── LEFT: Text content ── */}
+          <motion.div
+            className="flex-1 flex flex-col items-start max-w-xl lg:max-w-none"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Chip badge */}
+            <motion.div variants={fadeUp} className="mb-8">
+              <div
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium"
+                style={{
+                  background: "rgba(15,15,15,0.9)",
+                  border: "1px solid #1f1f1f",
+                  color: "#a1a1a1",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                {/* Pulsing amber dot */}
+                <span className="relative flex h-1.5 w-1.5">
+                  <span
+                    className="absolute inline-flex h-full w-full rounded-full opacity-75"
+                    style={{
+                      background: "#4D8EFF",
+                      animation: prefersReducedMotion ? "none" : "ping 1.5s cubic-bezier(0,0,0.2,1) infinite",
+                    }}
+                  />
+                  <span
+                    className="relative inline-flex h-1.5 w-1.5 rounded-full"
+                    style={{ background: "#4D8EFF" }}
+                  />
+                </span>
+                <span>Beta</span>
+                <span style={{ width: 1, height: 12, background: "#1f1f1f", display: "inline-block" }} />
+                <span style={{ color: "#4D8EFF" }}>Q2 2026 Launch</span>
+              </div>
+            </motion.div>
 
-        {/* Floating geometric accents */}
-        <GeometricShape
-          className="top-24 right-[10%] w-12 h-12 border border-[#f59e0b]/20 rotate-45 rounded-sm"
-          delay={0}
-        />
-        <GeometricShape
-          className="top-1/3 left-[6%] w-20 h-20 border border-[#8b5cf6]/15 rounded-full"
-          delay={1}
-        />
-        <GeometricShape
-          className="bottom-32 right-[8%] w-8 h-8 border border-[#f59e0b]/25 rotate-12 rounded-sm"
-          delay={2}
-        />
-        <GeometricShape
-          className="top-36 left-[18%] w-5 h-5 bg-[#8b5cf6]/20 rotate-45 rounded-sm"
-          delay={0.5}
-        />
-        <GeometricShape
-          className="bottom-40 left-[12%] w-14 h-14 border border-[#f59e0b]/10 rounded-full"
-          delay={1.8}
-        />
-        <GeometricShape
-          className="top-1/2 right-[15%] w-3 h-3 bg-[#f59e0b]/30 rounded-full"
-          delay={0.8}
-        />
-        <GeometricShape
-          className="top-[55%] right-[18%] w-2 h-2 bg-[#8b5cf6]/30 rounded-full"
-          delay={1.2}
-        />
+            {/* Headline */}
+            <motion.h1
+              variants={fadeUp}
+              className="font-black tracking-tight leading-none mb-6"
+              style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)" }}
+            >
+              <span className="block text-white">The All-in-One</span>
+              <span className="block text-white">Startup</span>
+              <span
+                className="block"
+                style={{
+                  backgroundImage: "linear-gradient(90deg, #4D8EFF 0%, #2563EB 50%, #4D8EFF 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  backgroundSize: "200% auto",
+                }}
+              >
+                Launchpad.
+              </span>
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              variants={fadeUp}
+              className="text-lg leading-relaxed mb-8 max-w-md"
+              style={{ color: "#a1a1a1" }}
+            >
+              Wone connects high-growth startups with investors, advisors, and the infrastructure
+              to raise, scale, and launch&nbsp;— faster.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap items-center gap-4 mb-12"
+            >
+              <a
+                href="#waitlist"
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                style={{
+                  background: "linear-gradient(135deg, #4D8EFF 0%, #2563EB 100%)",
+                }}
+              >
+                Request Early Access
+              </a>
+              <a
+                href="#how-it-works"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-white transition-colors hover:text-[#4D8EFF]"
+              >
+                Watch the demo
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              variants={fadeUp}
+              className="flex items-center gap-0"
+            >
+              {statsData.map((stat, i) => (
+                <div key={stat.label} className="flex items-center">
+                  <StatItem
+                    raw={stat.raw}
+                    suffix={stat.suffix}
+                    prefix={stat.prefix}
+                    label={stat.label}
+                    decimals={stat.decimals}
+                    delay={900 + i * 120}
+                  />
+                  {i < statsData.length - 1 && (
+                    <div
+                      className="mx-6 self-stretch"
+                      style={{ width: 1, background: "#1f1f1f", minHeight: 40 }}
+                    />
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* ── RIGHT: Dashboard mockup ── */}
+          <div className="flex-1 flex justify-center lg:justify-end w-full lg:w-auto">
+            <DashboardMockup />
+          </div>
+        </div>
       </div>
 
-      {/* ── Main content ── */}
-      <motion.div
-        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Beta badge */}
-        <motion.div variants={fadeUp}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-8 rounded-full border border-[#1f2937] bg-[#111827]/80 backdrop-blur-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#f59e0b] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#f59e0b]" />
-            </span>
-            <span className="text-xs font-semibold tracking-wide text-[#9ca3af]">
-              Now in Beta
-            </span>
-            <span className="h-3.5 w-px bg-[#1f2937]" />
-            <span className="text-xs font-semibold tracking-wide text-[#f59e0b]">
-              Early Access Open
-            </span>
-          </div>
-        </motion.div>
+      {/* ── Bottom section fade ── */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ background: "linear-gradient(to top, #000000, transparent)" }}
+      />
 
-        {/* Headline */}
-        <motion.h1
-          variants={fadeUp}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#f9fafb] leading-[1.08] mb-6"
-        >
-          Where Startups{" "}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-[#f59e0b] via-[#fbbf24] to-[#d97706] bg-clip-text text-transparent">
-              Launch.
-            </span>
-          </span>{" "}
-          <br className="hidden sm:block" />
-          Where Capital{" "}
-          <span className="bg-gradient-to-r from-[#8b5cf6] via-[#a78bfa] to-[#7c3aed] bg-clip-text text-transparent">
-            Flows.
-          </span>{" "}
-          <br className="hidden sm:block" />
-          <span className="bg-gradient-to-r from-[#f9fafb] to-[#9ca3af] bg-clip-text text-transparent">
-            One Platform.
-          </span>
-        </motion.h1>
-
-        {/* Subheadline */}
-        <motion.p
-          variants={fadeUp}
-          className="max-w-2xl text-base sm:text-lg md:text-xl text-[#9ca3af] leading-relaxed mb-10"
-        >
-          Wone connects ambitious founders with the right investors at the right
-          moment. Streamline your fundraising, track traction, and close rounds
-          faster — all in one intelligent workspace built for the next generation
-          of startups.
-        </motion.p>
-
-        {/* CTA buttons */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-col sm:flex-row items-center gap-3 mb-14"
-        >
-          {/* Primary CTA */}
-          <a
-            href="#waitlist"
-            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-bold text-[#030712] rounded-xl overflow-hidden shadow-lg shadow-amber-900/25 hover:shadow-amber-900/40 transition-shadow duration-300"
-          >
-            <span className="absolute inset-0 bg-gradient-to-r from-[#f59e0b] to-[#d97706] transition-all duration-300 group-hover:from-[#fbbf24] group-hover:to-[#f59e0b]" />
-            <span className="relative z-10">Get Early Access</span>
-            <ArrowRight
-              size={16}
-              className="relative z-10 transition-transform duration-200 group-hover:translate-x-1"
-            />
-          </a>
-
-          {/* Ghost CTA */}
-          <a
-            href="#how-it-works"
-            className="group inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-[#9ca3af] rounded-xl border border-[#1f2937] bg-[#111827]/60 backdrop-blur-sm hover:text-[#f9fafb] hover:border-[#374151] hover:bg-[#1f2937]/60 transition-all duration-200"
-          >
-            See How It Works
-            <ArrowRight
-              size={16}
-              className="opacity-60 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
-            />
-          </a>
-        </motion.div>
-
-        {/* Stat pills */}
-        <motion.div
-          variants={fadeIn}
-          className="flex flex-col sm:flex-row items-center gap-3"
-        >
-          {stats.map((stat, i) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  delay: 0.55 + i * 0.1,
-                  duration: 0.5,
-                  ease: EASE_OUT_EXPO,
-                }}
-                className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-[#1f2937] bg-[#111827]/70 backdrop-blur-sm hover:border-[#374151] hover:bg-[#1f2937]/60 transition-all duration-200 group"
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/[0.08] transition-colors duration-200">
-                  <Icon size={15} className={stat.iconColor} />
-                </div>
-                <div className="flex flex-col items-start">
-                  <span className="text-base font-bold text-[#f9fafb] leading-none">
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-[#9ca3af] leading-none mt-0.5">
-                    {stat.label}
-                  </span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </motion.div>
-
-      {/* ── Bottom fade-out into page ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#030712] to-transparent pointer-events-none" />
-
-      {/* ── Scroll indicator ── */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-      >
-        <span className="text-[10px] tracking-widest uppercase font-semibold text-[#4b5563]">
-          Scroll
-        </span>
-        <motion.div
-          className="w-px h-8 bg-gradient-to-b from-[#4b5563] to-transparent"
-          animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          style={{ originY: 0 }}
-        />
-      </motion.div>
+      {/* Ping keyframe injected inline for the badge dot */}
+      <style>{`
+        @keyframes ping {
+          75%, 100% { transform: scale(2); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }

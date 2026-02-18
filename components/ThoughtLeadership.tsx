@@ -13,10 +13,10 @@ const pillars = [
     description:
       "Newsletters, podcast placements, and founder spotlights that drive engagement and establish Wone as the essential resource for SoCal founders.",
     tags: ["Newsletter", "Podcast", "Founder Spotlights"],
-    accent: "#f59e0b",
-    accentBg: "rgba(245,158,11,0.08)",
-    accentBorder: "rgba(245,158,11,0.2)",
-    iconBg: "rgba(245,158,11,0.12)",
+    accent: "#4D8EFF",
+    accentBg: "rgba(77,142,255,0.08)",
+    accentBorder: "rgba(77,142,255,0.2)",
+    iconBg: "rgba(77,142,255,0.12)",
   },
   {
     icon: Mic2,
@@ -105,7 +105,7 @@ export default function ThoughtLeadership() {
     <section
       ref={sectionRef}
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "#030712" }}
+      style={{ background: "#000000" }}
     >
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -120,7 +120,7 @@ export default function ThoughtLeadership() {
           className="absolute bottom-0 left-1/4 w-[500px] h-[300px] rounded-full opacity-8 blur-3xl"
           style={{
             background:
-              "radial-gradient(ellipse, #f59e0b15 0%, transparent 70%)",
+              "radial-gradient(ellipse, #4D8EFF15 0%, transparent 70%)",
           }}
         />
       </div>
@@ -149,13 +149,13 @@ export default function ThoughtLeadership() {
           <motion.h2
             variants={fadeUpVariant}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
-            style={{ color: "#f9fafb" }}
+            style={{ color: "#ffffff" }}
           >
             Building Credibility.
             <br />
             <span
               style={{
-                background: "linear-gradient(90deg, #8b5cf6, #f59e0b)",
+                background: "linear-gradient(90deg, #8b5cf6, #4D8EFF)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -167,7 +167,7 @@ export default function ThoughtLeadership() {
           <motion.p
             variants={fadeUpVariant}
             className="text-lg max-w-2xl mx-auto leading-relaxed"
-            style={{ color: "#9ca3af" }}
+            style={{ color: "#a1a1a1" }}
           >
             Our Q2 launch strategy positions Wone as the defining voice for the
             next generation of startup infrastructure.
@@ -187,7 +187,7 @@ export default function ThoughtLeadership() {
                 animate={isInView ? "visible" : "hidden"}
                 className="relative rounded-2xl border p-7 group hover:scale-[1.02] transition-transform duration-300 flex flex-col"
                 style={{
-                  background: "#111827",
+                  background: "#0f0f0f",
                   borderColor: pillar.accentBorder,
                 }}
               >
@@ -209,14 +209,14 @@ export default function ThoughtLeadership() {
 
                 <h3
                   className="text-lg font-bold mb-3"
-                  style={{ color: "#f9fafb" }}
+                  style={{ color: "#ffffff" }}
                 >
                   {pillar.title}
                 </h3>
 
                 <p
                   className="text-sm leading-relaxed mb-6 flex-1"
-                  style={{ color: "#9ca3af" }}
+                  style={{ color: "#a1a1a1" }}
                 >
                   {pillar.description}
                 </p>
@@ -246,7 +246,7 @@ export default function ThoughtLeadership() {
         <div ref={timelineRef} className="mb-20">
           <motion.h3
             className="text-center text-sm font-semibold uppercase tracking-widest mb-12"
-            style={{ color: "#4b5563" }}
+            style={{ color: "#525252" }}
             initial={{ opacity: 0 }}
             animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.5 }}
@@ -278,22 +278,22 @@ export default function ThoughtLeadership() {
                       style={
                         step.active
                           ? {
-                              background: "#f59e0b",
-                              borderColor: "#f59e0b",
-                              color: "#030712",
-                              boxShadow: "0 0 24px rgba(245,158,11,0.4)",
+                              background: "#4D8EFF",
+                              borderColor: "#4D8EFF",
+                              color: "#000000",
+                              boxShadow: "0 0 24px rgba(77,142,255,0.4)",
                             }
                           : {
-                              background: "#111827",
-                              borderColor: "#1f2937",
-                              color: "#4b5563",
+                              background: "#0f0f0f",
+                              borderColor: "#1a1a1a",
+                              color: "#525252",
                             }
                       }
                     >
                       {step.active && (
                         <div
                           className="absolute inset-0 rounded-2xl animate-pulse opacity-30"
-                          style={{ background: "#f59e0b" }}
+                          style={{ background: "#4D8EFF" }}
                         />
                       )}
                       <span className="relative">{step.label}</span>
@@ -305,14 +305,14 @@ export default function ThoughtLeadership() {
                     <p
                       className="font-bold text-base mb-1.5"
                       style={{
-                        color: step.active ? "#f9fafb" : "#6b7280",
+                        color: step.active ? "#ffffff" : "#525252",
                       }}
                     >
                       {step.title}
                     </p>
                     <p
                       className="text-xs leading-relaxed max-w-[180px]"
-                      style={{ color: step.active ? "#9ca3af" : "#4b5563" }}
+                      style={{ color: step.active ? "#a1a1a1" : "#525252" }}
                     >
                       {step.description}
                     </p>
@@ -334,7 +334,7 @@ export default function ThoughtLeadership() {
                       className="w-16 h-px"
                       style={{
                         background:
-                          "linear-gradient(90deg, #f59e0b40, #8b5cf640)",
+                          "linear-gradient(90deg, #4D8EFF40, #8b5cf640)",
                       }}
                     />
                   </motion.div>
@@ -344,7 +344,7 @@ export default function ThoughtLeadership() {
                 {i < timelineSteps.length - 1 && (
                   <div
                     className="md:hidden w-px h-8 ml-7"
-                    style={{ background: "#1f2937" }}
+                    style={{ background: "#1a1a1a" }}
                   />
                 )}
               </div>
@@ -359,37 +359,37 @@ export default function ThoughtLeadership() {
           animate={isInView ? "visible" : "hidden"}
           className="relative rounded-2xl border p-10 overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #111827 0%, #0d1117 100%)",
-            borderColor: "#1f2937",
+            background: "linear-gradient(135deg, #0f0f0f 0%, #0a0a0a 100%)",
+            borderColor: "#1a1a1a",
           }}
         >
           {/* Accent bar */}
           <div
             className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
             style={{
-              background: "linear-gradient(180deg, #f59e0b, #8b5cf6)",
+              background: "linear-gradient(180deg, #4D8EFF, #8b5cf6)",
             }}
           />
 
           {/* Background quote mark */}
           <Quote
             className="absolute top-6 right-8 w-20 h-20 opacity-[0.04]"
-            style={{ color: "#f9fafb" }}
+            style={{ color: "#ffffff" }}
             aria-hidden="true"
           />
 
           <div className="flex items-start gap-5">
             <div
               className="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl mt-0.5"
-              style={{ background: "rgba(245,158,11,0.12)" }}
+              style={{ background: "rgba(77,142,255,0.12)" }}
             >
-              <Quote className="w-5 h-5" style={{ color: "#f59e0b" }} />
+              <Quote className="w-5 h-5" style={{ color: "#4D8EFF" }} />
             </div>
 
             <div>
               <p
                 className="text-xl md:text-2xl font-semibold leading-snug mb-5 italic"
-                style={{ color: "#f9fafb" }}
+                style={{ color: "#ffffff" }}
               >
                 "Thought leadership isn't marketing — it's proof of category
                 ownership."
@@ -397,11 +397,11 @@ export default function ThoughtLeadership() {
               <div className="flex items-center gap-3">
                 <div
                   className="w-6 h-px"
-                  style={{ background: "#f59e0b" }}
+                  style={{ background: "#4D8EFF" }}
                 />
                 <span
                   className="text-sm font-medium uppercase tracking-widest"
-                  style={{ color: "#9ca3af" }}
+                  style={{ color: "#a1a1a1" }}
                 >
                   Wone Go-to-Market Principle
                 </span>

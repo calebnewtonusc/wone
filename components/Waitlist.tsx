@@ -57,7 +57,7 @@ export default function Waitlist() {
       id="waitlist"
       className="relative w-full overflow-hidden py-32 px-4"
       style={{
-        background: "linear-gradient(to bottom, #111827 0%, #030712 100%)",
+        background: "linear-gradient(to bottom, #0f0f0f 0%, #000000 100%)",
       }}
     >
       {/* Amber glow orb */}
@@ -65,7 +65,7 @@ export default function Waitlist() {
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.04) 50%, transparent 70%)",
+            "radial-gradient(circle, rgba(77,142,255,0.12) 0%, rgba(77,142,255,0.04) 50%, transparent 70%)",
           filter: "blur(40px)",
         }}
         aria-hidden="true"
@@ -87,7 +87,7 @@ export default function Waitlist() {
         className="absolute top-0 left-0 right-0 h-px"
         style={{
           background:
-            "linear-gradient(to right, transparent, rgba(245,158,11,0.5), rgba(139,92,246,0.5), transparent)",
+            "linear-gradient(to right, transparent, rgba(77,142,255,0.5), rgba(139,92,246,0.5), transparent)",
         }}
         aria-hidden="true"
       />
@@ -99,10 +99,10 @@ export default function Waitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
-          <span className="text-xs font-semibold tracking-widest text-amber-400 uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
+          <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">
             Early Access Open
           </span>
         </motion.div>
@@ -113,14 +113,14 @@ export default function Waitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-5 text-4xl font-extrabold leading-tight tracking-tight text-[#f9fafb] sm:text-5xl md:text-6xl"
+          className="mb-5 text-4xl font-extrabold leading-tight tracking-tight text-[#ffffff] sm:text-5xl md:text-6xl"
         >
           Be First.{" "}
           <span
             className="gradient-text"
             style={{
               backgroundImage:
-                "linear-gradient(135deg, #f59e0b 0%, #8b5cf6 100%)",
+                "linear-gradient(135deg, #4D8EFF 0%, #8b5cf6 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -136,7 +136,7 @@ export default function Waitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-10 text-base leading-relaxed text-[#9ca3af] sm:text-lg"
+          className="mb-10 text-base leading-relaxed text-[#a1a1a1] sm:text-lg"
         >
           Join the waitlist for early access to Wone&apos;s beta platform.
           Limited spots available for Q2 launch.
@@ -170,10 +170,10 @@ export default function Waitlist() {
                     strokeWidth={1.5}
                   />
                 </motion.div>
-                <p className="text-lg font-semibold text-[#f9fafb]">
+                <p className="text-lg font-semibold text-[#ffffff]">
                   You&apos;re on the list!
                 </p>
-                <p className="text-sm text-[#9ca3af]">
+                <p className="text-sm text-[#a1a1a1]">
                   We&apos;ll be in touch before Q2 launch.
                 </p>
               </motion.div>
@@ -199,7 +199,7 @@ export default function Waitlist() {
                     placeholder="your@email.com"
                     disabled={formState === "submitting"}
                     aria-label="Email address"
-                    className="w-full rounded-xl border border-[#1f2937] bg-[#111827] px-5 py-4 text-[#f9fafb] placeholder-[#4b5563] outline-none ring-0 transition-all duration-200 focus:border-amber-500/60 focus:ring-2 focus:ring-amber-500/20 disabled:opacity-50 sm:text-base text-sm"
+                    className="w-full rounded-xl border border-[#1a1a1a] bg-[#0f0f0f] px-5 py-4 text-[#ffffff] placeholder-[#525252] outline-none ring-0 transition-all duration-200 focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-50 sm:text-base text-sm"
                     style={{ fontSize: "16px" }}
                   />
                   {errorMessage && (
@@ -221,8 +221,8 @@ export default function Waitlist() {
                   className="group relative flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-xl px-7 py-4 text-sm font-bold text-white shadow-lg transition-all duration-200 disabled:opacity-70 sm:text-base"
                   style={{
                     background:
-                      "linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)",
-                    boxShadow: "0 0 30px rgba(245,158,11,0.35)",
+                      "linear-gradient(135deg, #4D8EFF 0%, #1D4ED8 50%, #1E40AF 100%)",
+                    boxShadow: "0 0 30px rgba(77,142,255,0.35)",
                   }}
                 >
                   {/* Shimmer */}
@@ -282,11 +282,11 @@ export default function Waitlist() {
           {trustSignals.map(({ icon: Icon, label }) => (
             <div
               key={label}
-              className="flex items-center gap-2 text-sm text-[#9ca3af]"
+              className="flex items-center gap-2 text-sm text-[#a1a1a1]"
             >
               <Icon
                 size={15}
-                className="shrink-0 text-amber-500"
+                className="shrink-0 text-blue-500"
                 strokeWidth={1.8}
               />
               <span>{label}</span>

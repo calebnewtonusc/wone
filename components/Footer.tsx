@@ -53,14 +53,14 @@ const itemVariants = {
 
 export default function Footer() {
   return (
-    <footer className="relative w-full overflow-hidden bg-[#030712]">
+    <footer className="relative w-full overflow-hidden bg-[#000000]">
       {/* Amber gradient top border */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to right, transparent 0%, rgba(245,158,11,0.6) 30%, rgba(139,92,246,0.5) 70%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, rgba(77,142,255,0.6) 30%, rgba(139,92,246,0.5) 70%, transparent 100%)",
         }}
       />
 
@@ -70,7 +70,7 @@ export default function Footer() {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse at top, rgba(245,158,11,0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse at top, rgba(77,142,255,0.06) 0%, transparent 70%)",
         }}
       />
 
@@ -93,7 +93,7 @@ export default function Footer() {
               <span
                 style={{
                   backgroundImage:
-                    "linear-gradient(135deg, #f59e0b 0%, #fbbf24 40%, #8b5cf6 100%)",
+                    "linear-gradient(135deg, #4D8EFF 0%, #60A5FA 40%, #8b5cf6 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -104,7 +104,7 @@ export default function Footer() {
             </Link>
 
             {/* Tagline */}
-            <p className="mt-3 text-sm leading-relaxed text-[#9ca3af] max-w-[200px]">
+            <p className="mt-3 text-sm leading-relaxed text-[#a1a1a1] max-w-[200px]">
               The unified platform for startup acceleration.
             </p>
 
@@ -115,7 +115,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#1f2937] bg-[#111827] text-[#9ca3af] transition-all duration-200 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#1a1a1a] bg-[#0f0f0f] text-[#a1a1a1] transition-all duration-200 hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-[#4D8EFF]"
                 >
                   <Icon size={15} strokeWidth={1.8} />
                 </Link>
@@ -126,7 +126,7 @@ export default function Footer() {
           {/* Nav columns */}
           {navColumns.map((col) => (
             <motion.div key={col.heading} variants={itemVariants}>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#f9fafb]">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#ffffff]">
                 {col.heading}
               </h3>
               <ul className="space-y-3">
@@ -134,9 +134,9 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="group inline-flex items-center gap-1.5 text-sm text-[#9ca3af] transition-colors duration-150 hover:text-amber-400"
+                      className="group inline-flex items-center gap-1.5 text-sm text-[#a1a1a1] transition-colors duration-150 hover:text-[#4D8EFF]"
                     >
-                      <span className="h-px w-0 bg-amber-500 transition-all duration-200 group-hover:w-3" />
+                      <span className="h-px w-0 bg-blue-500 transition-all duration-200 group-hover:w-3" />
                       {label}
                     </Link>
                   </li>
@@ -147,7 +147,7 @@ export default function Footer() {
 
           {/* Connect column - desktop only */}
           <motion.div variants={itemVariants} className="hidden lg:block">
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#f9fafb]">
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#ffffff]">
               Connect
             </h3>
             <ul className="space-y-3">
@@ -155,9 +155,9 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="group flex items-center gap-2.5 text-sm text-[#9ca3af] transition-colors duration-150 hover:text-amber-400"
+                    className="group flex items-center gap-2.5 text-sm text-[#a1a1a1] transition-colors duration-150 hover:text-[#4D8EFF]"
                   >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-md border border-[#1f2937] bg-[#111827] transition-all duration-200 group-hover:border-amber-500/40 group-hover:bg-amber-500/10">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-md border border-[#1a1a1a] bg-[#0f0f0f] transition-all duration-200 group-hover:border-[#4D8EFF]/40 group-hover:bg-blue-500/10">
                       <Icon size={13} strokeWidth={1.8} />
                     </span>
                     {label}
@@ -174,9 +174,9 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[#1f2937] pt-8 sm:flex-row"
+          className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[#1a1a1a] pt-8 sm:flex-row"
         >
-          <p className="text-xs text-[#4b5563]">
+          <p className="text-xs text-[#525252]">
             &copy; 2026 Wone. All rights reserved.
           </p>
 
@@ -185,7 +185,7 @@ export default function Footer() {
               <Link
                 key={label}
                 href={href}
-                className="text-xs text-[#4b5563] transition-colors duration-150 hover:text-[#9ca3af]"
+                className="text-xs text-[#525252] transition-colors duration-150 hover:text-[#a1a1a1]"
               >
                 {label}
               </Link>

@@ -12,7 +12,7 @@ const teamMembers = [
     role: "Co-Founder & CEO",
     initials: "AC",
     bio: "Former operator and startup veteran with exits in enterprise SaaS. Passionate about building the infrastructure layer for the next generation of founders.",
-    gradientFrom: "#f59e0b",
+    gradientFrom: "#4D8EFF",
     gradientTo: "#ef4444",
     linkedinHref: "#",
   },
@@ -39,7 +39,7 @@ const teamMembers = [
     role: "Lead Engineer",
     initials: "ST",
     bio: "Full-stack engineer and systems thinker. Previously built data infrastructure at scale for two Series B companies. Leads all technical architecture at Wone.",
-    gradientFrom: "#f97316",
+    gradientFrom: "#2563EB",
     gradientTo: "#8b5cf6",
     linkedinHref: "#",
   },
@@ -97,8 +97,8 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       animate={isInView ? "visible" : "hidden"}
       className="group relative rounded-2xl border p-7 flex flex-col items-center text-center hover:scale-[1.02] transition-transform duration-300"
       style={{
-        background: "#111827",
-        borderColor: "#1f2937",
+        background: "#0f0f0f",
+        borderColor: "#1a1a1a",
       }}
     >
       {/* Hover gradient overlay */}
@@ -151,7 +151,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       <div className="relative mb-4">
         <h3
           className="text-lg font-bold mb-1.5 leading-tight"
-          style={{ color: "#f9fafb" }}
+          style={{ color: "#ffffff" }}
         >
           {member.name}
         </h3>
@@ -170,7 +170,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       {/* Bio */}
       <p
         className="relative text-sm leading-relaxed mb-6 flex-1"
-        style={{ color: "#9ca3af" }}
+        style={{ color: "#a1a1a1" }}
       >
         {member.bio}
       </p>
@@ -180,9 +180,9 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
         href={member.linkedinHref}
         className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium border transition-colors duration-200"
         style={{
-          background: "#1f2937",
+          background: "#1a1a1a",
           borderColor: "#374151",
-          color: "#9ca3af",
+          color: "#a1a1a1",
         }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
@@ -205,7 +205,7 @@ export default function Team() {
     <section
       ref={sectionRef}
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "#030712" }}
+      style={{ background: "#000000" }}
     >
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -213,7 +213,7 @@ export default function Team() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.06] blur-3xl"
           style={{
             background:
-              "radial-gradient(ellipse, #f59e0b 0%, #8b5cf6 60%, transparent 80%)",
+              "radial-gradient(ellipse, #4D8EFF 0%, #8b5cf6 60%, transparent 80%)",
           }}
         />
       </div>
@@ -223,7 +223,7 @@ export default function Team() {
         className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle, #f9fafb 1px, transparent 1px)",
+            "radial-gradient(circle, #ffffff 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
         aria-hidden="true"
@@ -244,12 +244,12 @@ export default function Team() {
             <div
               className="w-4 h-4 rounded-full"
               style={{
-                background: "linear-gradient(135deg, #f59e0b, #8b5cf6)",
+                background: "linear-gradient(135deg, #4D8EFF, #8b5cf6)",
               }}
             />
             <span
               className="text-xs font-semibold tracking-widest uppercase"
-              style={{ color: "#9ca3af" }}
+              style={{ color: "#a1a1a1" }}
             >
               The Team
             </span>
@@ -258,13 +258,13 @@ export default function Team() {
           <motion.h2
             variants={fadeUpVariant}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
-            style={{ color: "#f9fafb" }}
+            style={{ color: "#ffffff" }}
           >
             Built by Operators.
             <br />
             <span
               style={{
-                background: "linear-gradient(90deg, #f59e0b, #8b5cf6)",
+                background: "linear-gradient(90deg, #4D8EFF, #8b5cf6)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -276,7 +276,7 @@ export default function Team() {
           <motion.p
             variants={fadeUpVariant}
             className="text-lg max-w-xl mx-auto leading-relaxed"
-            style={{ color: "#9ca3af" }}
+            style={{ color: "#a1a1a1" }}
           >
             We've been in the rooms you're trying to get into. Wone is built by
             people who understand both sides of the table.
@@ -300,8 +300,8 @@ export default function Team() {
           <div
             className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border"
             style={{
-              background: "#111827",
-              borderColor: "#1f2937",
+              background: "#0f0f0f",
+              borderColor: "#1a1a1a",
             }}
           >
             <div className="flex -space-x-2">
@@ -311,16 +311,16 @@ export default function Team() {
                   className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
                   style={{
                     background: `linear-gradient(135deg, ${member.gradientFrom}, ${member.gradientTo})`,
-                    borderColor: "#111827",
-                    color: "#030712",
+                    borderColor: "#0f0f0f",
+                    color: "#000000",
                   }}
                 >
                   {member.initials[0]}
                 </div>
               ))}
             </div>
-            <p className="text-sm" style={{ color: "#9ca3af" }}>
-              <span className="font-semibold" style={{ color: "#f9fafb" }}>
+            <p className="text-sm" style={{ color: "#a1a1a1" }}>
+              <span className="font-semibold" style={{ color: "#ffffff" }}>
                 4 operators
               </span>{" "}
               building what they wish existed.

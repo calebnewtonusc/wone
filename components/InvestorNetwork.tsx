@@ -14,10 +14,10 @@ const categories = [
       "LA, OC, and SD angel groups and syndicate leads actively writing first checks into pre-seed and seed-stage companies across Southern California.",
     count: "80+",
     label: "Angel Investors",
-    gradient: "from-amber-500/20 to-amber-600/5",
-    border: "border-amber-500/20",
-    iconColor: "text-amber-400",
-    countColor: "text-amber-400",
+    gradient: "from-blue-500/20 to-amber-600/5",
+    border: "border-blue-500/20",
+    iconColor: "text-blue-400",
+    countColor: "text-blue-400",
   },
   {
     icon: TrendingUp,
@@ -106,7 +106,7 @@ export default function InvestorNetwork() {
     <section
       ref={sectionRef}
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "#030712" }}
+      style={{ background: "#000000" }}
     >
       {/* Ambient background glow */}
       <div
@@ -117,7 +117,7 @@ export default function InvestorNetwork() {
           className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-10 blur-3xl"
           style={{
             background:
-              "radial-gradient(ellipse, #f59e0b 0%, #8b5cf6 50%, transparent 70%)",
+              "radial-gradient(ellipse, #4D8EFF 0%, #8b5cf6 50%, transparent 70%)",
           }}
         />
       </div>
@@ -131,10 +131,10 @@ export default function InvestorNetwork() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.div variants={fadeUpVariant} className="inline-flex items-center gap-2 mb-5">
-            <MapPin className="w-4 h-4 text-amber-400" />
+            <MapPin className="w-4 h-4 text-blue-400" />
             <span
               className="text-xs font-semibold tracking-widest uppercase"
-              style={{ color: "#f59e0b" }}
+              style={{ color: "#4D8EFF" }}
             >
               Investor Network
             </span>
@@ -143,13 +143,13 @@ export default function InvestorNetwork() {
           <motion.h2
             variants={fadeUpVariant}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
-            style={{ color: "#f9fafb" }}
+            style={{ color: "#ffffff" }}
           >
             Mapping the SoCal
             <br />
             <span
               style={{
-                background: "linear-gradient(90deg, #f59e0b, #8b5cf6)",
+                background: "linear-gradient(90deg, #4D8EFF, #8b5cf6)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -161,7 +161,7 @@ export default function InvestorNetwork() {
           <motion.p
             variants={fadeUpVariant}
             className="text-lg max-w-2xl mx-auto leading-relaxed"
-            style={{ color: "#9ca3af" }}
+            style={{ color: "#a1a1a1" }}
           >
             Wone connects you directly to Southern California's most active
             startup investors, VCs, and angel networks.
@@ -172,19 +172,19 @@ export default function InvestorNetwork() {
             <div
               className="px-8 py-5 rounded-2xl border"
               style={{
-                background: "#111827",
-                borderColor: "#1f2937",
+                background: "#0f0f0f",
+                borderColor: "#1a1a1a",
               }}
             >
               <p
                 className="text-7xl font-black tracking-tighter"
-                style={{ color: "#f59e0b" }}
+                style={{ color: "#4D8EFF" }}
               >
                 200+
               </p>
               <p
                 className="text-sm font-medium tracking-wide mt-1 uppercase"
-                style={{ color: "#9ca3af" }}
+                style={{ color: "#a1a1a1" }}
               >
                 Investors Mapped Across SoCal
               </p>
@@ -204,7 +204,7 @@ export default function InvestorNetwork() {
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
                 className={`relative rounded-2xl border p-7 group hover:scale-[1.02] transition-transform duration-300 ${cat.border}`}
-                style={{ background: "#111827" }}
+                style={{ background: "#0f0f0f" }}
               >
                 {/* Card gradient overlay */}
                 <div
@@ -214,21 +214,21 @@ export default function InvestorNetwork() {
                 <div className="relative">
                   <div
                     className="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5"
-                    style={{ background: "#1f2937" }}
+                    style={{ background: "#1a1a1a" }}
                   >
                     <Icon className={`w-5 h-5 ${cat.iconColor}`} />
                   </div>
 
                   <h3
                     className="text-lg font-bold mb-3"
-                    style={{ color: "#f9fafb" }}
+                    style={{ color: "#ffffff" }}
                   >
                     {cat.title}
                   </h3>
 
                   <p
                     className="text-sm leading-relaxed mb-6"
-                    style={{ color: "#9ca3af" }}
+                    style={{ color: "#a1a1a1" }}
                   >
                     {cat.description}
                   </p>
@@ -239,7 +239,7 @@ export default function InvestorNetwork() {
                     </span>
                     <span
                       className="text-xs font-medium uppercase tracking-wider"
-                      style={{ color: "#6b7280" }}
+                      style={{ color: "#525252" }}
                     >
                       {cat.label}
                     </span>
@@ -260,8 +260,8 @@ export default function InvestorNetwork() {
           <div
             className="relative rounded-3xl border overflow-hidden"
             style={{
-              background: "#0d1117",
-              borderColor: "#1f2937",
+              background: "#0a0a0a",
+              borderColor: "#1a1a1a",
               minHeight: "320px",
             }}
           >
@@ -281,7 +281,7 @@ export default function InvestorNetwork() {
             <div className="absolute top-6 left-7 z-10">
               <p
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: "#4b5563" }}
+                style={{ color: "#525252" }}
               >
                 Coverage Map
               </p>
@@ -296,7 +296,7 @@ export default function InvestorNetwork() {
             >
               <defs>
                 <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.5" />
+                  <stop offset="0%" stopColor="#4D8EFF" stopOpacity="0.5" />
                   <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
@@ -346,18 +346,18 @@ export default function InvestorNetwork() {
                     {/* Ping animation */}
                     <div
                       className={`absolute ${sizes.ping} rounded-full animate-ping opacity-20`}
-                      style={{ background: "#f59e0b" }}
+                      style={{ background: "#4D8EFF" }}
                     />
                     <div
                       className={`relative ${sizes.dot} rounded-full border-2`}
                       style={{
                         background:
-                          city.size === "lg" ? "#f59e0b" : "#1f2937",
+                          city.size === "lg" ? "#4D8EFF" : "#1a1a1a",
                         borderColor:
-                          city.size === "lg" ? "#f59e0b" : "#374151",
+                          city.size === "lg" ? "#4D8EFF" : "#374151",
                         boxShadow:
                           city.size === "lg"
-                            ? "0 0 12px rgba(245,158,11,0.6)"
+                            ? "0 0 12px rgba(77,142,255,0.6)"
                             : "none",
                       }}
                     />
@@ -365,7 +365,7 @@ export default function InvestorNetwork() {
                   <span
                     className={`${sizes.text} whitespace-nowrap px-2 py-0.5 rounded-md backdrop-blur-sm`}
                     style={{
-                      color: city.size === "lg" ? "#f59e0b" : "#9ca3af",
+                      color: city.size === "lg" ? "#4D8EFF" : "#a1a1a1",
                       background: "rgba(17,24,39,0.8)",
                     }}
                   >
@@ -379,7 +379,7 @@ export default function InvestorNetwork() {
             <div className="absolute bottom-6 right-7 z-10">
               <p
                 className="text-xs font-medium"
-                style={{ color: "#4b5563" }}
+                style={{ color: "#525252" }}
               >
                 Southern California Region
               </p>
@@ -399,8 +399,8 @@ export default function InvestorNetwork() {
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200"
             style={{
-              background: "#f59e0b",
-              color: "#030712",
+              background: "#4D8EFF",
+              color: "#000000",
             }}
           >
             Explore the Network

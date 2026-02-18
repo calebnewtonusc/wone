@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist-sans",
   display: "swap",
 });
 
@@ -48,8 +48,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="antialiased bg-[#030712] text-[#f9fafb]">
+    <html lang="en" className={geist.variable}>
+      <body className="antialiased bg-[#000000] text-white font-[family-name:var(--font-geist-sans)]">
         {children}
       </body>
     </html>
