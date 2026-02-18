@@ -2,155 +2,192 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, TrendingUp, Users, DollarSign, Lock } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const INVESTORS = [
-  { name: "Marcus Chen", firm: "Angel", status: "Committed", amount: "$50K", color: "green" },
-  { name: "Priya Ventures", firm: "VC", status: "In Diligence", amount: "$100K", color: "yellow" },
-  { name: "TechAngels LA", firm: "Syndicate", status: "Interested", amount: "—", color: "blue" },
-  { name: "Sara Kim", firm: "Angel", status: "Committed", amount: "$25K", color: "green" },
-];
-
-const ACTIVITY = [
-  { text: "Marcus Chen viewed your deck", time: "2h ago" },
-  { text: "Priya Ventures requested a call", time: "4h ago" },
-  { text: "3 new investor matches found", time: "1d ago" },
-];
-
-const STATS = [
-  { icon: Users, value: "500+", label: "Founders" },
-  { icon: TrendingUp, value: "200+", label: "Investors" },
-  { icon: DollarSign, value: "$4.2M+", label: "Facilitated" },
-];
-
-function ProgressBar({ target }: { target: number }) {
-  const [width, setWidth] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
+function ScoreGauge({ score, delay = 0 }: { score: number; delay?: number }) {
+  const [current, setCurrent] = useState(0);
+  const r = 36;
+  const circ = 2 * Math.PI * r;
+  const dash = (current / 100) * circ;
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setTimeout(() => setWidth(target), 400); obs.disconnect(); } },
-      { threshold: 0.5 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [target]);
+    const t = setTimeout(() => {
+      let frame: number;
+      const start = performance.now();
+      const duration = 1400;
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        setCurrent(Math.round(ease * score));
+        if (p < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(frame);
+    }, delay);
+    return () => clearTimeout(t);
+  }, [score, delay]);
 
   return (
-    <div ref={ref} className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-      <div
-        className="h-full bg-blue-600 rounded-full transition-all duration-1000 ease-out"
-        style={{ width: `${width}%` }}
-      />
+    <div className="flex flex-col items-center">
+      <div className="relative">
+        <svg width="88" height="88" viewBox="0 0 88 88">
+          <circle cx="44" cy="44" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+          <circle
+            cx="44" cy="44" r={r}
+            fill="none"
+            stroke="#3B82F6"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeDasharray={`${dash} ${circ}`}
+            transform="rotate(-90 44 44)"
+            style={{ transition: "stroke-dasharray 0.05s linear" }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-xl font-bold text-white tabular-nums leading-none">{current}</span>
+          <span className="text-[9px] text-blue-300/60 font-medium">/100</span>
+        </div>
+      </div>
+      <p className="text-[10px] text-white/40 font-medium mt-1 uppercase tracking-wider">Wone Score</p>
     </div>
   );
 }
 
-function DashboardMockup() {
+function ReadinessCard() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [started, setStarted] = useState(false);
+  const [barWidths, setBarWidths] = useState([0, 0, 0]);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) { setStarted(true); obs.disconnect(); }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+    const targets = [96, 87, 82];
+    targets.forEach((target, i) => {
+      setTimeout(() => {
+        const startT = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - startT) / 900, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          setBarWidths((prev) => {
+            const next = [...prev];
+            next[i] = Math.round(ease * target);
+            return next;
+          });
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, 600 + i * 120);
+    });
+  }, [started]);
+
+  const metrics = [
+    { label: "Investor Fit",    value: barWidths[0], color: "#3B82F6" },
+    { label: "Pitch Quality",   value: barWidths[1], color: "#8B5CF6" },
+    { label: "Market Timing",   value: barWidths[2], color: "#06B6D4" },
+  ];
+
   return (
     <div
-      className="bg-white rounded-2xl border border-gray-200 shadow-2xl overflow-hidden w-full"
-      style={{ boxShadow: "0 32px 64px -12px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.05)" }}
+      ref={ref}
+      className="relative rounded-2xl border overflow-hidden"
+      style={{
+        background: "linear-gradient(145deg, #1E293B 0%, #0F172A 100%)",
+        borderColor: "rgba(255,255,255,0.08)",
+        boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px -16px rgba(0,0,0,0.6), 0 0 80px rgba(37,99,235,0.12)",
+      }}
     >
-      {/* Browser chrome */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 bg-gray-50/80">
-        <div className="flex gap-1.5 flex-shrink-0">
-          <div className="w-3 h-3 rounded-full bg-red-400" />
-          <div className="w-3 h-3 rounded-full bg-yellow-400" />
-          <div className="w-3 h-3 rounded-full bg-green-400" />
+      {/* Header */}
+      <div
+        className="flex items-center justify-between px-5 py-4 border-b"
+        style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}
+      >
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-[11px] font-semibold text-white/60 uppercase tracking-wider">Wone Platform</span>
         </div>
-        <div className="flex-1 flex items-center justify-center min-w-0">
-          <div className="flex items-center gap-1.5 px-3 py-1 bg-white rounded-md border border-gray-200 text-xs text-gray-400 max-w-[200px] w-full">
-            <Lock size={9} className="flex-shrink-0" />
-            <span className="truncate">app.wone.io/dashboard</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[11px] text-gray-500 font-medium">Live</span>
-        </div>
+        <span className="text-[10px] font-bold text-green-400 bg-green-400/10 border border-green-400/20 px-2 py-0.5 rounded-full">
+          Live Session
+        </span>
       </div>
 
-      {/* Dashboard body */}
-      <div className="p-5 space-y-5">
-        {/* Round overview */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <div>
-              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Seed Round</p>
-              <p className="text-xl font-bold text-gray-900 mt-0.5">$420,000 <span className="text-sm font-normal text-gray-400">/ $750,000</span></p>
-            </div>
-            <span className="text-sm font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">56%</span>
-          </div>
-          <ProgressBar target={56} />
-          <div className="flex justify-between mt-1.5">
-            <span className="text-[11px] text-gray-400">14 investors committed</span>
-            <span className="text-[11px] text-gray-400">$330K remaining</span>
+      <div className="p-6">
+        {/* Score */}
+        <div className="flex items-center gap-5 mb-7">
+          {started && <ScoreGauge score={94} delay={400} />}
+          <div>
+            <p className="text-xs text-white/40 font-semibold uppercase tracking-wider mb-1">Fundraising Readiness</p>
+            <p className="text-2xl font-bold text-white leading-none">Excellent</p>
+            <p className="text-[11px] text-green-400 font-medium mt-1.5">↑ Ready to raise your Seed Round</p>
           </div>
         </div>
 
-        {/* Mini stats */}
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Deck Views", value: "142", change: "+12 this week" },
-            { label: "Meetings", value: "8", change: "3 this week" },
-            { label: "Intros Made", value: "23", change: "+5 this week" },
-          ].map((s) => (
-            <div key={s.label} className="bg-gray-50 rounded-xl p-3">
-              <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide mb-1">{s.label}</p>
-              <p className="text-lg font-bold text-gray-900">{s.value}</p>
-              <p className="text-[10px] text-green-600 font-medium mt-0.5">{s.change}</p>
+        {/* Metrics */}
+        <div className="space-y-3.5">
+          {metrics.map((m) => (
+            <div key={m.label}>
+              <div className="flex justify-between items-center mb-1.5">
+                <span className="text-[11px] font-medium text-white/50">{m.label}</span>
+                <span className="text-[11px] font-bold tabular-nums" style={{ color: m.color }}>{m.value}/100</span>
+              </div>
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                <div
+                  className="h-full rounded-full transition-all duration-100"
+                  style={{ width: `${m.value}%`, background: m.color }}
+                />
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Investor pipeline */}
-        <div>
-          <div className="flex items-center justify-between mb-2.5">
-            <p className="text-[11px] font-semibold text-gray-700 uppercase tracking-wider">Investor Pipeline</p>
-            <span className="text-[11px] text-blue-600 font-medium cursor-pointer hover:underline">View all →</span>
-          </div>
-          <div className="space-y-1.5">
-            {INVESTORS.map((inv) => (
-              <div key={inv.name} className="flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-[10px] font-bold text-white">{inv.name[0]}{inv.name.split(" ")[1]?.[0]}</span>
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-semibold text-gray-800 truncate">{inv.name}</p>
-                    <p className="text-[10px] text-gray-400">{inv.firm}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                    inv.color === "green" ? "bg-green-50 text-green-700" :
-                    inv.color === "yellow" ? "bg-amber-50 text-amber-700" :
-                    "bg-blue-50 text-blue-700"
-                  }`}>{inv.status}</span>
-                  <span className="text-[11px] font-semibold text-gray-700 w-12 text-right">{inv.amount}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Divider */}
+        <div className="my-5 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }} />
+
+        {/* Round status */}
+        <div className="grid grid-cols-3 gap-2">
+          {[
+            { label: "Investors", value: "14" },
+            { label: "Raised",    value: "$420K" },
+            { label: "To Close",  value: "~18d" },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="rounded-xl p-3 text-center"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <p className="text-base font-bold text-white">{s.value}</p>
+              <p className="text-[9px] text-white/30 font-medium uppercase tracking-wider mt-0.5">{s.label}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Activity feed */}
-        <div className="border-t border-gray-100 pt-4">
-          <p className="text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-2.5">Recent Activity</p>
-          <div className="space-y-2">
-            {ACTIVITY.map((item, i) => (
-              <div key={i} className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-                  <span className="text-[11px] text-gray-600 truncate">{item.text}</span>
-                </div>
-                <span className="text-[11px] text-gray-400 flex-shrink-0">{item.time}</span>
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex -space-x-1.5">
+            {["MC", "PV", "TL", "SK"].map((i, idx) => (
+              <div
+                key={i}
+                className="w-6 h-6 rounded-full border-2 flex items-center justify-center"
+                style={{
+                  background: ["#2563EB","#7C3AED","#0891B2","#059669"][idx],
+                  borderColor: "#0F172A",
+                }}
+              >
+                <span className="text-[7px] font-bold text-white">{i}</span>
               </div>
             ))}
           </div>
+          <span className="text-[11px] text-white/30">4 active investors</span>
         </div>
       </div>
     </div>
@@ -159,121 +196,134 @@ function DashboardMockup() {
 
 export default function Hero() {
   return (
-    <section className="relative bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
-      {/* Very subtle grid */}
+    <section className="relative overflow-hidden" style={{ background: "#0F172A" }}>
+      {/* Subtle noise grid */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{
-          backgroundImage: `radial-gradient(circle, #E5E7EB 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-          opacity: 0.5,
+          backgroundImage: `radial-gradient(circle, #fff 1px, transparent 1px)`,
+          backgroundSize: "32px 32px",
         }}
       />
+      {/* Blue glow */}
       <div
-        className="absolute top-0 inset-x-0 h-96 pointer-events-none"
-        style={{ background: "linear-gradient(180deg, rgba(239,246,255,0.6) 0%, rgba(255,255,255,0) 100%)" }}
+        className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at top right, rgba(37,99,235,0.12) 0%, transparent 60%)" }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-20 lg:py-24">
-          {/* Left — copy */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-24 lg:py-32">
+
+          {/* LEFT — Copy */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="mb-6"
+              className="mb-7"
             >
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                Trusted by 50+ pilot partners
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border"
+                style={{ background: "rgba(37,99,235,0.12)", color: "#93C5FD", borderColor: "rgba(37,99,235,0.25)" }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                Trusted by 50+ SoCal pilot partners
               </span>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.07, ease: EASE }}
-              className="text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.06] mb-5"
+              transition={{ duration: 0.65, delay: 0.07, ease: EASE }}
+              className="text-5xl lg:text-[3.75rem] font-bold tracking-tight leading-[1.05] text-white mb-5"
             >
               The All-in-One
               <br />
-              <span className="text-blue-600">Startup Launchpad.</span>
+              <span style={{ color: "#60A5FA" }}>Startup Launchpad.</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.13, ease: EASE }}
-              className="text-lg text-gray-500 leading-relaxed mb-8 max-w-lg"
+              transition={{ duration: 0.65, delay: 0.14, ease: EASE }}
+              className="text-lg leading-relaxed mb-9 max-w-md"
+              style={{ color: "rgba(255,255,255,0.55)" }}
             >
-              Wone gives SoCal founders everything they need to raise capital, connect with 200+ investors, and scale — all in one place.
+              Wone connects SoCal founders with 200+ vetted investors, expert advisors, and the infrastructure to raise faster — all in one platform.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.19, ease: EASE }}
+              transition={{ duration: 0.65, delay: 0.2, ease: EASE }}
               className="flex flex-wrap gap-3 mb-12"
             >
               <a
                 href="#waitlist"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3.5 rounded-xl transition-colors duration-150"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-6 py-3.5 rounded-xl transition-colors duration-150"
               >
                 Request a Demo
                 <ArrowRight size={15} />
               </a>
-              <button className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 px-6 py-3.5 rounded-xl border border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50 transition-all duration-150">
-                <Play size={13} fill="currentColor" />
+              <button className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-xl border transition-all duration-150 hover:bg-white/5"
+                style={{ color: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.12)" }}
+              >
+                <Play size={12} fill="currentColor" />
                 Watch Overview
               </button>
             </motion.div>
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.28, ease: EASE }}
-              className="flex gap-8 pt-6 border-t border-gray-100"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+              className="flex gap-8 pt-8 border-t"
+              style={{ borderColor: "rgba(255,255,255,0.08)" }}
             >
-              {STATS.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <div key={s.label}>
-                    <p className="text-2xl font-bold text-gray-900">{s.value}</p>
-                    <p className="text-xs text-gray-500 mt-0.5 font-medium">{s.label}</p>
-                  </div>
-                );
-              })}
+              {[
+                { value: "500+",  label: "Founders on platform" },
+                { value: "200+",  label: "Vetted investors" },
+                { value: "$4.2M", label: "Capital facilitated" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="text-2xl font-bold text-white">{s.value}</p>
+                  <p className="text-xs font-medium mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{s.label}</p>
+                </div>
+              ))}
             </motion.div>
           </div>
 
-          {/* Right — Dashboard mockup */}
+          {/* RIGHT — Card */}
           <motion.div
-            initial={{ opacity: 0, x: 24, y: 12 }}
+            initial={{ opacity: 0, x: 20, y: 12 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            className="relative"
+            transition={{ duration: 0.8, delay: 0.22, ease: EASE }}
           >
-            {/* Floating accent */}
-            <div
-              className="absolute -top-6 -right-6 w-72 h-72 rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 70%)" }}
-            />
-            <DashboardMockup />
+            <ReadinessCard />
           </motion.div>
         </div>
       </div>
 
-      {/* Trusted by logos */}
-      <div className="relative z-10 border-t border-gray-100 bg-gray-50/60 py-8 px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 md:gap-0 md:justify-between">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-widest w-full text-center mb-4 md:mb-0 md:w-auto">
+      {/* Bottom fade into white */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{ background: "rgba(255,255,255,0.06)" }}
+      />
+
+      {/* Logos bar */}
+      <div
+        className="relative z-10 border-t py-6 px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}
+      >
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+          <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.2)" }}>
             Backed by operators from
           </p>
-          {["Techstars", "Y Combinator", "500 Global", "Founders Fund", "a16z", "First Round"].map((name) => (
-            <span key={name} className="text-sm font-semibold text-gray-300 md:px-6">{name}</span>
-          ))}
+          <div className="flex flex-wrap items-center gap-8">
+            {["Techstars", "Y Combinator", "500 Global", "Founders Fund", "a16z"].map((name) => (
+              <span key={name} className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.18)" }}>{name}</span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

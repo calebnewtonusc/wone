@@ -2,30 +2,138 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { BarChart3, Users, TrendingUp, LineChart, Shield, Zap, CheckCircle2, Clock, Star } from "lucide-react";
+import {
+  BarChart3, Users, LineChart, TrendingUp, Shield, Zap,
+  ArrowRight,
+} from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-/* ---------- mini UI components inside feature cards ---------- */
+const features = [
+  {
+    icon: BarChart3,
+    color: "#2563EB",
+    bg: "#EFF6FF",
+    border: "#BFDBFE",
+    title: "Transparent Fundraising",
+    description:
+      "Launch a transparent campaign with live investor tracking, data room management, and real-time round analytics — all in one place.",
+    stat: "56% faster closes",
+  },
+  {
+    icon: Users,
+    color: "#7C3AED",
+    bg: "#F5F3FF",
+    border: "#DDD6FE",
+    title: "Expert Mentorship",
+    description:
+      "On-demand sessions with operators, advisors, and domain experts who've built and scaled companies like yours.",
+    stat: "80+ available advisors",
+  },
+  {
+    icon: TrendingUp,
+    color: "#0891B2",
+    bg: "#ECFEFF",
+    border: "#A5F3FC",
+    title: "Real-Time Scorecards",
+    description:
+      "Track investor fit, pitch quality, and traction benchmarks. Know exactly where you stand before every conversation.",
+    stat: "Live scoring engine",
+  },
+  {
+    icon: LineChart,
+    color: "#059669",
+    bg: "#ECFDF5",
+    border: "#A7F3D0",
+    title: "Predictive Analytics",
+    description:
+      "AI-powered forecasting helps you time your raise, benchmark valuations, and identify emerging market signals.",
+    stat: "AI-powered insights",
+  },
+  {
+    icon: Shield,
+    color: "#DC2626",
+    bg: "#FEF2F2",
+    border: "#FECACA",
+    title: "Risk Management",
+    description:
+      "Identify gaps in your pitch, cap table, and investor fit before they become deal-killers. Catch problems early.",
+    stat: "Pre-raise diagnostics",
+  },
+  {
+    icon: Zap,
+    color: "#D97706",
+    bg: "#FFFBEB",
+    border: "#FDE68A",
+    title: "Integrated Ecosystem",
+    description:
+      "Connect with investors, co-founders, legal partners, and fellow founders. One platform, no fragmented tools.",
+    stat: "500+ active members",
+  },
+];
 
-function FundraisingPreview() {
+const spotlights = [
+  {
+    tag: "Fundraising",
+    headline: "Know your round readiness\nbefore you raise.",
+    body: "Wone's real-time scorecard engine analyzes your pitch, traction, and investor fit — giving you a live score and actionable recommendations before you ever send an email.",
+    cta: "See Scorecards in Action",
+    visual: "scorecard",
+  },
+  {
+    tag: "Investor Network",
+    headline: "200+ investors mapped\nacross Southern California.",
+    body: "From Silicon Beach angels to Century City VCs, Wone's curated network is filtered by stage, check size, and sector. Get warm introductions, not cold email lists.",
+    cta: "Explore the Network",
+    visual: "network",
+  },
+  {
+    tag: "Advisor Network",
+    headline: "Get real guidance from\noperators who've done it.",
+    body: "Book on-demand sessions with advisors who've scaled companies like yours. No generic advice — just domain-specific expertise when you actually need it.",
+    cta: "Meet Our Advisors",
+    visual: "advisors",
+  },
+];
+
+function ScorecardVisual() {
   return (
-    <div className="mt-5 space-y-2.5">
+    <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+      <div className="flex items-center justify-between mb-5">
+        <p className="text-sm font-semibold text-gray-900">Fundraising Readiness</p>
+        <span className="text-[11px] font-bold text-green-700 bg-green-50 border border-green-100 px-2 py-0.5 rounded-full">Excellent</span>
+      </div>
+      <div className="flex items-center gap-4 mb-6">
+        <div className="relative flex-shrink-0">
+          <svg width="72" height="72" viewBox="0 0 72 72">
+            <circle cx="36" cy="36" r="28" fill="none" stroke="#F3F4F6" strokeWidth="6" />
+            <circle cx="36" cy="36" r="28" fill="none" stroke="#2563EB" strokeWidth="6"
+              strokeLinecap="round"
+              strokeDasharray={`${175.9 * 0.94} ${175.9}`}
+              transform="rotate(-90 36 36)" />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-lg font-bold text-gray-900">94</span>
+          </div>
+        </div>
+        <div>
+          <p className="text-3xl font-bold text-gray-900">94/100</p>
+          <p className="text-sm text-gray-500">Overall Score</p>
+          <p className="text-xs text-green-600 font-medium mt-1">↑ +8 from last week</p>
+        </div>
+      </div>
       {[
-        { label: "Investor Fit Score", value: 94, color: "#2563EB" },
-        { label: "Pitch Completeness", value: 87, color: "#7C3AED" },
-        { label: "Traction Benchmark", value: 72, color: "#0891B2" },
-      ].map((item) => (
-        <div key={item.label}>
+        { label: "Investor Fit",    score: 96, color: "#2563EB" },
+        { label: "Pitch Quality",   score: 87, color: "#7C3AED" },
+        { label: "Market Timing",   score: 82, color: "#0891B2" },
+      ].map((m) => (
+        <div key={m.label} className="mb-3">
           <div className="flex justify-between text-xs mb-1">
-            <span className="text-gray-500 font-medium">{item.label}</span>
-            <span className="font-bold" style={{ color: item.color }}>{item.value}/100</span>
+            <span className="text-gray-500 font-medium">{m.label}</span>
+            <span className="font-bold" style={{ color: m.color }}>{m.score}/100</span>
           </div>
           <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-1000 ease-out"
-              style={{ width: `${item.value}%`, background: item.color }}
-            />
+            <div className="h-full rounded-full" style={{ width: `${m.score}%`, background: m.color }} />
           </div>
         </div>
       ))}
@@ -33,274 +141,209 @@ function FundraisingPreview() {
   );
 }
 
-function InvestorPreview() {
-  const investors = [
-    { initials: "MC", name: "Marcus Chen", tag: "Angel · SoCal" },
-    { initials: "PV", name: "Priya Ventures", tag: "Seed · FinTech" },
-    { initials: "WV", name: "Westwood VC", tag: "Series A · Tech" },
+function NetworkVisual() {
+  const nodes = [
+    { x: 50, y: 50, r: 18, label: "You", color: "#2563EB", big: true },
+    { x: 15, y: 20, r: 10, label: "Angel", color: "#7C3AED" },
+    { x: 80, y: 18, r: 11, label: "VC", color: "#0891B2" },
+    { x: 85, y: 55, r: 10, label: "Corp", color: "#059669" },
+    { x: 20, y: 75, r: 9, label: "Fund", color: "#D97706" },
+    { x: 55, y: 85, r: 9, label: "Angel", color: "#DC2626" },
+    { x: 30, y: 45, r: 8, label: "VC", color: "#7C3AED" },
+    { x: 70, y: 38, r: 8, label: "Angel", color: "#0891B2" },
   ];
+  const connections = [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[1,6],[2,7],[3,5]];
   return (
-    <div className="mt-5 space-y-2">
-      {investors.map((inv) => (
-        <div key={inv.name} className="flex items-center justify-between p-2.5 bg-white border border-gray-100 rounded-xl">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-              <span className="text-[10px] font-bold text-white">{inv.initials}</span>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-800">{inv.name}</p>
-              <p className="text-[10px] text-gray-400">{inv.tag}</p>
-            </div>
-          </div>
-          <button className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg hover:bg-blue-100 transition-colors">
-            Connect
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function AnalyticsPreview() {
-  const points = [40, 55, 45, 70, 60, 80, 75, 92, 85, 95];
-  const max = Math.max(...points);
-  const min = Math.min(...points);
-  const normalize = (v: number) => ((v - min) / (max - min)) * 48;
-
-  const pathD = points
-    .map((v, i) => `${i === 0 ? "M" : "L"} ${i * (100 / (points.length - 1))},${52 - normalize(v)}`)
-    .join(" ");
-
-  return (
-    <div className="mt-5">
-      <div className="flex justify-between items-baseline mb-3">
-        <span className="text-xs text-gray-500 font-medium">Fundraising Velocity</span>
-        <span className="text-sm font-bold text-green-600">↑ +23%</span>
+    <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm font-semibold text-gray-900">SoCal Investor Network</p>
+        <span className="text-[11px] font-semibold text-blue-600">200+ investors</span>
       </div>
-      <svg viewBox="0 0 100 60" className="w-full h-16" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2563EB" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={`${pathD} L 100,60 L 0,60 Z`} fill="url(#chartGrad)" />
-        <path d={pathD} fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 100 100" className="w-full h-48 mb-4">
+        {connections.map(([a, b], i) => (
+          <line key={i}
+            x1={`${nodes[a].x}%`} y1={`${nodes[a].y}%`}
+            x2={`${nodes[b].x}%`} y2={`${nodes[b].y}%`}
+            stroke="#E5E7EB" strokeWidth="0.8"
+          />
+        ))}
+        {nodes.map((n, i) => (
+          <g key={i}>
+            <circle cx={`${n.x}%`} cy={`${n.y}%`} r={`${n.r * 0.7}%`} fill={n.color} opacity={n.big ? 1 : 0.85} />
+            {n.big && (
+              <text x={`${n.x}%`} y={`${n.y + 1}%`} textAnchor="middle" fontSize="3.5" fill="white" fontWeight="700">
+                {n.label}
+              </text>
+            )}
+          </g>
+        ))}
       </svg>
-      <div className="flex justify-between mt-2">
-        {["Jan", "Mar", "May", "Jul", "Sep", "Nov"].map((m) => (
-          <span key={m} className="text-[10px] text-gray-400">{m}</span>
+      <div className="flex gap-3">
+        {[["80+","Angels"],["70+","VCs"],["50+","Strategics"]].map(([v,l]) => (
+          <div key={l} className="flex-1 bg-gray-50 rounded-xl p-3 text-center">
+            <p className="text-base font-bold text-gray-900">{v}</p>
+            <p className="text-[10px] text-gray-500 font-medium">{l}</p>
+          </div>
         ))}
       </div>
     </div>
   );
 }
 
-function AdvisorPreview() {
+function AdvisorsVisual() {
   const advisors = [
-    { initials: "SK", name: "Sarah Kim", role: "CFO · 12 yrs exp", rating: 5, available: true },
-    { initials: "JR", name: "James Rodriguez", role: "GTM · Series B", rating: 5, available: false },
+    { initials: "SK", name: "Sarah Kim", role: "CFO · SoftBank alum", color: "#2563EB", available: true },
+    { initials: "JR", name: "James Rodriguez", role: "GTM · Series B exits", color: "#7C3AED", available: true },
+    { initials: "AT", name: "Aisha Tran", role: "Legal · Tech specialist", color: "#0891B2", available: false },
   ];
   return (
-    <div className="mt-4 space-y-2.5">
-      {advisors.map((a) => (
-        <div key={a.name} className="flex items-center justify-between p-2.5 bg-white border border-gray-100 rounded-xl">
-          <div className="flex items-center gap-2.5">
-            <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-white">{a.initials}</span>
+    <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+      <div className="flex items-center justify-between mb-5">
+        <p className="text-sm font-semibold text-gray-900">Advisor Network</p>
+        <span className="text-[11px] font-semibold text-blue-600">80+ experts</span>
+      </div>
+      <div className="space-y-3 mb-4">
+        {advisors.map((a) => (
+          <div key={a.name} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: a.color }}>
+                  <span className="text-[11px] font-bold text-white">{a.initials}</span>
+                </div>
+                <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${a.available ? "bg-green-500" : "bg-gray-300"}`} />
               </div>
-              {a.available && (
-                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-500 border-2 border-white" />
-              )}
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-800">{a.name}</p>
-              <p className="text-[10px] text-gray-400">{a.role}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1">
-            {[...Array(a.rating)].map((_, i) => (
-              <Star key={i} size={9} fill="#FBBF24" className="text-yellow-400" />
-            ))}
-          </div>
-        </div>
-      ))}
-      <button className="w-full text-center text-[11px] font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 py-2 rounded-lg transition-colors">
-        Book a Session →
-      </button>
-    </div>
-  );
-}
-
-function SPVPreview() {
-  return (
-    <div className="mt-4 space-y-2">
-      {[
-        { label: "Wone SPV Fund I", status: "Active", amount: "$175K", icon: CheckCircle2, color: "green" },
-        { label: "Draft Term Sheet", status: "Pending", amount: "$500K", icon: Clock, color: "yellow" },
-      ].map((item) => {
-        const Icon = item.icon;
-        return (
-          <div key={item.label} className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-xl">
-            <div className="flex items-center gap-2">
-              <Icon size={14} className={item.color === "green" ? "text-green-500" : "text-amber-500"} />
               <div>
-                <p className="text-xs font-semibold text-gray-800">{item.label}</p>
-                <span className={`text-[10px] font-medium ${item.color === "green" ? "text-green-600" : "text-amber-600"}`}>{item.status}</span>
+                <p className="text-xs font-semibold text-gray-900">{a.name}</p>
+                <p className="text-[10px] text-gray-400">{a.role}</p>
               </div>
             </div>
-            <span className="text-sm font-bold text-gray-700">{item.amount}</span>
+            <button className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg transition-colors ${
+              a.available ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}>
+              {a.available ? "Book" : "Full"}
+            </button>
           </div>
-        );
-      })}
+        ))}
+      </div>
+      <p className="text-[11px] text-gray-400 text-center">Average 4.9★ rating across 2,400+ sessions</p>
     </div>
   );
 }
 
-/* ---------- feature card definitions ---------- */
+const VISUALS: Record<string, React.FC> = {
+  scorecard: ScorecardVisual,
+  network:   NetworkVisual,
+  advisors:  AdvisorsVisual,
+};
 
 export default function Features() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  const fadeCard = (i: number) => ({
-    initial: { opacity: 0, y: 20 },
-    animate: inView ? { opacity: 1, y: 0 } : {},
-    transition: { duration: 0.55, delay: i * 0.08, ease: EASE },
-  });
+  return (
+    <>
+      {/* ─── Feature cards grid ─── */}
+      <section id="features" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, ease: EASE }}
+            className="text-center mb-14"
+          >
+            <p className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">Platform</p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">Why Choose Wone?</h2>
+            <p className="text-lg text-gray-500 max-w-xl mx-auto">
+              The full stack for SoCal founders — fundraising, network, analytics, and advisors in one place.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {features.map((f, i) => {
+              const Icon = f.icon;
+              return (
+                <motion.div
+                  key={f.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
+                  className="group p-6 rounded-2xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 cursor-pointer bg-white"
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border"
+                    style={{ background: f.bg, borderColor: f.border }}
+                  >
+                    <Icon size={20} style={{ color: f.color }} />
+                  </div>
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">{f.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-4">{f.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full border"
+                      style={{ color: f.color, background: f.bg, borderColor: f.border }}
+                    >
+                      {f.stat}
+                    </span>
+                    <ArrowRight size={14} className="text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all duration-150" />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Feature spotlights ─── */}
+      {spotlights.map((spot, i) => {
+        const Visual = VISUALS[spot.visual];
+        const isEven = i % 2 === 0;
+        return (
+          <SpotlightSection key={spot.tag} spot={spot} isEven={isEven} Visual={Visual} />
+        );
+      })}
+    </>
+  );
+}
+
+function SpotlightSection({
+  spot,
+  isEven,
+  Visual,
+}: {
+  spot: typeof spotlights[number];
+  isEven: boolean;
+  Visual: React.FC;
+}) {
+  const ref    = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="features" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55, ease: EASE }}
-          className="text-center mb-14"
-        >
-          <p className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-4">Platform</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">Why Choose Wone?</h2>
-          <p className="text-lg text-gray-500 max-w-xl mx-auto">
-            Everything a SoCal founder needs — fundraising, analytics, investors, and advisors — built into one platform.
-          </p>
-        </motion.div>
-
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-          {/* Card 1 — Fundraising Scorecards (large, spans 2 cols on lg) */}
+    <section
+      ref={ref}
+      className={`py-24 px-6 border-t border-gray-100 ${isEven ? "bg-gray-50" : "bg-white"}`}
+    >
+      <div className="max-w-5xl mx-auto">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${!isEven ? "lg:[&>div:first-child]:order-2" : ""}`}>
           <motion.div
-            {...fadeCard(0)}
-            className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+            initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: EASE }}
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
-                  <BarChart3 size={18} className="text-blue-600" />
-                </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-1.5">Real-Time Fundraising Scorecards</h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
-                  Live dashboards track investor fit, pitch quality, and traction benchmarks — so you always know exactly where you stand.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-green-700 bg-green-50 px-2.5 py-1 rounded-full border border-green-100 flex-shrink-0 ml-4">
-                Live
-              </span>
-            </div>
-            <FundraisingPreview />
+            <span className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-4 block">{spot.tag}</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4 whitespace-pre-line leading-tight">
+              {spot.headline}
+            </h2>
+            <p className="text-base text-gray-500 leading-relaxed mb-7">{spot.body}</p>
+            <a href="#waitlist" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+              {spot.cta} <ArrowRight size={14} />
+            </a>
           </motion.div>
 
-          {/* Card 2 — Investor Network */}
           <motion.div
-            {...fadeCard(1)}
-            className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+            initial={{ opacity: 0, x: isEven ? 20 : -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
           >
-            <div className="w-10 h-10 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center mb-4">
-              <Users size={18} className="text-violet-600" />
-            </div>
-            <h3 className="text-base font-semibold text-gray-900 mb-1.5">Curated Investor Network</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              200+ vetted angels, VCs, and strategics across SoCal. Matched by stage, check size, and sector.
-            </p>
-            <InvestorPreview />
-          </motion.div>
-
-          {/* Card 3 — Analytics */}
-          <motion.div
-            {...fadeCard(2)}
-            className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
-          >
-            <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-4">
-              <LineChart size={18} className="text-sky-600" />
-            </div>
-            <h3 className="text-base font-semibold text-gray-900 mb-1.5">Trend Forecasting & Analytics</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              AI-powered analytics help you time your raise, benchmark valuations, and surface market signals early.
-            </p>
-            <AnalyticsPreview />
-          </motion.div>
-
-          {/* Card 4 — Advisor Network */}
-          <motion.div
-            {...fadeCard(3)}
-            className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
-          >
-            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-4">
-              <TrendingUp size={18} className="text-amber-600" />
-            </div>
-            <h3 className="text-base font-semibold text-gray-900 mb-1.5">On-Demand Advisor Network</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Book sessions with operators and domain experts who&apos;ve scaled companies like yours.
-            </p>
-            <AdvisorPreview />
-          </motion.div>
-
-          {/* Card 5 — SPV */}
-          <motion.div
-            {...fadeCard(4)}
-            className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
-          >
-            <div className="w-10 h-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center mb-4">
-              <Shield size={18} className="text-green-600" />
-            </div>
-            <h3 className="text-base font-semibold text-gray-900 mb-1.5">SPV & Deal Structuring</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Streamline your cap table with built-in SPV tooling. Handle the infrastructure, not the paperwork.
-            </p>
-            <SPVPreview />
-          </motion.div>
-
-          {/* Card 6 — Ecosystem (full width on lg) */}
-          <motion.div
-            {...fadeCard(5)}
-            className="lg:col-span-3 bg-blue-600 border border-blue-600 rounded-2xl p-8 text-white"
-          >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center mb-4">
-                  <Zap size={18} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Integrated Startup Ecosystem</h3>
-                <p className="text-blue-100 text-sm leading-relaxed max-w-lg">
-                  Connect with investors, co-founders, legal partners, and fellow SoCal founders. Wone is the connective tissue the SoCal ecosystem has been missing.
-                </p>
-              </div>
-              <div className="flex-shrink-0 grid grid-cols-2 gap-3">
-                {[
-                  { label: "Founders", value: "500+" },
-                  { label: "Investors", value: "200+" },
-                  { label: "Advisors", value: "80+" },
-                  { label: "Deals Closed", value: "42+" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xl font-bold text-white">{s.value}</p>
-                    <p className="text-xs text-blue-200 font-medium">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Visual />
           </motion.div>
         </div>
       </div>
