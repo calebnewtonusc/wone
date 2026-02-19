@@ -31,6 +31,10 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
+  /* Offset anchor scroll for sticky nav (h-16 = 64px + 16px breathing room) */
+  section[id] {
+    scroll-margin-top: 80px;
+  }
   *, *::before, *::after { box-sizing: border-box; }
   *:focus-visible { outline: 2px solid rgba(37,99,235,0.5); outline-offset: 3px; border-radius: 4px; }
   ::-webkit-scrollbar { width: 5px; }

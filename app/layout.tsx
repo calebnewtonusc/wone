@@ -62,12 +62,61 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://woneportal.com/#organization",
+      "name": "Wone",
+      "url": "https://woneportal.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://woneportal.com/icon",
+        "width": 32,
+        "height": 32,
+      },
+      "description":
+        "The all-in-one startup acceleration platform for Southern California founders. Connect with 200+ vetted investors, expert advisors, and AI-powered fundraising tools.",
+      "foundingDate": "2026",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Southern California, United States",
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@woneportal.com",
+        "contactType": "customer support",
+      },
+      "sameAs": [
+        "https://linkedin.com/company/wone",
+        "https://twitter.com/woneportal",
+        "https://instagram.com/woneportal",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://woneportal.com/#website",
+      "url": "https://woneportal.com",
+      "name": "Wone",
+      "description": "Where SoCal Startups Launch. Where Capital Flows.",
+      "publisher": {
+        "@id": "https://woneportal.com/#organization",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={geist.variable}>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-geist-sans)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <MotionProvider>
           {children}
         </MotionProvider>

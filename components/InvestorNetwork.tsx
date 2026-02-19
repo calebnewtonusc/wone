@@ -11,7 +11,7 @@ type Filter = "All" | "Angel" | "VC Fund" | "Corporate Strategic" | "Angel Netwo
 const investors = [
   {
     initials: "AC",
-    name: "Andreessen Capital",
+    name: "Alta Capital",
     type: "VC Fund" as Filter,
     stage: "Series A–B",
     check: "$500K – $5M",
