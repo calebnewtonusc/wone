@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-type State = "idle" | "loading" | "success";
+type State = "idle" | "loading" | "success" | "error";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
@@ -15,9 +15,19 @@ export default function Waitlist() {
     e.preventDefault();
     if (!email || state !== "idle") return;
     setState("loading");
-    await new Promise((r) => setTimeout(r, 1200));
-    setState("success");
-    setEmail("");
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setState("success");
+      setEmail("");
+    } catch {
+      setState("error");
+      setTimeout(() => setState("idle"), 3000);
+    }
   };
 
   return (
@@ -59,34 +69,42 @@ export default function Waitlist() {
                 <p className="text-blue-100 text-sm">We&apos;ll be in touch when your spot opens up.</p>
               </m.div>
             ) : (
-              <m.form
-                key="form"
-                onSubmit={handleSubmit}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@startup.com"
-                  required
-                  className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/40"
-                />
-                <button
-                  type="submit"
-                  disabled={state === "loading"}
-                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 px-6 py-3 rounded-xl transition-colors disabled:opacity-70 whitespace-nowrap"
+              <m.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <m.form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
                 >
-                  {state === "loading" ? (
-                    <Loader2 size={15} className="animate-spin" />
-                  ) : (
-                    <>Request Access <ArrowRight size={15} /></>
-                  )}
-                </button>
-              </m.form>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@startup.com"
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  />
+                  <button
+                    type="submit"
+                    disabled={state === "loading"}
+                    className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 px-6 py-3 rounded-xl transition-colors disabled:opacity-70 whitespace-nowrap"
+                  >
+                    {state === "loading" ? (
+                      <Loader2 size={15} className="animate-spin" />
+                    ) : (
+                      <>Request Access <ArrowRight size={15} /></>
+                    )}
+                  </button>
+                </m.form>
+                {state === "error" && (
+                  <m.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-center gap-1.5 mt-3 text-sm text-red-200"
+                  >
+                    <AlertCircle size={14} />
+                    Something went wrong — please try again.
+                  </m.p>
+                )}
+              </m.div>
             )}
           </AnimatePresence>
 

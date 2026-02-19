@@ -8,7 +8,7 @@ const navColumns = [
       { label: "Pricing",          href: "#pricing"     },
       { label: "How It Works",     href: "#how-it-works" },
       { label: "Investor Network", href: "#investors"   },
-      { label: "Industries",       href: "#about"       },
+      { label: "Industries",       href: "#industries"  },
     ],
   },
   {
@@ -22,8 +22,8 @@ const navColumns = [
   {
     heading: "Legal",
     links: [
-      { label: "Privacy Policy",   href: "#" },
-      { label: "Terms of Service", href: "#" },
+      { label: "Privacy Policy",   href: "/privacy" },
+      { label: "Terms of Service", href: "/terms"   },
     ],
   },
 ];
@@ -122,8 +122,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">&copy; 2026 Wone. All rights reserved. Built for SoCal founders.</p>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Privacy</Link>
-            <Link href="#" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Terms</Link>
+            <Link href="/privacy" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Terms</Link>
           </div>
         </div>
       </div>
