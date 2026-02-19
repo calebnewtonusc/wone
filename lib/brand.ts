@@ -8,7 +8,6 @@ export const DARK    = "#312e81";   // indigo-900  — hero CTA bg, nav CTA bg
 export const ACCENT  = "#4338ca";   // indigo-700  — section eyebrow labels
 export const BRAND_LT  = "#eef2ff"; // indigo-50   — light backgrounds
 export const BRAND_BR  = "#c7d2fe"; // indigo-200  — borders on light bg
-export const BRAND_TXT = "#1e1b4b"; // indigo-950  — text on light bg
 
 // Neutrals
 export const GRAY1  = "#111827";   // gray-900 — primary text

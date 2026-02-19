@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import MotionProvider from "@/components/MotionProvider";
 import { siteConfig } from "@/config/site";
@@ -110,9 +111,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={geist.variable}>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-geist-sans)]">
-        <script
+        <Script
+          id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          strategy="beforeInteractive"
         />
         <MotionProvider>
           {children}
