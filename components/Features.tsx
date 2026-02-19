@@ -23,9 +23,9 @@ function ScorecardCard() {
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Fundraising Readiness</p>
           <p className="text-5xl font-bold text-gray-900 tracking-tight">94<span className="text-2xl text-gray-300 font-normal">/100</span></p>
         </div>
-        <div className="w-16 h-16 rounded-2xl bg-green-50 border border-green-100 flex flex-col items-center justify-center">
+        <div className="w-16 h-16 rounded-2xl flex flex-col items-center justify-center" style={{ background: "#f0fdf4", border: "1px solid #bbf7d0" }}>
           <span className="text-xl">✓</span>
-          <span className="text-[10px] font-bold text-green-700 uppercase tracking-wide mt-0.5">Ready</span>
+          <span className="text-[10px] font-bold uppercase tracking-wide mt-0.5" style={{ color: "#15803d" }}>Ready</span>
         </div>
       </div>
       <div className="space-y-4">
@@ -66,7 +66,7 @@ function AnalyticsCard() {
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Fundraising Velocity</p>
           <p className="text-4xl font-bold text-gray-900 tracking-tight">↑ 23%</p>
         </div>
-        <span className="text-xs font-semibold text-green-700 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">This Quarter</span>
+        <span className="text-xs font-semibold px-3 py-1.5 rounded-full" style={{ color: "#15803d", background: "#f0fdf4", border: "1px solid #bbf7d0" }}>This Quarter</span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-28 mt-4 mb-2" preserveAspectRatio="none">
         <defs>
@@ -129,8 +129,9 @@ function AdvisorsCard() {
             </div>
             <button
               className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${
-                p.available ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                p.available ? "" : "bg-gray-100 text-gray-400 cursor-not-allowed"
               }`}
+              style={p.available ? { background: "#4f46e5", color: "#fff" } : undefined}
             >
               {p.available ? "Book" : "Full"}
             </button>

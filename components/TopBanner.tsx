@@ -20,7 +20,7 @@ export default function TopBanner() {
 
   return (
     <div className="relative z-[60] text-white text-sm font-medium flex items-center justify-center gap-3 py-2.5 px-4 text-center" style={{ background: "#312e81" }}>
-      <span className="text-blue-200 font-bold tracking-widest text-[10px] uppercase hidden sm:inline">
+      <span className="font-bold tracking-widest text-[10px] uppercase hidden sm:inline" style={{ color: "#c7d2fe" }}>
         Beta
       </span>
       <span>Applications are open — free for early-stage SoCal founders.</span>

@@ -33,28 +33,30 @@ export default function Waitlist() {
   return (
     <section
       id="waitlist"
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e1b4b 100%)" }}
+      style={{ position: "relative", padding: "112px 24px", overflow: "hidden", background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e1b4b 100%)" }}
     >
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          backgroundImage: `radial-gradient(circle, #fff 1px, transparent 1px)`,
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          opacity: 0.04,
+          backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
 
-      <div className="relative z-10 max-w-2xl mx-auto text-center">
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
         <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5">
+          <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 800, letterSpacing: "-0.025em", color: "#fff", marginBottom: 20, lineHeight: 1.1 }}>
             Ready to Transform Your<br />Startup Journey?
           </h2>
-          <p className="text-lg text-indigo-200 mb-10 max-w-md mx-auto leading-relaxed">
+          <p style={{ fontSize: 18, color: "#c7d2fe", marginBottom: 40, maxWidth: 420, margin: "0 auto 40px", lineHeight: 1.65 }}>
             We&apos;re onboarding a select group of SoCal founders for our Q2 2026 beta launch. Free during beta — no credit card required.
           </p>
 
@@ -66,17 +68,18 @@ export default function Waitlist() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: EASE }}
-                className="flex flex-col items-center gap-3 py-6"
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, padding: "24px 0" }}
               >
-                <CheckCircle2 size={40} className="text-white" />
-                <p className="text-xl font-semibold text-white">You&apos;re on the list!</p>
-                <p className="text-indigo-200 text-sm">We&apos;ll be in touch when your spot opens up.</p>
+                <CheckCircle2 size={40} color="#fff" />
+                <p style={{ fontSize: 20, fontWeight: 600, color: "#fff" }}>You&apos;re on the list!</p>
+                <p style={{ fontSize: 14, color: "#c7d2fe" }}>We&apos;ll be in touch when your spot opens up.</p>
               </m.div>
             ) : (
               <m.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <m.form
                   onSubmit={handleSubmit}
-                  className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+                  style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 420, margin: "0 auto" }}
+                  className="sm:flex-row"
                 >
                   <input
                     type="email"
@@ -84,15 +87,15 @@ export default function Waitlist() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@startup.com"
                     required
-                    className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/40"
+                    style={{ flex: 1, padding: "12px 16px", borderRadius: 12, fontSize: 14, color: "#111827", background: "#fff", border: "none", outline: "none" }}
                   />
                   <button
                     type="submit"
                     disabled={state === "loading"}
-                    className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-indigo-900 bg-white hover:bg-indigo-50 px-6 py-3 rounded-xl transition-colors disabled:opacity-70 whitespace-nowrap"
+                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, fontSize: 14, fontWeight: 600, color: "#312e81", background: "#fff", padding: "12px 24px", borderRadius: 12, border: "none", cursor: "pointer", whiteSpace: "nowrap", opacity: state === "loading" ? 0.7 : 1 }}
                   >
                     {state === "loading" ? (
-                      <Loader2 size={15} className="animate-spin" />
+                      <Loader2 size={15} style={{ animation: "spin 1s linear infinite" }} />
                     ) : (
                       <>Apply for Early Access <ArrowRight size={15} /></>
                     )}
@@ -102,7 +105,7 @@ export default function Waitlist() {
                   <m.p
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center justify-center gap-1.5 mt-3 text-sm text-red-200"
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 12, fontSize: 14, color: "#fca5a5" }}
                   >
                     <AlertCircle size={14} />
                     Something went wrong — please try again.
@@ -112,29 +115,25 @@ export default function Waitlist() {
             )}
           </AnimatePresence>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
-            {[
-              "No credit card required",
-              "14-day free trial",
-              "Cancel anytime",
-            ].map((item) => (
-              <div key={item} className="flex items-center gap-1.5">
-                <div className="w-1 h-1 rounded-full bg-indigo-300" />
-                <span className="text-xs text-indigo-200">{item}</span>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 24, marginTop: 32 }}>
+            {["No credit card required", "14-day free trial", "Cancel anytime"].map((item) => (
+              <div key={item} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#a5b4fc" }} />
+                <span style={{ fontSize: 12, color: "#c7d2fe" }}>{item}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div style={{ marginTop: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }} className="sm:flex-row sm:justify-center">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white border border-white/30 hover:border-white/60 px-6 py-3 rounded-xl transition-colors"
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 600, color: "#fff", border: "1px solid rgba(255,255,255,0.3)", padding: "12px 24px", borderRadius: 12, textDecoration: "none" }}
             >
               Schedule a Demo <ArrowRight size={14} />
             </a>
             <a
               href="#contact"
-              className="text-sm font-medium text-indigo-200 hover:text-white border border-white/20 hover:border-white/40 px-5 py-3 rounded-xl transition-colors"
+              style={{ display: "inline-flex", alignItems: "center", fontSize: 14, fontWeight: 500, color: "#c7d2fe", border: "1px solid rgba(255,255,255,0.2)", padding: "12px 20px", borderRadius: 12, textDecoration: "none" }}
             >
               Contact Sales
             </a>

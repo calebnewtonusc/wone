@@ -84,9 +84,10 @@ export default function Navigation() {
                     href={link.href}
                     className={`px-3.5 py-2 text-sm rounded-lg transition-colors duration-150 ${
                       isActive
-                        ? "text-indigo-600 font-semibold bg-indigo-50"
+                        ? "font-semibold"
                         : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
+                    style={isActive ? { color: "#4338ca", background: "#eef2ff" } : undefined}
                   >
                     {link.label}
                   </a>
@@ -105,7 +106,8 @@ export default function Navigation() {
               </a>
               <a
                 href="#contact"
-                className="text-sm text-violet-600 hover:text-violet-800 font-medium px-3 py-2 transition-colors duration-150"
+                className="text-sm font-medium px-3 py-2 transition-colors duration-150"
+                style={{ color: "#7c3aed" }}
               >
                 Donate
               </a>
