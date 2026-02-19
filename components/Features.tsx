@@ -186,21 +186,21 @@ export default function Features() {
 
   return (
     <>
-      <section id="features" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto">
+      <section id="features" ref={ref} style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "96px 24px" }}>
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
           <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: E }}
-            className="text-center mb-16"
+            style={{ textAlign: "center", marginBottom: 64 }}
           >
-            <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "#4f46e5" }}>Platform</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-5">Why Choose Wone?</h2>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4338ca", marginBottom: 16 }}>Platform</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 800, letterSpacing: "-0.025em", color: "#111827", margin: "0 0 16px" }}>Why Choose Wone?</h2>
+            <p style={{ fontSize: 18, color: "#6b7280", lineHeight: 1.65, maxWidth: 560, margin: "0 auto" }}>
               Revolutionizing how startups, investors, and advisors connect and collaborate in the modern economy.
             </p>
           </m.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
@@ -209,14 +209,13 @@ export default function Features() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.07, ease: E }}
-                  className="group bg-white border border-gray-100 hover:border-gray-200 hover:shadow-lg rounded-2xl p-8 text-center transition-all duration-200 cursor-default"
-                  style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
+                  style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, padding: 32, textAlign: "center", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
                 >
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{ background: f.bg }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 14, background: f.bg, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
                     <Icon size={26} style={{ color: f.color }} />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">{f.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{f.body}</p>
+                  <h3 style={{ fontSize: 17, fontWeight: 700, color: "#111827", margin: "0 0 10px" }}>{f.title}</h3>
+                  <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.65, margin: 0 }}>{f.body}</p>
                 </m.div>
               );
             })}

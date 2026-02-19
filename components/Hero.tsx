@@ -3,101 +3,130 @@
 import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const E: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const E: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+// ─── Inline design tokens ────────────────────────────────────────────────────
+const BRAND  = "#4338ca";   // indigo-700
+const DARK   = "#312e81";   // indigo-900
+const GRAY1  = "#111827";   // text primary
+const GRAY2  = "#6b7280";   // text secondary
+const GRAY3  = "#9ca3af";   // text tertiary
+const BORDER = "#e5e7eb";   // gray-200
+
+// ─── Investor data ───────────────────────────────────────────────────────────
 const INVESTORS = [
-  { name: "Alta Capital",   type: "Series A–C VC",  pct: 98, color: "#4f46e5" },
-  { name: "Sarah Kim",      type: "Angel Investor",  pct: 94, color: "#7C3AED" },
-  { name: "SoCal Ventures", type: "Regional VC",     pct: 91, color: "#0891B2" },
+  { name: "Alta Capital",   kind: "Series A–C VC",  match: 98, color: BRAND    },
+  { name: "Sarah Kim",      kind: "Angel Investor",  match: 94, color: "#7c3aed" },
+  { name: "SoCal Ventures", kind: "Regional VC",     match: 91, color: "#0891b2" },
 ];
 
-function ProductMockup() {
+// ─── Wide product screenshot ─────────────────────────────────────────────────
+function Screenshot() {
   return (
     <m.div
       aria-hidden="true"
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, delay: 0.3, ease: E }}
-      className="w-full max-w-[500px] rounded-xl overflow-hidden"
-      style={{ boxShadow: "0 32px 80px -8px rgba(15,15,50,0.22), 0 0 0 1px rgba(0,0,0,0.07)" }}
+      transition={{ duration: 1, delay: 0.4, ease: E }}
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 40px 100px -20px rgba(17,24,39,0.25), 0 0 0 1px rgba(0,0,0,0.07)",
+      }}
     >
-      {/* Dark browser chrome */}
-      <div className="flex items-center gap-1.5 px-4 h-10" style={{ background: "#1e1e2e" }}>
-        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
-        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />
-        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c840" }} />
-        <div className="flex-1 mx-3 rounded h-5 flex items-center px-3" style={{ background: "#2a2a3e" }}>
-          <span className="text-[10px] text-gray-500 font-mono">app.woneportal.com/dashboard</span>
+      {/* ── Browser chrome ── */}
+      <div style={{ background: "#1a1a2e", padding: "0 16px", height: 44, display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", gap: 6 }}>
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#ff5f57" }} />
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#febc2e" }} />
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28c840" }} />
+        </div>
+        <div style={{ flex: 1, marginLeft: 8, background: "#252540", borderRadius: 6, height: 24, display: "flex", alignItems: "center", padding: "0 12px" }}>
+          <span style={{ fontSize: 11, color: "#6b7280", fontFamily: "monospace" }}>app.woneportal.com/dashboard</span>
         </div>
       </div>
 
-      {/* App top bar */}
-      <div className="flex items-center justify-between px-4 h-11 bg-white border-b border-gray-100">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md flex items-center justify-center" style={{ background: "#312e81" }}>
-            <span className="text-white font-black text-[8px]">W</span>
+      {/* ── App nav bar ── */}
+      <div style={{ background: "#fff", borderBottom: `1px solid ${BORDER}`, padding: "0 24px", height: 52, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: DARK, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "#fff", fontSize: 11, fontWeight: 900 }}>W</span>
           </div>
-          <span className="text-[11px] font-bold text-gray-800">Wone</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: GRAY1 }}>Wone</span>
         </div>
-        <div className="flex gap-4 text-[10px] font-medium text-gray-400">
-          <span className="font-semibold border-b pb-0.5" style={{ color: "#4f46e5", borderColor: "#4f46e5" }}>Dashboard</span>
-          <span>Investors</span>
-          <span>Analytics</span>
-          <span>Advisors</span>
+        <div style={{ display: "flex", gap: 32, fontSize: 13, fontWeight: 500, color: GRAY3 }}>
+          {["Dashboard", "Investors", "Analytics", "Advisors"].map((t, i) => (
+            <span key={t} style={i === 0 ? { color: BRAND, borderBottom: `2px solid ${BRAND}`, paddingBottom: 2, fontWeight: 600 } : {}}>
+              {t}
+            </span>
+          ))}
         </div>
-        <div className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: "#4f46e5" }}>TC</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: BRAND, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "#fff", fontSize: 11, fontWeight: 700 }}>TC</span>
+          </div>
+        </div>
       </div>
 
-      {/* App body */}
-      <div className="p-4" style={{ background: "#f8f9fc" }}>
+      {/* ── Dashboard body ── */}
+      <div style={{ background: "#f8f9fb", padding: 24 }}>
         {/* Welcome row */}
-        <div className="flex items-center justify-between mb-3.5">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div>
-            <p className="text-[9px] text-gray-400 font-medium">Welcome back,</p>
-            <p className="text-sm font-bold text-gray-900">TechVenture Co.</p>
+            <div style={{ fontSize: 12, color: GRAY3, marginBottom: 2 }}>Welcome back,</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: GRAY1 }}>TechVenture Co.</div>
           </div>
-          <span className="text-[9px] font-semibold text-green-700 bg-green-50 border border-green-100 px-2.5 py-1 rounded-full flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600, color: "#15803d", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 20, padding: "6px 14px" }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e" }} />
             Seed Round Active
-          </span>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-2 mb-3">
+        {/* Stat cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 16 }}>
           {[
-            { label: "Round Score",    value: "94",    sub: "out of 100",   color: "#4f46e5" },
-            { label: "Investor Views", value: "47",    sub: "+12 this week", color: null },
-            { label: "Capital Raised", value: "$420K", sub: "↑ 23% MTM",    color: null },
+            { label: "Round Score",    value: "94",    sub: "out of 100",    hi: true  },
+            { label: "Investor Views", value: "47",    sub: "+12 this week", hi: false },
+            { label: "Capital Raised", value: "$420K", sub: "↑ 23% MTM",    hi: false },
           ].map((s) => (
-            <div key={s.label} className="bg-white rounded-xl border border-gray-100 p-3">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">{s.label}</p>
-              <p className="text-[22px] font-black leading-none text-gray-900" style={s.color ? { color: s.color } : {}}>{s.value}</p>
-              <p className="text-[8px] text-gray-400 mt-1">{s.sub}</p>
+            <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: GRAY3, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>{s.label}</div>
+              <div style={{ fontSize: 28, fontWeight: 900, color: s.hi ? BRAND : GRAY1, lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: GRAY3, marginTop: 6 }}>{s.sub}</div>
             </div>
           ))}
         </div>
 
         {/* Investor matches */}
-        <div className="bg-white rounded-xl border border-gray-100 p-3">
-          <div className="flex items-center justify-between mb-2.5">
-            <p className="text-[10px] font-bold text-gray-700">Top Investor Matches</p>
-            <span className="text-[9px] font-semibold" style={{ color: "#4f46e5" }}>View all →</span>
+        <div style={{ background: "#fff", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: GRAY1 }}>Top Investor Matches</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: BRAND, cursor: "pointer" }}>View all →</div>
           </div>
-          <div className="space-y-2">
+          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             {INVESTORS.map((inv, i) => (
-              <div key={inv.name} className={`flex items-center justify-between ${i > 0 ? "pt-2 border-t border-gray-50" : ""}`}>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0" style={{ background: inv.color }}>
-                    {inv.name[0]}
+              <div
+                key={inv.name}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 0",
+                  borderTop: i > 0 ? `1px solid ${BORDER}` : "none",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 10, background: inv.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ color: "#fff", fontSize: 13, fontWeight: 700 }}>{inv.name[0]}</span>
                   </div>
                   <div>
-                    <p className="text-[10px] font-semibold text-gray-900 leading-none">{inv.name}</p>
-                    <p className="text-[8px] text-gray-400 mt-0.5">{inv.type}</p>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: GRAY1 }}>{inv.name}</div>
+                    <div style={{ fontSize: 12, color: GRAY3, marginTop: 1 }}>{inv.kind}</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-green-600">{inv.pct}%</span>
-                  <button className="text-[8px] font-bold text-white px-2 py-0.5 rounded" style={{ background: "#4f46e5" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#16a34a" }}>{inv.match}%</span>
+                  <button style={{ fontSize: 12, fontWeight: 600, color: "#fff", background: BRAND, border: "none", borderRadius: 8, padding: "6px 14px", cursor: "pointer" }}>
                     Connect
                   </button>
                 </div>
@@ -110,119 +139,108 @@ function ProductMockup() {
   );
 }
 
+// ─── Hero ────────────────────────────────────────────────────────────────────
 export default function Hero() {
   return (
-    <section className="relative bg-white overflow-hidden">
-      {/* Subtle dot grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          opacity: 0.5,
-        }}
-      />
-      {/* Indigo glow top-right */}
-      <div
-        className="absolute top-0 right-0 pointer-events-none"
-        style={{
-          width: 700,
-          height: 700,
-          background: "radial-gradient(ellipse at 70% 20%, rgba(99,102,241,0.1) 0%, transparent 65%)",
-        }}
-      />
+    <section style={{ background: "#fff", borderBottom: `1px solid ${BORDER}` }}>
+      {/* Copy — centered, max-w-3xl */}
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "88px 24px 72px", textAlign: "center" }}>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20 lg:py-28">
+        {/* Badge */}
+        <m.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: E }}
+          style={{ marginBottom: 28 }}
+        >
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, color: BRAND, background: "#eef2ff", border: "1px solid #c7d2fe", borderRadius: 20, padding: "7px 16px" }}>
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: BRAND, display: "inline-block" }} />
+            Now in Beta — Free for SoCal Founders
+          </span>
+        </m.div>
 
-          {/* Left: copy */}
-          <div className="max-w-xl">
-            <m.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: E }}
-              className="mb-7"
-            >
-              <span
-                className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full border"
-                style={{ color: "#4f46e5", borderColor: "#c7d2fe", background: "#eef2ff" }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#4f46e5" }} />
-                🚀 Now in Beta — SoCal Founders
-              </span>
-            </m.div>
+        {/* Headline */}
+        <m.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: E }}
+          style={{ fontSize: "clamp(2.6rem, 5.5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.08, color: GRAY1, margin: "0 0 24px" }}
+        >
+          The All-in-One<br />
+          <span style={{ color: BRAND }}>Startup Launchpad.</span>
+        </m.h1>
 
-            <m.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.07, ease: E }}
-              className="font-bold tracking-tight leading-[1.03] text-gray-950 mb-6"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 4.5rem)" }}
-            >
-              The All-in-One<br />
-              <span style={{ color: "#4338ca" }}>Startup Launchpad.</span>
-            </m.h1>
+        {/* Subheadline */}
+        <m.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.14, ease: E }}
+          style={{ fontSize: 19, color: GRAY2, lineHeight: 1.65, margin: "0 0 40px", maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}
+        >
+          A unified platform where SoCal founders connect with 200+ vetted investors, access expert advisors, and raise capital transparently.
+        </m.p>
 
-            <m.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.13, ease: E }}
-              className="text-xl text-gray-500 leading-relaxed mb-10"
-            >
-              Connect with 200+ vetted investors, access expert advisors, and raise capital transparently — all in one platform built for SoCal founders.
-            </m.p>
+        {/* CTAs */}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.2, ease: E }}
+          style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 24 }}
+        >
+          <a
+            href="#waitlist"
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600, color: "#fff", background: DARK, borderRadius: 12, padding: "14px 28px", textDecoration: "none", boxShadow: "0 4px 16px rgba(49,46,129,0.32)" }}
+          >
+            Request a Demo <ArrowRight size={16} />
+          </a>
+          <a
+            href="#features"
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600, color: GRAY1, background: "#fff", border: `1.5px solid ${BORDER}`, borderRadius: 12, padding: "14px 28px", textDecoration: "none" }}
+          >
+            See How It Works
+          </a>
+        </m.div>
 
-            <m.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.19, ease: E }}
-              className="flex flex-wrap gap-3 mb-12"
-            >
-              <a
-                href="#waitlist"
-                className="inline-flex items-center gap-2 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-opacity hover:opacity-90"
-                style={{ background: "#312e81", boxShadow: "0 4px 16px rgba(49,46,129,0.35)" }}
-              >
-                Request a Demo <ArrowRight size={15} />
-              </a>
-              <a
-                href="#how-it-works"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 bg-white border border-gray-200 hover:border-gray-300 px-6 py-3.5 rounded-xl transition-all"
-              >
-                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#312e81" }}>
-                  <svg width="7" height="8" viewBox="0 0 7 8" fill="white"><path d="M0 0.5L7 4L0 7.5V0.5Z" /></svg>
-                </div>
-                Watch Overview
-              </a>
-            </m.div>
-
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.32, ease: E }}
-              className="flex flex-wrap gap-8 pt-8 border-t border-gray-100"
-            >
-              {[
-                { value: "50+",    label: "Pilot Partners"   },
-                { value: "200+",   label: "Vetted Investors" },
-                { value: "Q2 '26", label: "Beta Launch"      },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl font-bold text-gray-900 leading-none">{s.value}</p>
-                  <p className="text-xs text-gray-400 font-medium mt-1.5">{s.label}</p>
-                </div>
-              ))}
-            </m.div>
-          </div>
-
-          {/* Right: product mockup */}
-          <div className="hidden lg:flex justify-end items-center">
-            <ProductMockup />
-          </div>
-        </div>
+        {/* Social proof */}
+        <m.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.4 }}
+          style={{ fontSize: 13, color: GRAY3, margin: 0 }}
+        >
+          ✓ Free during beta &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; SoCal founders only
+        </m.p>
       </div>
 
-      <div className="border-t border-gray-100" />
+      {/* Product screenshot — full-width within max-w-6xl */}
+      <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px 0" }}>
+        <Screenshot />
+      </div>
+
+      {/* Fade screenshot into the next section */}
+      <div style={{ height: 80, background: "linear-gradient(to bottom, transparent, #fff)", marginTop: -80, position: "relative", zIndex: 1 }} />
+
+      {/* Stats bar */}
+      <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "#fafafa" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "24px 24px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0 }}>
+          {[
+            { value: "50+",    label: "Pilot Partners"   },
+            { value: "200+",   label: "Vetted Investors" },
+            { value: "Q2 '26", label: "Beta Launch"      },
+          ].map((s, i) => (
+            <div
+              key={s.label}
+              style={{
+                textAlign: "center",
+                borderLeft: i > 0 ? `1px solid ${BORDER}` : "none",
+              }}
+            >
+              <div style={{ fontSize: 24, fontWeight: 800, color: GRAY1, lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: GRAY3, fontWeight: 500, marginTop: 6 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
