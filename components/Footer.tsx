@@ -5,19 +5,17 @@ const navColumns = [
   {
     heading: "Platform",
     links: [
-      { label: "Features",         href: "#features"    },
-      { label: "Pricing",          href: "#pricing"     },
-      { label: "How It Works",     href: "#how-it-works" },
-      { label: "Investor Network", href: "#investors"   },
-      { label: "Industries",       href: "#industries"  },
+      { label: "Features",     href: "#features"     },
+      { label: "How It Works", href: "#how-it-works" },
+      { label: "Pricing",      href: "#pricing"      },
+      { label: "Contact",      href: "#contact"      },
     ],
   },
   {
     heading: "Company",
     links: [
-      { label: "About",   href: "#about"   },
-      { label: "Grants",  href: "#grants"  },
-      { label: "Contact", href: "#contact" },
+      { label: "Early Access", href: "#waitlist" },
+      { label: "Contact",      href: "#contact"  },
     ],
   },
   {

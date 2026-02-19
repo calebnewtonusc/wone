@@ -7,11 +7,10 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 
 const NAV_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing",  href: "#pricing"  },
-  { label: "Grants",   href: "#grants"   },
-  { label: "About",    href: "#about"    },
-  { label: "Contact",  href: "#contact"  },
+  { label: "Features",    href: "#features"    },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Pricing",     href: "#pricing"     },
+  { label: "Contact",     href: "#contact"     },
 ];
 
 function Logo() {
