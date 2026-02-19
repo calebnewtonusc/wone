@@ -11,7 +11,7 @@ export default function NotFound() {
     <main className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
       {/* Logo */}
       <Link href="/" className="inline-flex items-center gap-2.5 mb-12" aria-label="Wone home">
-        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#312e81" }}>
           <span className="text-white font-bold text-lg leading-none">W</span>
         </div>
         <span className="text-xl font-semibold tracking-tight text-gray-900">Wone</span>
@@ -32,7 +32,8 @@ export default function NotFound() {
       <div className="flex flex-col sm:flex-row items-center gap-3">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-xl transition-colors"
+          style={{ background: "#4f46e5" }}
         >
           Back to home
         </Link>
@@ -46,7 +47,7 @@ export default function NotFound() {
 
       <p className="mt-12 text-xs text-gray-400">
         Need help?{" "}
-        <a href="mailto:hello@woneportal.com" className="text-blue-600 hover:underline">
+        <a href="mailto:hello@woneportal.com" style={{ color: "#4f46e5" }}>
           hello@woneportal.com
         </a>
       </p>

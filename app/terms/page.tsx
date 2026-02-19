@@ -20,7 +20,7 @@ export default function TermsPage() {
         </Link>
 
         <div className="mb-10">
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Legal</p>
+          <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-2">Terms of Service</h1>
           <p className="text-sm text-gray-400">Last updated: February 2026</p>
         </div>
@@ -100,7 +100,7 @@ export default function TermsPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Termination</h2>
             <p>
               {siteConfig.name} reserves the right to suspend or terminate your account at any time for violations of these Terms or for any other reason at our discretion. You may delete your account at any time by contacting{" "}
-              <a href={`mailto:${siteConfig.email.hello}`} className="text-blue-600 hover:underline">
+              <a href={`mailto:${siteConfig.email.hello}`} className="text-indigo-600 hover:underline">
                 {siteConfig.email.hello}
               </a>.
             </p>
@@ -124,7 +124,7 @@ export default function TermsPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Contact</h2>
             <p>
               Questions about these Terms? Email us at{" "}
-              <a href={`mailto:${siteConfig.email.hello}`} className="text-blue-600 hover:underline">
+              <a href={`mailto:${siteConfig.email.hello}`} className="text-indigo-600 hover:underline">
                 {siteConfig.email.hello}
               </a>.
             </p>

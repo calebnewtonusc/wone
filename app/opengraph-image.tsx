@@ -32,7 +32,7 @@ export default function OGImage() {
             left: -100,
             width: 700,
             height: 700,
-            background: "radial-gradient(circle, rgba(37,99,235,0.35) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 70%)",
           }}
         />
 
@@ -67,7 +67,7 @@ export default function OGImage() {
             style={{
               width: 60,
               height: 60,
-              background: "#2563EB",
+              background: "#4f46e5",
               borderRadius: 16,
               display: "flex",
               alignItems: "center",
@@ -116,12 +116,12 @@ export default function OGImage() {
             <div
               key={tag}
               style={{
-                background: "rgba(37,99,235,0.18)",
-                border: "1px solid rgba(37,99,235,0.45)",
+                background: "rgba(79,70,229,0.18)",
+                border: "1px solid rgba(79,70,229,0.45)",
                 borderRadius: 999,
                 padding: "10px 24px",
                 fontSize: 18,
-                color: "#93C5FD",
+                color: "#c7d2fe",
                 fontWeight: 600,
               }}
             >

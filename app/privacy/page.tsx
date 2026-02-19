@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         </Link>
 
         <div className="mb-10">
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Legal</p>
+          <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-2">Privacy Policy</h1>
           <p className="text-sm text-gray-400">Last updated: February 2026</p>
         </div>
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Data Retention</h2>
             <p>
               We retain your data for as long as your account is active or as needed to provide services. You may request deletion of your data at any time by emailing{" "}
-              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-indigo-600 hover:underline">
                 {siteConfig.email.privacy}
               </a>.
             </p>
@@ -90,7 +90,7 @@ export default function PrivacyPage() {
             </ul>
             <p className="mt-3">
               To exercise any of these rights, contact us at{" "}
-              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-indigo-600 hover:underline">
                 {siteConfig.email.privacy}
               </a>.
             </p>
@@ -114,7 +114,7 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Contact</h2>
             <p>
               For privacy-related questions or requests, contact us at{" "}
-              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-indigo-600 hover:underline">
                 {siteConfig.email.privacy}
               </a>.
             </p>

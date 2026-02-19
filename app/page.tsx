@@ -1,8 +1,10 @@
 import TopBanner from "@/components/TopBanner";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import SocialProof from "@/components/SocialProof";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
+import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 import Contact from "@/components/Contact";
 import Waitlist from "@/components/Waitlist";
@@ -18,8 +20,10 @@ export default function Home() {
       <Navigation />
       <main id="main" className="relative overflow-x-hidden">
         <Hero />
+        <SocialProof />
         <Features />
         <HowItWorks />
+        <Testimonials />
         <Pricing />
         <Contact />
         <Waitlist />
