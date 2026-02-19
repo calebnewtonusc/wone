@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Wone",
-  description: "How Wone collects, uses, and protects your data.",
+  title: `Privacy Policy — ${siteConfig.name}`,
+  description: `How ${siteConfig.name} collects, uses, and protects your data.`,
   robots: { index: false, follow: false },
 };
 
@@ -15,7 +16,7 @@ export default function PrivacyPage() {
           href="/"
           className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 mb-10 transition-colors"
         >
-          ← Back to Wone
+          ← Back to {siteConfig.name}
         </Link>
 
         <div className="mb-10">
@@ -28,10 +29,10 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Overview</h2>
             <p>
-              Wone (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting the privacy of founders, investors, and all users who interact with the Wone platform. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data.
+              {siteConfig.name} (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting the privacy of founders, investors, and all users who interact with the {siteConfig.name} platform. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data.
             </p>
             <p className="mt-3">
-              By using Wone — including our waitlist, website, and future platform features — you agree to the practices described in this policy.
+              By using {siteConfig.name} — including our waitlist, website, and future platform features — you agree to the practices described in this policy.
             </p>
           </section>
 
@@ -48,7 +49,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">How We Use Your Information</h2>
             <ul className="list-disc list-inside space-y-2">
-              <li>To operate and improve the Wone platform and its features.</li>
+              <li>To operate and improve the {siteConfig.name} platform and its features.</li>
               <li>To match founders with relevant investors and advisors.</li>
               <li>To send transactional emails, product updates, and waitlist notifications (you may opt out at any time).</li>
               <li>To analyze usage patterns and improve user experience.</li>
@@ -71,7 +72,10 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Data Retention</h2>
             <p>
-              We retain your data for as long as your account is active or as needed to provide services. You may request deletion of your data at any time by emailing <a href="mailto:privacy@woneportal.com" className="text-blue-600 hover:underline">privacy@woneportal.com</a>.
+              We retain your data for as long as your account is active or as needed to provide services. You may request deletion of your data at any time by emailing{" "}
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+                {siteConfig.email.privacy}
+              </a>.
             </p>
           </section>
 
@@ -85,7 +89,10 @@ export default function PrivacyPage() {
               <li>Data portability (receiving your data in a machine-readable format).</li>
             </ul>
             <p className="mt-3">
-              To exercise any of these rights, contact us at <a href="mailto:privacy@woneportal.com" className="text-blue-600 hover:underline">privacy@woneportal.com</a>.
+              To exercise any of these rights, contact us at{" "}
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+                {siteConfig.email.privacy}
+              </a>.
             </p>
           </section>
 
@@ -99,7 +106,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Changes to This Policy</h2>
             <p>
-              We may update this policy from time to time. We will notify registered users of material changes via email. Continued use of Wone after changes constitutes acceptance of the updated policy.
+              We may update this policy from time to time. We will notify registered users of material changes via email. Continued use of {siteConfig.name} after changes constitutes acceptance of the updated policy.
             </p>
           </section>
 
@@ -107,8 +114,8 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Contact</h2>
             <p>
               For privacy-related questions or requests, contact us at{" "}
-              <a href="mailto:privacy@woneportal.com" className="text-blue-600 hover:underline">
-                privacy@woneportal.com
+              <a href={`mailto:${siteConfig.email.privacy}`} className="text-blue-600 hover:underline">
+                {siteConfig.email.privacy}
               </a>.
             </p>
           </section>

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { m, useInView } from "framer-motion";
 import { Mail, Linkedin, Twitter, ArrowRight, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 type FormState = "idle" | "loading" | "success" | "error";
@@ -12,8 +13,8 @@ const contactOptions = [
     icon: Mail,
     title: "Email Us",
     description: "For general inquiries, partnership opportunities, and media requests.",
-    cta: "hello@woneportal.com",
-    href: "mailto:hello@woneportal.com",
+    cta: siteConfig.email.hello,
+    href: `mailto:${siteConfig.email.hello}`,
     color: "#2563EB",
     bg: "#EFF6FF",
     border: "#BFDBFE",
@@ -23,7 +24,7 @@ const contactOptions = [
     title: "LinkedIn",
     description: "Follow Wone for platform updates, industry news, and founder resources.",
     cta: "Follow on LinkedIn",
-    href: "https://linkedin.com/company/wone",
+    href: siteConfig.social.linkedinUrl,
     color: "#0891B2",
     bg: "#ECFEFF",
     border: "#A5F3FC",
@@ -32,8 +33,8 @@ const contactOptions = [
     icon: Twitter,
     title: "Twitter / X",
     description: "Get real-time updates on the SoCal startup ecosystem and platform announcements.",
-    cta: "@woneportal",
-    href: "https://twitter.com/woneportal",
+    cta: siteConfig.social.twitterHandle,
+    href: siteConfig.social.twitterUrl,
     color: "#111827",
     bg: "#F9FAFB",
     border: "#E5E7EB",
@@ -126,7 +127,7 @@ export default function Contact() {
                 Wone is building public infrastructure for SoCal&apos;s startup ecosystem. Contributions help us keep the platform free for early-stage founders.
               </p>
               <a
-                href="mailto:donate@woneportal.com"
+                href={`mailto:${siteConfig.email.donate}`}
                 className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors"
               >
                 Learn about donating <ArrowRight size={13} />

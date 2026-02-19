@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import MotionProvider from "@/components/MotionProvider";
+import { siteConfig } from "@/config/site";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -10,10 +11,9 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://woneportal.com"),
-  title: "Wone — The All-in-One Startup Launchpad for SoCal Founders",
-  description:
-    "Wone connects Southern California founders with 200+ vetted investors, expert advisors, and AI-powered fundraising tools. Transparent fundraising, real-time scorecards, grant matching, and more. Now in beta.",
+  metadataBase: new URL(siteConfig.url),
+  title: `${siteConfig.name} — The All-in-One Startup Launchpad for SoCal Founders`,
+  description: siteConfig.description,
   keywords: [
     "SoCal startup platform",
     "startup fundraising",
@@ -28,26 +28,24 @@ export const metadata: Metadata = {
     "cleantech SoCal",
     "startup launchpad",
   ],
-  authors: [{ name: "Wone" }],
+  authors: [{ name: siteConfig.name }],
   openGraph: {
-    title: "Wone — The All-in-One Startup Launchpad",
-    description:
-      "Where SoCal Startups Launch. Where Capital Flows. One Platform.",
+    title: `${siteConfig.name} — The All-in-One Startup Launchpad`,
+    description: siteConfig.tagline,
     type: "website",
     locale: "en_US",
-    url: "https://woneportal.com",
-    siteName: "Wone",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wone — The All-in-One Startup Launchpad",
-    description:
-      "Where SoCal Startups Launch. Where Capital Flows. One Platform.",
-    site: "@woneportal",
-    creator: "@woneportal",
+    title: `${siteConfig.name} — The All-in-One Startup Launchpad`,
+    description: siteConfig.tagline,
+    site: siteConfig.social.twitterHandle,
+    creator: siteConfig.social.twitterHandle,
   },
   alternates: {
-    canonical: "https://woneportal.com",
+    canonical: siteConfig.url,
   },
   robots: {
     index: true,
@@ -67,17 +65,16 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://woneportal.com/#organization",
-      "name": "Wone",
-      "url": "https://woneportal.com",
+      "@id": `${siteConfig.url}/#organization`,
+      "name": siteConfig.name,
+      "url": siteConfig.url,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://woneportal.com/icon",
+        "url": `${siteConfig.url}/icon`,
         "width": 32,
         "height": 32,
       },
-      "description":
-        "The all-in-one startup acceleration platform for Southern California founders. Connect with 200+ vetted investors, expert advisors, and AI-powered fundraising tools.",
+      "description": siteConfig.description,
       "foundingDate": "2026",
       "areaServed": {
         "@type": "Place",
@@ -85,23 +82,23 @@ const jsonLd = {
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "hello@woneportal.com",
+        "email": siteConfig.email.hello,
         "contactType": "customer support",
       },
       "sameAs": [
-        "https://linkedin.com/company/wone",
-        "https://twitter.com/woneportal",
-        "https://instagram.com/woneportal",
+        siteConfig.social.linkedinUrl,
+        siteConfig.social.twitterUrl,
+        siteConfig.social.instagramUrl,
       ],
     },
     {
       "@type": "WebSite",
-      "@id": "https://woneportal.com/#website",
-      "url": "https://woneportal.com",
-      "name": "Wone",
-      "description": "Where SoCal Startups Launch. Where Capital Flows.",
+      "@id": `${siteConfig.url}/#website`,
+      "url": siteConfig.url,
+      "name": siteConfig.name,
+      "description": siteConfig.tagline,
       "publisher": {
-        "@id": "https://woneportal.com/#organization",
+        "@id": `${siteConfig.url}/#organization`,
       },
     },
   ],

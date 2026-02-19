@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/config/site";
 
 export const runtime = "edge";
 export const alt = "Wone — The All-in-One Startup Launchpad for SoCal Founders";
@@ -57,7 +58,7 @@ export default function OGImage() {
             letterSpacing: "-0.02em",
           }}
         >
-          woneportal.com
+          {siteConfig.domain}
         </div>
 
         {/* Logo */}
@@ -78,7 +79,7 @@ export default function OGImage() {
           >
             W
           </div>
-          <span style={{ fontSize: 38, fontWeight: 700, color: "white", letterSpacing: "-0.03em" }}>Wone</span>
+          <span style={{ fontSize: 38, fontWeight: 700, color: "white", letterSpacing: "-0.03em" }}>{siteConfig.name}</span>
         </div>
 
         {/* Headline */}
@@ -93,7 +94,7 @@ export default function OGImage() {
             maxWidth: 820,
           }}
         >
-          Where SoCal Startups Launch. Where Capital Flows.
+          {siteConfig.tagline}
         </div>
 
         {/* Subtext */}
@@ -111,7 +112,7 @@ export default function OGImage() {
 
         {/* Badges */}
         <div style={{ display: "flex", gap: 14 }}>
-          {["Free during beta", "Q2 2026 launch", "SoCal founders only"].map((tag) => (
+          {["Free during beta", `${siteConfig.launch.betaDate} launch`, "SoCal founders only"].map((tag) => (
             <div
               key={tag}
               style={{

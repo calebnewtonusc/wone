@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Wone",
-  description: "Terms and conditions for using the Wone platform.",
+  title: `Terms of Service — ${siteConfig.name}`,
+  description: `Terms and conditions for using the ${siteConfig.name} platform.`,
   robots: { index: false, follow: false },
 };
 
@@ -15,7 +16,7 @@ export default function TermsPage() {
           href="/"
           className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 mb-10 transition-colors"
         >
-          ← Back to Wone
+          ← Back to {siteConfig.name}
         </Link>
 
         <div className="mb-10">
@@ -28,7 +29,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Acceptance of Terms</h2>
             <p>
-              By accessing or using the Wone platform, website, or any related services (collectively, the &quot;Service&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use the Service.
+              By accessing or using the {siteConfig.name} platform, website, or any related services (collectively, the &quot;Service&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use the Service.
             </p>
             <p className="mt-3">
               These terms apply to all users, including founders, investors, advisors, and any other visitors to the platform.
@@ -38,7 +39,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Description of Service</h2>
             <p>
-              Wone is a startup acceleration platform designed for Southern California founders. The Service includes tools for fundraising campaign management, investor matching, advisor sessions, grant discovery, and related features.
+              {siteConfig.name} is a startup acceleration platform designed for Southern California founders. The Service includes tools for fundraising campaign management, investor matching, advisor sessions, grant discovery, and related features.
             </p>
             <p className="mt-3">
               During the beta period, the Service is provided free of charge. Paid plans will be introduced at general availability, subject to pricing displayed on the platform at that time.
@@ -71,34 +72,37 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Intellectual Property</h2>
             <p>
-              The Wone name, logo, platform design, and proprietary tools are owned by Wone and protected by applicable intellectual property laws. You may not use our branding or content without written permission.
+              The {siteConfig.name} name, logo, platform design, and proprietary tools are owned by {siteConfig.name} and protected by applicable intellectual property laws. You may not use our branding or content without written permission.
             </p>
             <p className="mt-3">
-              You retain ownership of the content you submit to Wone (pitch decks, metrics, descriptions). By submitting content, you grant Wone a limited, non-exclusive license to display and process that content for the purposes of providing the Service.
+              You retain ownership of the content you submit to {siteConfig.name} (pitch decks, metrics, descriptions). By submitting content, you grant {siteConfig.name} a limited, non-exclusive license to display and process that content for the purposes of providing the Service.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">No Financial or Legal Advice</h2>
             <p>
-              Wone provides tools and information to support your fundraising journey, but nothing on the platform constitutes financial, legal, investment, or tax advice. Fundraising scorecards, investor matches, and analytics are provided for informational purposes only. Always consult qualified professionals before making financial decisions.
+              {siteConfig.name} provides tools and information to support your fundraising journey, but nothing on the platform constitutes financial, legal, investment, or tax advice. Fundraising scorecards, investor matches, and analytics are provided for informational purposes only. Always consult qualified professionals before making financial decisions.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Disclaimers &amp; Limitation of Liability</h2>
             <p>
-              The Service is provided &quot;as is&quot; without warranties of any kind, express or implied. Wone does not guarantee that the Service will be error-free, uninterrupted, or that any particular fundraising outcome will be achieved through use of the platform.
+              The Service is provided &quot;as is&quot; without warranties of any kind, express or implied. {siteConfig.name} does not guarantee that the Service will be error-free, uninterrupted, or that any particular fundraising outcome will be achieved through use of the platform.
             </p>
             <p className="mt-3">
-              To the maximum extent permitted by law, Wone shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service.
+              To the maximum extent permitted by law, {siteConfig.name} shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">Termination</h2>
             <p>
-              Wone reserves the right to suspend or terminate your account at any time for violations of these Terms or for any other reason at our discretion. You may delete your account at any time by contacting <a href="mailto:hello@woneportal.com" className="text-blue-600 hover:underline">hello@woneportal.com</a>.
+              {siteConfig.name} reserves the right to suspend or terminate your account at any time for violations of these Terms or for any other reason at our discretion. You may delete your account at any time by contacting{" "}
+              <a href={`mailto:${siteConfig.email.hello}`} className="text-blue-600 hover:underline">
+                {siteConfig.email.hello}
+              </a>.
             </p>
           </section>
 
@@ -120,8 +124,8 @@ export default function TermsPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">Contact</h2>
             <p>
               Questions about these Terms? Email us at{" "}
-              <a href="mailto:hello@woneportal.com" className="text-blue-600 hover:underline">
-                hello@woneportal.com
+              <a href={`mailto:${siteConfig.email.hello}`} className="text-blue-600 hover:underline">
+                {siteConfig.email.hello}
               </a>.
             </p>
           </section>

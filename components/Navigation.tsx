@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -19,7 +20,7 @@ function Logo() {
       <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
         <span className="text-white font-bold text-base leading-none">W</span>
       </div>
-      <span className="text-lg font-semibold tracking-tight text-gray-900">Wone</span>
+      <span className="text-lg font-semibold tracking-tight text-gray-900">{siteConfig.name}</span>
     </Link>
   );
 }
@@ -95,7 +96,7 @@ export default function Navigation() {
 
             <div className="hidden md:flex items-center gap-3">
               <a
-                href="https://app.woneportal.com"
+                href={siteConfig.appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-150 px-3 py-2"
@@ -169,7 +170,7 @@ export default function Navigation() {
                   Get Early Access
                 </a>
                 <a
-                  href="https://app.woneportal.com"
+                  href={siteConfig.appUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-center text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 px-4 py-3 rounded-xl transition-colors"
