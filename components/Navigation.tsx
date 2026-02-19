@@ -111,7 +111,8 @@ export default function Navigation() {
               </a>
               <a
                 href="#waitlist"
-                className="text-sm font-medium text-white bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg transition-colors duration-150"
+                className="text-sm font-medium text-white px-4 py-2 rounded-lg transition-opacity hover:opacity-90"
+                style={{ background: "#312e81" }}
               >
                 Get Early Access
               </a>
@@ -165,7 +166,8 @@ export default function Navigation() {
                 <a
                   href="#waitlist"
                   onClick={() => setMobileOpen(false)}
-                  className="block text-center text-sm font-medium text-white bg-indigo-700 hover:bg-indigo-800 px-4 py-3 rounded-xl transition-colors"
+                  className="block text-center text-sm font-medium text-white px-4 py-3 rounded-xl transition-opacity hover:opacity-90"
+                  style={{ background: "#312e81" }}
                 >
                   Get Early Access
                 </a>

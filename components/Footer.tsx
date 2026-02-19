@@ -67,7 +67,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2 mb-5" aria-label="Wone home">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "#312e81" }}>
                 <span className="text-white font-bold text-sm">W</span>
               </div>
               <span className="text-lg font-semibold text-white">{siteConfig.name}</span>
@@ -77,7 +77,8 @@ export default function Footer() {
             </p>
             <a
               href="#waitlist"
-              className="inline-block text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2.5 rounded-lg transition-colors mb-6"
+              className="inline-block text-sm font-medium text-white px-4 py-2.5 rounded-lg transition-opacity hover:opacity-90 mb-6"
+              style={{ background: "#312e81" }}
             >
               Apply for Early Access
             </a>

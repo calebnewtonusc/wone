@@ -19,7 +19,7 @@ export default function TopBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative z-[60] bg-blue-600 text-white text-sm font-medium flex items-center justify-center gap-3 py-2.5 px-4 text-center">
+    <div className="relative z-[60] text-white text-sm font-medium flex items-center justify-center gap-3 py-2.5 px-4 text-center" style={{ background: "#312e81" }}>
       <span className="text-blue-200 font-bold tracking-widest text-[10px] uppercase hidden sm:inline">
         Beta
       </span>

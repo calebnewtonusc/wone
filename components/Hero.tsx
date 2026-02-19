@@ -1,7 +1,7 @@
 "use client";
 
 import { m } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const E: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -11,88 +11,99 @@ const INVESTORS = [
   { name: "SoCal Ventures", type: "Regional VC",     pct: 91, color: "#0891B2" },
 ];
 
-function AppPreview() {
+function ProductMockup() {
   return (
     <m.div
       aria-hidden="true"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.3, ease: E }}
-      className="w-full max-w-[420px] bg-white rounded-2xl overflow-hidden"
-      style={{ boxShadow: "0 24px 64px -8px rgba(49,46,129,0.18), 0 0 0 1px rgba(0,0,0,0.06)" }}
+      transition={{ duration: 0.9, delay: 0.3, ease: E }}
+      className="w-full max-w-[500px] rounded-xl overflow-hidden"
+      style={{ boxShadow: "0 32px 80px -8px rgba(15,15,50,0.22), 0 0 0 1px rgba(0,0,0,0.07)" }}
     >
-      {/* Header */}
-      <div className="px-5 py-4" style={{ background: "#312e81" }}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.2)" }}>
-              <span className="text-white font-black text-[10px]">W</span>
-            </div>
-            <span className="text-white font-semibold text-sm">Wone · Dashboard</span>
+      {/* Dark browser chrome */}
+      <div className="flex items-center gap-1.5 px-4 h-10" style={{ background: "#1e1e2e" }}>
+        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c840" }} />
+        <div className="flex-1 mx-3 rounded h-5 flex items-center px-3" style={{ background: "#2a2a3e" }}>
+          <span className="text-[10px] text-gray-500 font-mono">app.woneportal.com/dashboard</span>
+        </div>
+      </div>
+
+      {/* App top bar */}
+      <div className="flex items-center justify-between px-4 h-11 bg-white border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-md flex items-center justify-center" style={{ background: "#312e81" }}>
+            <span className="text-white font-black text-[8px]">W</span>
           </div>
-          <span className="text-[11px] font-bold text-indigo-200 px-2.5 py-1 rounded-full flex items-center gap-1.5" style={{ background: "rgba(255,255,255,0.1)" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+          <span className="text-[11px] font-bold text-gray-800">Wone</span>
+        </div>
+        <div className="flex gap-4 text-[10px] font-medium text-gray-400">
+          <span className="font-semibold border-b pb-0.5" style={{ color: "#4f46e5", borderColor: "#4f46e5" }}>Dashboard</span>
+          <span>Investors</span>
+          <span>Analytics</span>
+          <span>Advisors</span>
+        </div>
+        <div className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: "#4f46e5" }}>TC</div>
+      </div>
+
+      {/* App body */}
+      <div className="p-4" style={{ background: "#f8f9fc" }}>
+        {/* Welcome row */}
+        <div className="flex items-center justify-between mb-3.5">
+          <div>
+            <p className="text-[9px] text-gray-400 font-medium">Welcome back,</p>
+            <p className="text-sm font-bold text-gray-900">TechVenture Co.</p>
+          </div>
+          <span className="text-[9px] font-semibold text-green-700 bg-green-50 border border-green-100 px-2.5 py-1 rounded-full flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
             Seed Round Active
           </span>
         </div>
-      </div>
 
-      {/* Stats row */}
-      <div className="grid grid-cols-3 border-b border-gray-100">
-        {[
-          { value: "94",    label: "Round Score",    accent: true  },
-          { value: "47",    label: "Investor Views", accent: false },
-          { value: "$420K", label: "Capital Raised", accent: false },
-        ].map((s, i) => (
-          <div key={s.label} className={`py-4 px-3 text-center ${i > 0 ? "border-l border-gray-100" : ""}`}>
-            <p className={`text-2xl font-black leading-none ${s.accent ? "text-indigo-700" : "text-gray-900"}`}>{s.value}</p>
-            <p className="text-[9px] text-gray-400 font-semibold uppercase tracking-wider mt-1">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Investor matches */}
-      <div className="p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Top Investor Matches</p>
-        <div className="space-y-2">
-          {INVESTORS.map((inv) => (
-            <div key={inv.name} className="flex items-center justify-between p-3 rounded-xl bg-gray-50">
-              <div className="flex items-center gap-2.5">
-                <div
-                  className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0"
-                  style={{ background: inv.color }}
-                >
-                  {inv.name[0]}
-                </div>
-                <div>
-                  <p className="text-[11px] font-semibold text-gray-900 leading-none">{inv.name}</p>
-                  <p className="text-[9px] text-gray-400 mt-0.5">{inv.type}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-bold text-green-600">{inv.pct}%</span>
-                <button className="text-[9px] font-bold text-white px-2 py-1 rounded-md" style={{ background: "#312e81" }}>
-                  Connect
-                </button>
-              </div>
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {[
+            { label: "Round Score",    value: "94",    sub: "out of 100",   color: "#4f46e5" },
+            { label: "Investor Views", value: "47",    sub: "+12 this week", color: null },
+            { label: "Capital Raised", value: "$420K", sub: "↑ 23% MTM",    color: null },
+          ].map((s) => (
+            <div key={s.label} className="bg-white rounded-xl border border-gray-100 p-3">
+              <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">{s.label}</p>
+              <p className="text-[22px] font-black leading-none text-gray-900" style={s.color ? { color: s.color } : {}}>{s.value}</p>
+              <p className="text-[8px] text-gray-400 mt-1">{s.sub}</p>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Readiness row */}
-      <div className="px-4 pb-4">
-        <div className="rounded-xl border border-indigo-100 p-3 flex items-center justify-between" style={{ background: "#eef2ff" }}>
-          <div>
-            <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider">Fundraising Readiness</p>
-            <p className="text-base font-black text-indigo-900 mt-0.5">
-              94<span className="text-gray-300 font-normal text-sm"> / 100</span>
-              <span className="ml-2 text-xs font-bold text-green-600">● Ready</span>
-            </p>
+        {/* Investor matches */}
+        <div className="bg-white rounded-xl border border-gray-100 p-3">
+          <div className="flex items-center justify-between mb-2.5">
+            <p className="text-[10px] font-bold text-gray-700">Top Investor Matches</p>
+            <span className="text-[9px] font-semibold" style={{ color: "#4f46e5" }}>View all →</span>
           </div>
-          <button className="text-xs font-semibold text-indigo-700 bg-white border border-indigo-100 px-3 py-2 rounded-lg shadow-sm">
-            View All →
-          </button>
+          <div className="space-y-2">
+            {INVESTORS.map((inv, i) => (
+              <div key={inv.name} className={`flex items-center justify-between ${i > 0 ? "pt-2 border-t border-gray-50" : ""}`}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0" style={{ background: inv.color }}>
+                    {inv.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold text-gray-900 leading-none">{inv.name}</p>
+                    <p className="text-[8px] text-gray-400 mt-0.5">{inv.type}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-green-600">{inv.pct}%</span>
+                  <button className="text-[8px] font-bold text-white px-2 py-0.5 rounded" style={{ background: "#4f46e5" }}>
+                    Connect
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </m.div>
@@ -101,14 +112,24 @@ function AppPreview() {
 
 export default function Hero() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ background: "linear-gradient(150deg, #ddd6fe 0%, #ede9fe 30%, #f5f3ff 65%, #ffffff 100%)" }}
-    >
-      {/* Decorative blob */}
+    <section className="relative bg-white overflow-hidden">
+      {/* Subtle dot grid */}
       <div
-        className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(#c4b5fd, transparent 70%)", opacity: 0.35 }}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          opacity: 0.5,
+        }}
+      />
+      {/* Indigo glow top-right */}
+      <div
+        className="absolute top-0 right-0 pointer-events-none"
+        style={{
+          width: 700,
+          height: 700,
+          background: "radial-gradient(ellipse at 70% 20%, rgba(99,102,241,0.1) 0%, transparent 65%)",
+        }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
@@ -119,59 +140,56 @@ export default function Hero() {
             <m.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: E }}
+              transition={{ duration: 0.4, ease: E }}
               className="mb-7"
             >
               <span
-                className="inline-flex items-center gap-2 text-indigo-700 text-xs font-semibold px-4 py-2 rounded-full border border-indigo-200 shadow-sm"
-                style={{ background: "rgba(255,255,255,0.8)" }}
+                className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full border"
+                style={{ color: "#4f46e5", borderColor: "#c7d2fe", background: "#eef2ff" }}
               >
-                🚀 Now in Beta — Join the Waitlist
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#4f46e5" }} />
+                🚀 Now in Beta — SoCal Founders
               </span>
             </m.div>
 
             <m.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.07, ease: E }}
-              className="text-5xl md:text-6xl lg:text-[4.5rem] font-bold tracking-tight leading-[1.05] mb-6"
-              style={{ color: "#1e1b4b" }}
+              transition={{ duration: 0.65, delay: 0.07, ease: E }}
+              className="font-bold tracking-tight leading-[1.03] text-gray-950 mb-6"
+              style={{ fontSize: "clamp(2.8rem, 6vw, 4.5rem)" }}
             >
               The All-in-One<br />
-              Startup Launchpad.
+              <span style={{ color: "#4338ca" }}>Startup Launchpad.</span>
             </m.h1>
 
             <m.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.14, ease: E }}
-              className="text-lg text-gray-600 leading-relaxed mb-10 max-w-lg"
+              transition={{ duration: 0.6, delay: 0.13, ease: E }}
+              className="text-xl text-gray-500 leading-relaxed mb-10"
             >
-              A unified ecosystem where founders showcase progress, connect with expert advisors, and raise capital transparently. The future of startup acceleration is here.
+              Connect with 200+ vetted investors, access expert advisors, and raise capital transparently — all in one platform built for SoCal founders.
             </m.p>
 
             <m.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: E }}
-              className="flex flex-wrap gap-4 mb-10"
+              transition={{ duration: 0.55, delay: 0.19, ease: E }}
+              className="flex flex-wrap gap-3 mb-12"
             >
               <a
                 href="#waitlist"
-                className="inline-flex items-center gap-2 text-white font-semibold text-sm px-7 py-4 rounded-xl transition-all hover:opacity-90 shadow-lg"
-                style={{ background: "#312e81", boxShadow: "0 8px 24px -4px rgba(49,46,129,0.4)" }}
+                className="inline-flex items-center gap-2 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-opacity hover:opacity-90"
+                style={{ background: "#312e81", boxShadow: "0 4px 16px rgba(49,46,129,0.35)" }}
               >
-                Request a Demo <ArrowRight size={16} />
+                Request a Demo <ArrowRight size={15} />
               </a>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-white border border-gray-200 hover:border-gray-300 px-7 py-4 rounded-xl transition-all"
-                style={{ background: "rgba(255,255,255,0.7)" }}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 bg-white border border-gray-200 hover:border-gray-300 px-6 py-3.5 rounded-xl transition-all"
               >
-                <div
-                  className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: "#312e81" }}
-                >
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#312e81" }}>
                   <svg width="7" height="8" viewBox="0 0 7 8" fill="white"><path d="M0 0.5L7 4L0 7.5V0.5Z" /></svg>
                 </div>
                 Watch Overview
@@ -181,23 +199,30 @@ export default function Hero() {
             <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.35, ease: E }}
-              className="flex items-center gap-2 text-sm text-gray-600"
+              transition={{ duration: 0.5, delay: 0.32, ease: E }}
+              className="flex flex-wrap gap-8 pt-8 border-t border-gray-100"
             >
-              <Check size={16} className="text-green-600 flex-shrink-0" />
-              <span>Trusted by <strong>50+ pilot partners</strong> across SoCal</span>
+              {[
+                { value: "50+",    label: "Pilot Partners"   },
+                { value: "200+",   label: "Vetted Investors" },
+                { value: "Q2 '26", label: "Beta Launch"      },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="text-2xl font-bold text-gray-900 leading-none">{s.value}</p>
+                  <p className="text-xs text-gray-400 font-medium mt-1.5">{s.label}</p>
+                </div>
+              ))}
             </m.div>
           </div>
 
-          {/* Right: app preview */}
-          <div className="flex justify-center lg:justify-end items-center">
-            <AppPreview />
+          {/* Right: product mockup */}
+          <div className="hidden lg:flex justify-end items-center">
+            <ProductMockup />
           </div>
         </div>
       </div>
 
-      {/* Soft bottom fade into white */}
-      <div className="h-16 bg-gradient-to-b from-transparent to-white" />
+      <div className="border-t border-gray-100" />
     </section>
   );
 }

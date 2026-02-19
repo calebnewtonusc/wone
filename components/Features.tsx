@@ -186,21 +186,21 @@ export default function Features() {
 
   return (
     <>
-      <section id="features" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto">
+      <section id="features" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto">
           <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: E }}
-            className="text-center mb-14"
+            className="text-center mb-16"
           >
-            <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Platform</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">Why Choose Wone?</h2>
-            <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
-              The full stack for SoCal founders — fundraising tools, investor access, analytics, and expert guidance in one place.
+            <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "#4f46e5" }}>Platform</p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-5">Why Choose Wone?</h2>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Revolutionizing how startups, investors, and advisors connect and collaborate in the modern economy.
             </p>
           </m.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
@@ -209,12 +209,13 @@ export default function Features() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.07, ease: E }}
-                  className="group bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md rounded-2xl p-6 transition-all duration-200 cursor-default"
+                  className="group bg-white border border-gray-100 hover:border-gray-200 hover:shadow-lg rounded-2xl p-8 text-center transition-all duration-200 cursor-default"
+                  style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
                 >
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border" style={{ background: f.bg, borderColor: f.border }}>
-                    <Icon size={20} style={{ color: f.color }} />
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{ background: f.bg }}>
+                    <Icon size={26} style={{ color: f.color }} />
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">{f.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">{f.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{f.body}</p>
                 </m.div>
               );
