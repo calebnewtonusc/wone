@@ -9,10 +9,10 @@
   --text:     #111827;
   --text-2:   #6B7280;
   --text-3:   #9CA3AF;
-  --blue:     #2563EB;
-  --blue-h:   #1D4ED8;
-  --blue-lt:  #EFF6FF;
-  --blue-br:  #BFDBFE;
+  --brand:    #4f46e5;
+  --brand-dk: #312e81;
+  --brand-lt: #eef2ff;
+  --brand-br: #c7d2fe;
   --radius:   10px;
 }
 
@@ -35,12 +35,12 @@
     scroll-margin-top: 80px;
   }
   *, *::before, *::after { box-sizing: border-box; }
-  *:focus-visible { outline: 2px solid rgba(37,99,235,0.5); outline-offset: 3px; border-radius: 4px; }
+  *:focus-visible { outline: 2px solid rgba(79,70,229,0.5); outline-offset: 3px; border-radius: 4px; }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: #F3F4F6; }
   ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 9999px; }
   ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
-  ::selection { background: #BFDBFE; color: #1E3A8A; }
+  ::selection { background: #c7d2fe; color: #1e1b4b; }
 }
 
 @layer utilities {
@@ -55,6 +55,12 @@
     to   { opacity: 1; }
   }
   .animate-fade-in { animation: fade-in 0.4s ease forwards; }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-spin { animation: spin 1s linear infinite; }
 
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }

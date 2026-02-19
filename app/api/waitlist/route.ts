@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email } = body as { email?: string };
+    const { email, name, company, stage } = body as { email?: string; name?: string; company?: string; stage?: string };
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     //     subject: "You're on the Wone waitlist!",
     //     html: "<p>Thanks for applying — we'll be in touch when your spot opens up.</p>",
     //   });
-    console.log(`[Wone Waitlist] ${new Date().toISOString()} — ${email}`);
+    console.log(`[Wone Waitlist] ${new Date().toISOString()} — ${email} | ${name ?? "—"} | ${company ?? "—"} | ${stage ?? "—"}`);
 
     return NextResponse.json({ ok: true });
   } catch {

@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { m, useInView } from "framer-motion";
 import { DollarSign, FileText, Lightbulb, ArrowRight } from "lucide-react";
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { EASE, ACCENT, BRAND } from "@/lib/brand";
 
 const grantTypes = [
   {
@@ -59,7 +58,7 @@ export default function Grants() {
           transition={{ duration: 0.55, ease: EASE }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Grants</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: ACCENT }}>Grants</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
             Non-dilutive funding<br />you don&apos;t have to beg for.
           </h2>
@@ -106,7 +105,7 @@ export default function Grants() {
           transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
           className="bg-white rounded-2xl border border-gray-200 p-8 md:p-10"
         >
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-6">How Grant Matching Works</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-6" style={{ color: ACCENT }}>How Grant Matching Works</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {steps.map((s) => (
               <div key={s.number}>
@@ -120,7 +119,8 @@ export default function Grants() {
             <p className="text-sm text-gray-400">Grant matching available at launch — join the beta waitlist to be first in line.</p>
             <a
               href="#waitlist"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80 whitespace-nowrap"
+              style={{ color: BRAND }}
             >
               Get early access <ArrowRight size={14} />
             </a>

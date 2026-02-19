@@ -3,8 +3,7 @@
 import { useRef, useState } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, Lock, MapPin } from "lucide-react";
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { EASE, BRAND, ACCENT } from "@/lib/brand";
 
 type Filter = "All" | "Angel" | "VC Fund" | "Corporate Strategic" | "Angel Network" | "Regional VC";
 
@@ -17,7 +16,7 @@ const investors = [
     check: "$500K – $5M",
     focus: ["AI", "SaaS", "Fintech"],
     location: "Santa Monica",
-    color: "#2563EB",
+    color: "#4f46e5",
   },
   {
     initials: "SK",
@@ -95,7 +94,7 @@ export default function InvestorNetwork() {
     : investors;
 
   return (
-    <section id="investors" ref={ref} className="bg-gray-950 py-28 px-6 overflow-hidden">
+    <section id="investors" ref={ref} className="bg-white py-28 px-6 overflow-hidden border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <m.div
@@ -105,14 +104,14 @@ export default function InvestorNetwork() {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 mb-5">
-            <MapPin className="w-3.5 h-3.5 text-blue-400" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-blue-400">Investor Network</span>
+            <MapPin className="w-3.5 h-3.5" style={{ color: ACCENT }} />
+            <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: ACCENT }}>Investor Network</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-5 leading-tight">
             200+ investors ready<br />
-            <span className="text-blue-400">to back your raise.</span>
+            <span style={{ color: BRAND }}>to back your raise.</span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
             Every investor on Wone is vetted, active, and matched to your specific stage, sector, and check size.
           </p>
         </m.div>
@@ -125,10 +124,10 @@ export default function InvestorNetwork() {
           className="grid grid-cols-3 gap-4 mb-12"
         >
           {stats.map((s) => (
-            <div key={s.label} className="rounded-2xl border border-gray-800 bg-gray-900 p-6 text-center">
-              <p className="text-4xl font-black text-white mb-1">{s.value}</p>
-              <p className="text-sm font-semibold text-blue-400 mb-1">{s.label}</p>
-              <p className="text-xs text-gray-500">{s.desc}</p>
+            <div key={s.label} className="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center">
+              <p className="text-4xl font-black text-gray-900 mb-1">{s.value}</p>
+              <p className="text-sm font-semibold mb-1" style={{ color: BRAND }}>{s.label}</p>
+              <p className="text-xs text-gray-400">{s.desc}</p>
             </div>
           ))}
         </m.div>
@@ -144,11 +143,12 @@ export default function InvestorNetwork() {
             <button
               key={tab.label}
               onClick={() => setActiveFilter(tab.label)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 ${
+              className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border"
+              style={
                 activeFilter === tab.label
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 border border-gray-700"
-              }`}
+                  ? { background: BRAND, color: "#fff", borderColor: BRAND }
+                  : { background: "#f3f4f6", color: "#6b7280", borderColor: "#e5e7eb" }
+              }
             >
               {tab.label}
             </button>
@@ -166,7 +166,7 @@ export default function InvestorNetwork() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.35, delay: i * 0.04, ease: EASE }}
-                className="group rounded-2xl border border-gray-800 bg-gray-900 hover:border-gray-600 hover:bg-gray-800/80 p-5 transition-all duration-200"
+                className="group rounded-2xl border border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm p-5 transition-all duration-200"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -177,20 +177,20 @@ export default function InvestorNetwork() {
                       {inv.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white leading-tight">{inv.name}</p>
+                      <p className="text-sm font-semibold text-gray-900 leading-tight">{inv.name}</p>
                       <p className="text-[11px] text-gray-400 leading-tight mt-0.5">{inv.type}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full text-green-400 bg-green-400/10 border border-green-400/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                  <div className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full text-green-600 bg-green-50 border border-green-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                     Active
                   </div>
                 </div>
                 <div className="space-y-2 mb-4">
                   {[["Stage", inv.stage], ["Check Size", inv.check], ["Location", inv.location]].map(([k, v]) => (
                     <div key={k} className="flex items-center justify-between text-[11px]">
-                      <span className="text-gray-500 font-medium">{k}</span>
-                      <span className="text-gray-300 font-semibold">{v}</span>
+                      <span className="text-gray-400 font-medium">{k}</span>
+                      <span className="text-gray-700 font-semibold">{v}</span>
                     </div>
                   ))}
                 </div>
@@ -214,20 +214,21 @@ export default function InvestorNetwork() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
-            className="rounded-2xl border border-gray-700 border-dashed bg-gray-900/50 p-5 flex flex-col items-center justify-center text-center gap-3"
+            className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-5 flex flex-col items-center justify-center text-center gap-3"
           >
-            <div className="w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center">
-              <Lock size={16} className="text-gray-500" />
+            <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center">
+              <Lock size={16} className="text-gray-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-300">150+ more investors</p>
+              <p className="text-sm font-semibold text-gray-700">150+ more investors</p>
               <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                 Join Wone to unlock the full investor network — filtered by your stage, sector, and check size.
               </p>
             </div>
             <a
               href="#waitlist"
-              className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-xs font-bold transition-opacity hover:opacity-80"
+              style={{ color: BRAND }}
             >
               Get access →
             </a>
@@ -243,7 +244,8 @@ export default function InvestorNetwork() {
         >
           <a
             href="#waitlist"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-xl transition-opacity hover:opacity-90"
+            style={{ background: BRAND }}
           >
             Browse the Full Network <ArrowRight size={15} />
           </a>

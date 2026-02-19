@@ -14,8 +14,9 @@ const navColumns = [
   {
     heading: "Company",
     links: [
-      { label: "Early Access", href: "#waitlist" },
-      { label: "Contact",      href: "#contact"  },
+      { label: "About",        href: "#about"     },
+      { label: "Investors",    href: "#investors"  },
+      { label: "Early Access", href: "#waitlist"  },
     ],
   },
   {

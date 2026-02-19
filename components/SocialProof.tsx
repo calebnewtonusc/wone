@@ -90,8 +90,7 @@ export default function SocialProof() {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
-          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0 }}
-          className="grid-cols-2 sm:grid-cols-4"
+          className="grid grid-cols-2 sm:grid-cols-4"
         >
           {stats.map((s, i) => (
             <div

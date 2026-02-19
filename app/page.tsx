@@ -2,10 +2,15 @@ import TopBanner from "@/components/TopBanner";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
+import About from "@/components/About";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
+import InvestorNetwork from "@/components/InvestorNetwork";
+import Grants from "@/components/Grants";
+import Industries from "@/components/Industries";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
+import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
@@ -21,10 +26,15 @@ export default function Home() {
       <main id="main" className="relative overflow-x-hidden">
         <Hero />
         <SocialProof />
+        <About />
         <Features />
         <HowItWorks />
+        <InvestorNetwork />
+        <Grants />
+        <Industries />
         <Testimonials />
         <Pricing />
+        <FAQ />
         <Contact />
         <Waitlist />
       </main>

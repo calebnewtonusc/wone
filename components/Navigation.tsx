@@ -4,30 +4,37 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 
 const NAV_LINKS = [
-  { label: "Features",    href: "#features"    },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing",     href: "#pricing"     },
-  { label: "Contact",     href: "#contact"     },
+  { label: "Features",     href: "#features"     },
+  { label: "How It Works", href: "#how-it-works"  },
+  { label: "Investors",    href: "#investors"     },
+  { label: "Pricing",      href: "#pricing"       },
+  { label: "Contact",      href: "#contact"       },
 ];
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 select-none" aria-label="Wone home">
-      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#312e81" }}>
-        <span className="text-white font-bold text-base leading-none">W</span>
-      </div>
-      <span className="text-lg font-semibold tracking-tight text-gray-900">{siteConfig.name}</span>
+    <Link href="/" className="flex items-center select-none" aria-label="Wone home">
+      <Image
+        src="/wone-logo.png"
+        alt="Wone"
+        width={0}
+        height={36}
+        style={{ width: "auto", height: "36px" }}
+        className="object-contain"
+        priority
+      />
     </Link>
   );
 }
 
 export default function Navigation() {
-  const [scrolled,       setScrolled]       = useState(false);
-  const [mobileOpen,     setMobileOpen]     = useState(false);
-  const [activeSection,  setActiveSection]  = useState("");
+  const [scrolled,      setScrolled]      = useState(false);
+  const [mobileOpen,    setMobileOpen]    = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const ticking = useRef(false);
 
   useEffect(() => {
@@ -47,7 +54,7 @@ export default function Navigation() {
       (entries) => {
         entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); });
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
@@ -102,13 +109,6 @@ export default function Navigation() {
                 className="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-150 px-3 py-2"
               >
                 Log In
-              </a>
-              <a
-                href="#contact"
-                className="text-sm font-medium px-3 py-2 transition-colors duration-150"
-                style={{ color: "#7c3aed" }}
-              >
-                Donate
               </a>
               <a
                 href="#waitlist"

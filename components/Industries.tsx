@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { m, useInView } from "framer-motion";
 import { Leaf, Zap, Microscope, ArrowRight } from "lucide-react";
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { EASE, ACCENT, BRAND } from "@/lib/brand";
 
 const industries = [
   {
@@ -16,9 +15,9 @@ const industries = [
     bg: "#ECFDF5",
     border: "#A7F3D0",
     stats: [
-      { value: "AgTech", sub: "Primary Focus" },
-      { value: "Seed–A", sub: "Stage" },
-      { value: "SoCal", sub: "Region" },
+      { value: "AgTech",  sub: "Primary Focus" },
+      { value: "Seed–A",  sub: "Stage"         },
+      { value: "SoCal",   sub: "Region"        },
     ],
     tags: ["Precision Ag", "Supply Chain", "Food Systems", "Sustainability"],
   },
@@ -31,9 +30,9 @@ const industries = [
     bg: "#FFFBEB",
     border: "#FDE68A",
     stats: [
-      { value: "CleanTech", sub: "Primary Focus" },
-      { value: "Pre-Seed–B", sub: "Stage" },
-      { value: "SoCal + SW", sub: "Region" },
+      { value: "CleanTech",  sub: "Primary Focus" },
+      { value: "Pre-Seed–B", sub: "Stage"         },
+      { value: "SoCal + SW", sub: "Region"        },
     ],
     tags: ["Solar", "Grid Storage", "EV Infrastructure", "Carbon Markets"],
   },
@@ -47,8 +46,8 @@ const industries = [
     border: "#DDD6FE",
     stats: [
       { value: "Life Sciences", sub: "Primary Focus" },
-      { value: "Seed–Series B", sub: "Stage" },
-      { value: "LA Corridor", sub: "Region" },
+      { value: "Seed–Series B", sub: "Stage"         },
+      { value: "LA Corridor",   sub: "Region"        },
     ],
     tags: ["Digital Health", "MedTech", "Drug Discovery", "Diagnostics"],
   },
@@ -68,7 +67,7 @@ export default function Industries() {
           transition={{ duration: 0.55, ease: EASE }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Industries</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: ACCENT }}>Industries</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
             Built for the sectors<br />shaping tomorrow.
           </h2>
@@ -120,11 +119,7 @@ export default function Industries() {
                     <span
                       key={tag}
                       className="text-[10px] font-semibold px-2 py-0.5 rounded-md border"
-                      style={{
-                        color: ind.color,
-                        background: ind.bg,
-                        borderColor: ind.border,
-                      }}
+                      style={{ color: ind.color, background: ind.bg, borderColor: ind.border }}
                     >
                       {tag}
                     </span>
@@ -147,7 +142,8 @@ export default function Industries() {
           </p>
           <a
             href="#waitlist"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80"
+            style={{ color: BRAND }}
           >
             Join the waitlist and tell us your industry
             <ArrowRight size={14} />

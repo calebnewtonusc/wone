@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { m, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { EASE, ACCENT, DARK } from "@/lib/brand";
 
 const values = [
   {
@@ -39,7 +38,7 @@ export default function About() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-4">About Wone</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: ACCENT }}>About Wone</p>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6 leading-tight">
               Built to level the<br />playing field.
             </h2>
@@ -51,7 +50,8 @@ export default function About() {
             </p>
             <a
               href="#waitlist"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white px-5 py-3 rounded-xl transition-opacity hover:opacity-90"
+              style={{ background: DARK }}
             >
               Join the Beta <ArrowRight size={14} />
             </a>
