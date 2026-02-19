@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "../components";
+@source "../app";
 
 :root {
   --bg:       #ffffff;
@@ -31,7 +31,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-  /* Offset anchor scroll for sticky nav (h-16 = 64px + 16px breathing room) */
   section[id] {
     scroll-margin-top: 80px;
   }
