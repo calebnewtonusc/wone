@@ -114,7 +114,7 @@ export default function FAQ() {
           </p>
         </m.div>
 
-        <div style={{ background: "#fff", borderRadius: 20, border: "1px solid #e5e7eb", padding: "0 32px" }}>
+        <div style={{ background: "#fff", borderRadius: 20, border: "1px solid #e5e7eb", padding: "0 16px" }}>
           {faqs.map((faq, i) => (
             <FAQItem key={faq.q} faq={faq} index={i} />
           ))}

@@ -121,7 +121,7 @@ export default function InvestorNetwork() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-          className="grid grid-cols-3 gap-4 mb-12"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
         >
           {stats.map((s) => (
             <div key={s.label} className="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center">

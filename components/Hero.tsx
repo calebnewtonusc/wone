@@ -173,7 +173,7 @@ export default function Hero() {
 
       {/* Stats bar */}
       <div style={{ borderTop: `1px solid ${BORDER}`, background: SURF }}>
-        <div style={{ maxWidth: 960, margin: "0 auto", padding: "24px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-4" style={{ maxWidth: 960, margin: "0 auto", padding: "24px" }}>
           {[
             { value: "50+",  label: "Pilot Partners"   },
             { value: "200+", label: "Vetted Investors"  },

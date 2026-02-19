@@ -143,7 +143,7 @@ export default function Navigation() {
               key="drawer"
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-white border-l border-gray-200 flex flex-col md:hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-72 bg-white border-l border-gray-200 flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between px-5 h-16 border-b border-gray-100">
                 <Logo />
