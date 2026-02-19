@@ -17,7 +17,7 @@ const NAV_LINKS = [
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 select-none" aria-label="Wone home">
-      <div className="w-8 h-8 rounded-lg bg-indigo-700 flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#312e81" }}>
         <span className="text-white font-bold text-base leading-none">W</span>
       </div>
       <span className="text-lg font-semibold tracking-tight text-gray-900">{siteConfig.name}</span>
