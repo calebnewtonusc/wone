@@ -12,17 +12,9 @@ export const BRAND_BR  = "#c7d2fe"; // indigo-200  — borders on light bg
 // Neutrals
 export const GRAY1  = "#111827";   // gray-900 — primary text
 export const GRAY2  = "#374151";   // gray-700 — body text
-export const GRAY3  = "#6b7280";   // gray-500 — secondary text
 export const GRAY4  = "#9ca3af";   // gray-400 — tertiary text
 export const BORDER = "#e5e7eb";   // gray-200 — borders
 export const SURF   = "#f9fafb";   // gray-50  — surface / alternate bg
-
-// Semantic feature colours (keep consistent across cards + icons)
-export const GREEN   = "#059669";
-export const CYAN    = "#0891b2";
-export const VIOLET  = "#7c3aed";
-export const AMBER   = "#d97706";
-export const RED     = "#dc2626";
 
 // Framer Motion easing — spring-like cubic bezier
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
