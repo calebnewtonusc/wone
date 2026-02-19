@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 type State = "idle" | "loading" | "success";
 
 export default function Waitlist() {
@@ -23,7 +22,6 @@ export default function Waitlist() {
 
   return (
     <section id="waitlist" className="relative bg-blue-600 py-28 px-6 overflow-hidden">
-      {/* Subtle noise/texture */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
@@ -42,8 +40,8 @@ export default function Waitlist() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5">
             Apply for Early Access.
           </h2>
-          <p className="text-lg text-blue-100 mb-10 max-w-md mx-auto">
-            Join 500+ founders on the waitlist. We&apos;re onboarding a select group for our Q2 2026 beta launch. Free during beta.
+          <p className="text-lg text-blue-100 mb-10 max-w-md mx-auto leading-relaxed">
+            We&apos;re onboarding a select group of SoCal founders for our Q2 2026 beta launch. Free during beta, no credit card required.
           </p>
 
           <AnimatePresence mode="wait">
@@ -80,15 +78,12 @@ export default function Waitlist() {
                 <button
                   type="submit"
                   disabled={state === "loading"}
-                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 px-6 py-3 rounded-xl transition-colors duration-150 disabled:opacity-70 whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 px-6 py-3 rounded-xl transition-colors disabled:opacity-70 whitespace-nowrap"
                 >
                   {state === "loading" ? (
                     <Loader2 size={15} className="animate-spin" />
                   ) : (
-                    <>
-                      Request Access
-                      <ArrowRight size={15} />
-                    </>
+                    <>Request Access <ArrowRight size={15} /></>
                   )}
                 </button>
               </motion.form>
@@ -96,7 +91,11 @@ export default function Waitlist() {
           </AnimatePresence>
 
           <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
-            {["500+ founders waitlisted", "Q2 2026 beta", "Free during beta"].map((item) => (
+            {[
+              "Free during beta",
+              "Q2 2026 launch",
+              "SoCal founders only",
+            ].map((item) => (
               <div key={item} className="flex items-center gap-1.5">
                 <div className="w-1 h-1 rounded-full bg-blue-200" />
                 <span className="text-xs text-blue-100">{item}</span>
@@ -106,16 +105,16 @@ export default function Waitlist() {
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              href="#"
-              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors duration-150"
+              href="#contact"
+              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors"
             >
               Schedule a Demo
             </a>
             <a
-              href="#"
-              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors duration-150"
+              href="#contact"
+              className="text-sm font-medium text-white border border-white/30 hover:border-white/60 px-5 py-2.5 rounded-xl transition-colors"
             >
-              Donate Now
+              Donate to Wone
             </a>
           </div>
         </motion.div>

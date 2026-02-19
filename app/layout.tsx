@@ -9,25 +9,61 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Wone — The All-in-One Startup Launchpad",
+  metadataBase: new URL("https://woneportal.com"),
+  title: "Wone — The All-in-One Startup Launchpad for SoCal Founders",
   description:
-    "Wone connects founders, investors, and expert advisors in one unified platform. Launch transparent fundraising campaigns, access curated mentorship, and scale with confidence.",
-  keywords: ["startup acceleration", "fundraising", "investors", "mentorship", "SoCal startups"],
+    "Wone connects Southern California founders with 200+ vetted investors, expert advisors, and AI-powered fundraising tools. Transparent fundraising, real-time scorecards, grant matching, and more. Now in beta.",
+  keywords: [
+    "SoCal startup platform",
+    "startup fundraising",
+    "investor matching",
+    "Southern California startups",
+    "venture capital Los Angeles",
+    "startup mentorship",
+    "non-dilutive funding",
+    "SBIR grants",
+    "AgTech funding",
+    "biotech startup LA",
+    "cleantech SoCal",
+    "startup launchpad",
+  ],
   authors: [{ name: "Wone" }],
   openGraph: {
     title: "Wone — The All-in-One Startup Launchpad",
-    description: "Where Startups Launch. Where Capital Flows. One Platform.",
+    description:
+      "Where SoCal Startups Launch. Where Capital Flows. One Platform.",
     type: "website",
     locale: "en_US",
+    url: "https://woneportal.com",
+    siteName: "Wone",
   },
   twitter: {
     card: "summary_large_image",
     title: "Wone — The All-in-One Startup Launchpad",
-    description: "Where Startups Launch. Where Capital Flows. One Platform.",
+    description:
+      "Where SoCal Startups Launch. Where Capital Flows. One Platform.",
+    site: "@woneportal",
+    creator: "@woneportal",
+  },
+  alternates: {
+    canonical: "https://woneportal.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={geist.variable}>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-geist-sans)]">
