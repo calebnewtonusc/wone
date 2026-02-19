@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { DollarSign, FileText, Lightbulb, ArrowRight } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -24,7 +24,7 @@ const grantTypes = [
     border: "#FDE68A",
     title: "California State Grants",
     description:
-      "The Governor&apos;s Office of Business and Economic Development (GO-Biz) and CALSTART administer programs specifically for clean tech, climate, and innovation startups headquartered in California.",
+      "The Governor's Office of Business and Economic Development (GO-Biz) and CALSTART administer programs specifically for clean tech, climate, and innovation startups headquartered in California.",
     badge: "CA-headquartered startups",
   },
   {
@@ -41,8 +41,8 @@ const grantTypes = [
 
 const steps = [
   { number: "01", title: "Profile your startup", body: "Complete your Wone profile with your sector, technology readiness level, and funding history." },
-  { number: "02", title: "Get matched to grants", body: "Our matching engine surfaces the programs you&apos;re most likely to qualify for, ranked by fit and deadline." },
-  { number: "03", title: "Apply with confidence", body: "Use Wone&apos;s grant-writing resources and advisor network to strengthen your application before you submit." },
+  { number: "02", title: "Get matched to grants", body: "Our matching engine surfaces the programs you're most likely to qualify for, ranked by fit and deadline." },
+  { number: "03", title: "Apply with confidence", body: "Use Wone's grant-writing resources and advisor network to strengthen your application before you submit." },
 ];
 
 export default function Grants() {
@@ -53,7 +53,7 @@ export default function Grants() {
     <section id="grants" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -66,14 +66,14 @@ export default function Grants() {
           <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
             Billions in grant dollars go unclaimed every year because founders don&apos;t know they exist. Wone finds and matches you to the programs you actually qualify for.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Grant types */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
           {grantTypes.map((g, i) => {
             const Icon = g.icon;
             return (
-              <motion.div
+              <m.div
                 key={g.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -93,14 +93,14 @@ export default function Grants() {
                   {g.badge}
                 </span>
                 <h3 className="text-base font-bold text-gray-900 mb-2">{g.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: g.description }} />
-              </motion.div>
+                <p className="text-sm text-gray-500 leading-relaxed flex-1">{g.description}</p>
+              </m.div>
             );
           })}
         </div>
 
         {/* How it works */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
@@ -112,7 +112,7 @@ export default function Grants() {
               <div key={s.number}>
                 <p className="text-xs font-bold tracking-widest text-gray-300 mb-2">{s.number}</p>
                 <h4 className="text-base font-bold text-gray-900 mb-2">{s.title}</h4>
-                <p className="text-sm text-gray-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: s.body }} />
+                <p className="text-sm text-gray-500 leading-relaxed">{s.body}</p>
               </div>
             ))}
           </div>
@@ -125,7 +125,7 @@ export default function Grants() {
               Get early access <ArrowRight size={14} />
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

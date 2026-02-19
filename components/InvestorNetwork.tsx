@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, Lock, MapPin } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -98,7 +98,7 @@ export default function InvestorNetwork() {
     <section id="investors" ref={ref} className="bg-gray-950 py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -115,10 +115,10 @@ export default function InvestorNetwork() {
           <p className="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
             Every investor on Wone is vetted, active, and matched to your specific stage, sector, and check size.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Stats */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
@@ -131,10 +131,10 @@ export default function InvestorNetwork() {
               <p className="text-xs text-gray-500">{s.desc}</p>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Filter tabs */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.2, ease: EASE }}
@@ -153,13 +153,13 @@ export default function InvestorNetwork() {
               {tab.label}
             </button>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Investor cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           <AnimatePresence mode="popLayout">
             {visible.map((inv, i) => (
-              <motion.div
+              <m.div
                 key={inv.name}
                 layout
                 initial={{ opacity: 0, y: 20 }}
@@ -205,12 +205,12 @@ export default function InvestorNetwork() {
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
 
           {/* Locked teaser card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
@@ -231,11 +231,11 @@ export default function InvestorNetwork() {
             >
               Get access →
             </a>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
@@ -247,7 +247,7 @@ export default function InvestorNetwork() {
           >
             Browse the Full Network <ArrowRight size={15} />
           </a>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

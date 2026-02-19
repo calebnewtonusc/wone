@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Mail, Linkedin, Twitter, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -60,7 +60,7 @@ export default function Contact() {
   return (
     <section id="contact" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -73,11 +73,11 @@ export default function Contact() {
           <p className="text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
             Whether you&apos;re a founder, investor, advisor, or potential partner — reach out and let&apos;s talk.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact options */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
@@ -122,10 +122,10 @@ export default function Contact() {
                 Learn about donating <ArrowRight size={13} />
               </a>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Contact form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
@@ -194,7 +194,7 @@ export default function Contact() {
                 <p className="text-xs text-gray-400 text-center">We typically respond within 1–2 business days.</p>
               </form>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -1,10 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { UserPlus, Rocket, TrendingUp } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const bars = [
+  { h: 30, w: "W1" }, { h: 48, w: "W2" }, { h: 42, w: "W3" }, { h: 65, w: "W4" },
+  { h: 58, w: "W5" }, { h: 80, w: "W6" }, { h: 72, w: "W7" }, { h: 95, w: "Now" },
+];
 
 const steps = [
   {
@@ -19,10 +24,10 @@ const steps = [
         <p className="text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-3">Profile Completeness</p>
         <div className="space-y-2.5">
           {[
-            { label: "Pitch Deck",      pct: 100, color: "#2563EB" },
+            { label: "Pitch Deck",       pct: 100, color: "#2563EB" },
             { label: "Traction Metrics", pct: 85,  color: "#059669" },
-            { label: "Team Bios",       pct: 100, color: "#2563EB" },
-            { label: "Funding Targets", pct: 60,  color: "#D97706" },
+            { label: "Team Bios",        pct: 100, color: "#2563EB" },
+            { label: "Funding Targets",  pct: 60,  color: "#D97706" },
           ].map((item) => (
             <div key={item.label}>
               <div className="flex justify-between text-[9px] mb-1">
@@ -85,16 +90,16 @@ const steps = [
       <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
         <p className="text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-3">Round Progress</p>
         <div className="flex items-end gap-1 h-16 mb-3">
-          {[30, 48, 42, 65, 58, 80, 72, 95].map((h, i) => (
+          {bars.map((bar, i) => (
             <div
-              key={i}
+              key={bar.w}
               className="flex-1 rounded-sm"
-              style={{ height: `${h}%`, background: i === 7 ? "#2563EB" : `rgba(37,99,235,${0.15 + i * 0.1})` }}
+              style={{ height: `${bar.h}%`, background: i === 7 ? "#2563EB" : `rgba(37,99,235,${0.15 + i * 0.1})` }}
             />
           ))}
         </div>
         <div className="flex justify-between text-[9px] text-gray-300 font-medium mb-3">
-          {["W1","W2","W3","W4","W5","W6","W7","Now"].map((w) => <span key={w}>{w}</span>)}
+          {bars.map((bar) => <span key={bar.w}>{bar.w}</span>)}
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-gray-50 rounded-lg p-2 text-center">
@@ -118,7 +123,7 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" ref={ref} className="bg-white py-28 px-6 border-t border-gray-100">
       <div className="max-w-5xl mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -128,21 +133,20 @@ export default function HowItWorks() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
             From signup to funded.
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="space-y-16">
           {steps.map((step, i) => {
             const Icon  = step.icon;
             const isOdd = i % 2 !== 0;
             return (
-              <motion.div
+              <m.div
                 key={step.number}
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: i * 0.12, ease: EASE }}
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${isOdd ? "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1" : ""}`}
               >
-                {/* Text */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
@@ -156,9 +160,8 @@ export default function HowItWorks() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
                   <p className="text-base text-gray-500 leading-relaxed">{step.description}</p>
                 </div>
-                {/* Visual */}
                 <div>{step.visual}</div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

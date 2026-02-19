@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -34,7 +34,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left: mission */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE }}
@@ -55,12 +55,12 @@ export default function About() {
             >
               Join the Beta <ArrowRight size={14} />
             </a>
-          </motion.div>
+          </m.div>
 
           {/* Right: values grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {values.map((v, i) => (
-              <motion.div
+              <m.div
                 key={v.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -69,7 +69,7 @@ export default function About() {
               >
                 <h3 className="text-sm font-bold text-gray-900 mb-2">{v.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{v.body}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

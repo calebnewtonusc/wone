@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -14,12 +15,12 @@ const NAV_LINKS = [
 
 function Logo() {
   return (
-    <a href="/" className="flex items-center gap-2 select-none" aria-label="Wone home">
+    <Link href="/" className="flex items-center gap-2 select-none" aria-label="Wone home">
       <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
         <span className="text-white font-bold text-base leading-none">W</span>
       </div>
       <span className="text-lg font-semibold tracking-tight text-gray-900">Wone</span>
-    </a>
+    </Link>
   );
 }
 
@@ -29,7 +30,6 @@ export default function Navigation() {
   const [activeSection,  setActiveSection]  = useState("");
   const ticking = useRef(false);
 
-  // Border on scroll
   useEffect(() => {
     const onScroll = () => {
       if (!ticking.current) {
@@ -41,7 +41,6 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active section highlighting via IntersectionObserver
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
     const observer = new IntersectionObserver(
@@ -54,7 +53,6 @@ export default function Navigation() {
     return () => observer.disconnect();
   }, []);
 
-  // Body scroll lock on mobile
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -66,8 +64,8 @@ export default function Navigation() {
         className="sticky top-0 z-40 transition-all duration-200 w-full"
         style={{
           background: "rgba(255,255,255,0.96)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
           borderBottom: scrolled ? "1px solid #E5E7EB" : "1px solid transparent",
         }}
       >
@@ -75,7 +73,6 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16">
             <Logo />
 
-            {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-0.5">
               {NAV_LINKS.map((link) => {
                 const id       = link.href.replace("#", "");
@@ -130,17 +127,16 @@ export default function Navigation() {
         </div>
       </header>
 
-      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            <motion.div
+            <m.div
               key="bd"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm md:hidden"
               onClick={() => setMobileOpen(false)}
             />
-            <motion.div
+            <m.div
               key="drawer"
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -181,7 +177,7 @@ export default function Navigation() {
                   Log In
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

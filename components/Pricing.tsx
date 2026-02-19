@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Check } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -73,7 +73,7 @@ export default function Pricing() {
   return (
     <section id="pricing" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
       <div className="max-w-5xl mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -84,25 +84,23 @@ export default function Pricing() {
             Simple, transparent pricing.
           </h2>
           <p className="text-lg text-gray-500 max-w-md mx-auto">No hidden fees. Cancel anytime.</p>
-        </motion.div>
+        </m.div>
 
-        {/* Beta callout */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
           className="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-center mb-8"
         >
           <p className="text-sm font-bold text-blue-900 mb-1">
-            🎉 All plans are <span className="underline">free during our Q2 2026 beta</span>.
+            All plans are <span className="underline">free during our Q2 2026 beta</span>.
           </p>
           <p className="text-sm text-blue-700">
             No credit card required. Apply for early access and lock in your rate before launch.
           </p>
-        </motion.div>
+        </m.div>
 
-        {/* Annual / monthly toggle */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.15, ease: EASE }}
@@ -124,13 +122,13 @@ export default function Pricing() {
               Save 20%
             </span>
           </span>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {plans.map((plan, i) => {
             const price = plan.monthlyPrice === null ? null : annual ? plan.annualPrice : plan.monthlyPrice;
             return (
-              <motion.div
+              <m.div
                 key={plan.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -182,19 +180,19 @@ export default function Pricing() {
                 >
                   {plan.cta}
                 </a>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.5, ease: EASE }}
           className="text-center text-sm text-gray-400 mt-8"
         >
           All plans are free during beta. Paid pricing applies at general availability.
-        </motion.p>
+        </m.p>
       </div>
     </section>
   );

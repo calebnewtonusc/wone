@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -31,7 +31,7 @@ export default function Waitlist() {
       />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -46,7 +46,7 @@ export default function Waitlist() {
 
           <AnimatePresence mode="wait">
             {state === "success" ? (
-              <motion.div
+              <m.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -57,9 +57,9 @@ export default function Waitlist() {
                 <CheckCircle2 size={40} className="text-white" />
                 <p className="text-xl font-semibold text-white">You&apos;re on the list!</p>
                 <p className="text-blue-100 text-sm">We&apos;ll be in touch when your spot opens up.</p>
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.form
+              <m.form
                 key="form"
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0 }}
@@ -86,7 +86,7 @@ export default function Waitlist() {
                     <>Request Access <ArrowRight size={15} /></>
                   )}
                 </button>
-              </motion.form>
+              </m.form>
             )}
           </AnimatePresence>
 
@@ -117,7 +117,7 @@ export default function Waitlist() {
               Donate to Wone
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

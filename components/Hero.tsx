@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { m } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const E: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -35,7 +35,7 @@ function ScoreGauge({ score }: { score: number }) {
         d={`M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy}`}
         fill="none" stroke="#E5E7EB" strokeWidth="5.5" strokeLinecap="round"
       />
-      <motion.path
+      <m.path
         d={`M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy}`}
         fill="none" stroke="#2563EB" strokeWidth="5.5" strokeLinecap="round"
         initial={{ strokeDasharray: `0 ${arcLen}` }}
@@ -55,14 +55,14 @@ function ScoreGauge({ score }: { score: number }) {
 /* ── Full dashboard mockup ── */
 function DashboardMockup() {
   const matches = [
-    { name: "Andreessen Capital", type: "Series A–C VC",  match: "98", color: "#2563EB" },
-    { name: "Sarah Kim",          type: "Angel Investor",  match: "94", color: "#7C3AED" },
-    { name: "SoCal Ventures",     type: "Regional VC",     match: "91", color: "#0891B2" },
+    { name: "Andreessen Capital", type: "Series A–C VC",  pct: "98", color: "#2563EB" },
+    { name: "Sarah Kim",          type: "Angel Investor",  pct: "94", color: "#7C3AED" },
+    { name: "SoCal Ventures",     type: "Regional VC",     pct: "91", color: "#0891B2" },
   ];
 
   return (
     <div aria-hidden="true" className="relative" style={{ width: 490, maxWidth: "100%" }}>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 32, rotateX: 10, rotateY: -7 }}
         animate={{ opacity: 1, y: 0,  rotateX: 2,  rotateY: -3 }}
         transition={{ duration: 1.1, delay: 0.25, ease: E }}
@@ -132,19 +132,19 @@ function DashboardMockup() {
               <button className="text-[9px] text-blue-600 font-semibold">View all →</button>
             </div>
             <div className="space-y-2">
-              {matches.map((m, i) => (
-                <div key={i} className={`flex items-center justify-between ${i > 0 ? "pt-2 border-t border-gray-50" : ""}`}>
+              {matches.map((match, i) => (
+                <div key={match.name} className={`flex items-center justify-between ${i > 0 ? "pt-2 border-t border-gray-50" : ""}`}>
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg flex-shrink-0 flex items-center justify-center text-white text-[8px] font-bold" style={{ background: m.color }}>
-                      {m.name[0]}
+                    <div className="w-6 h-6 rounded-lg flex-shrink-0 flex items-center justify-center text-white text-[8px] font-bold" style={{ background: match.color }}>
+                      {match.name[0]}
                     </div>
                     <div>
-                      <p className="text-[10px] font-semibold text-gray-900 leading-none">{m.name}</p>
-                      <p className="text-[8px] text-gray-400 leading-none mt-0.5">{m.type}</p>
+                      <p className="text-[10px] font-semibold text-gray-900 leading-none">{match.name}</p>
+                      <p className="text-[8px] text-gray-400 leading-none mt-0.5">{match.type}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-green-600">{m.match}%</span>
+                    <span className="text-[10px] font-bold text-green-600">{match.pct}%</span>
                     <button className="text-[8px] font-bold text-white bg-blue-600 px-2 py-0.5 rounded-md">Connect</button>
                   </div>
                 </div>
@@ -152,10 +152,10 @@ function DashboardMockup() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Floating badge — top right */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         initial={{ opacity: 0, scale: 0.8, x: 16 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -169,10 +169,10 @@ function DashboardMockup() {
             <p className="text-[9px] text-gray-400">SoCal VC · 97% fit</p>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Floating badge — bottom left */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         initial={{ opacity: 0, scale: 0.8, x: -16 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -188,7 +188,7 @@ function DashboardMockup() {
             <span className="text-[10px] font-bold text-gray-900">87%</span>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -196,7 +196,7 @@ function DashboardMockup() {
 /* ── Mobile preview card ── */
 function MobilePreview() {
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
@@ -233,18 +233,18 @@ function MobilePreview() {
           {[
             { name: "Andreessen Capital", pct: "98%", color: "#2563EB" },
             { name: "SoCal Ventures",     pct: "91%", color: "#0891B2" },
-          ].map((m) => (
-            <div key={m.name} className="flex items-center justify-between py-1.5 border-t border-gray-50 first:border-0">
+          ].map((inv) => (
+            <div key={inv.name} className="flex items-center justify-between py-1.5 border-t border-gray-50 first:border-0">
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[8px] font-bold" style={{ background: m.color }}>{m.name[0]}</div>
-                <p className="text-[10px] font-semibold text-gray-800">{m.name}</p>
+                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[8px] font-bold" style={{ background: inv.color }}>{inv.name[0]}</div>
+                <p className="text-[10px] font-semibold text-gray-800">{inv.name}</p>
               </div>
-              <span className="text-[10px] font-bold text-green-600">{m.pct}</span>
+              <span className="text-[10px] font-bold text-green-600">{inv.pct}</span>
             </div>
           ))}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -263,7 +263,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
           {/* Left: copy */}
           <div className="max-w-lg">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: E }}
@@ -273,9 +273,9 @@ export default function Hero() {
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
                 50+ SoCal Pilot Partners
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.07, ease: E }}
@@ -283,18 +283,18 @@ export default function Hero() {
             >
               The All-in-One<br />
               <span className="text-blue-600">Startup Launchpad.</span>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.14, ease: E }}
               className="text-lg text-gray-500 leading-relaxed mb-8"
             >
               Wone connects SoCal founders with 200+ vetted investors, expert advisors, and AI-powered fundraising tools — all in one transparent platform.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: E }}
@@ -315,9 +315,9 @@ export default function Hero() {
                 </div>
                 Watch Overview
               </a>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.35, ease: E }}
@@ -334,9 +334,8 @@ export default function Hero() {
                   <p className="text-xs text-gray-400 font-medium mt-1">{l}</p>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
 
-            {/* Mobile preview */}
             <MobilePreview />
           </div>
 

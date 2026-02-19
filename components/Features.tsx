@@ -1,12 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { BarChart3, Users, LineChart, TrendingUp, Shield, Zap, ArrowRight } from "lucide-react";
 
 const E: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-/* ── Feature card definitions ── */
 const features = [
   { icon: BarChart3, color: "#2563EB", bg: "#EFF6FF", border: "#BFDBFE", title: "Transparent Fundraising", body: "Live campaign tracking, data room management, and round analytics. Every metric that matters, in one dashboard." },
   { icon: Users,    color: "#7C3AED", bg: "#F5F3FF", border: "#DDD6FE", title: "Expert Mentorship",      body: "On-demand sessions with operators who've scaled companies like yours. Real guidance, not generic advice." },
@@ -16,7 +15,6 @@ const features = [
   { icon: Zap,      color: "#D97706", bg: "#FFFBEB", border: "#FDE68A", title: "Integrated Ecosystem",  body: "Connect with investors, co-founders, and legal partners. One platform, no fragmented tools." },
 ];
 
-/* ── Scorecard visual ── */
 function ScorecardCard() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm max-w-sm w-full">
@@ -32,17 +30,17 @@ function ScorecardCard() {
       </div>
       <div className="space-y-4">
         {[
-          { label: "Investor Fit",   pct: 96, color: "#2563EB" },
-          { label: "Pitch Quality",  pct: 87, color: "#7C3AED" },
-          { label: "Market Timing",  pct: 82, color: "#0891B2" },
-        ].map((m) => (
-          <div key={m.label}>
+          { label: "Investor Fit",  pct: 96, color: "#2563EB" },
+          { label: "Pitch Quality", pct: 87, color: "#7C3AED" },
+          { label: "Market Timing", pct: 82, color: "#0891B2" },
+        ].map((item) => (
+          <div key={item.label}>
             <div className="flex justify-between text-sm mb-1.5">
-              <span className="font-medium text-gray-600">{m.label}</span>
-              <span className="font-bold tabular-nums" style={{ color: m.color }}>{m.pct}%</span>
+              <span className="font-medium text-gray-600">{item.label}</span>
+              <span className="font-bold tabular-nums" style={{ color: item.color }}>{item.pct}%</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full rounded-full" style={{ width: `${m.pct}%`, background: m.color }} />
+              <div className="h-full rounded-full" style={{ width: `${item.pct}%`, background: item.color }} />
             </div>
           </div>
         ))}
@@ -52,7 +50,6 @@ function ScorecardCard() {
   );
 }
 
-/* ── Analytics visual ── */
 function AnalyticsCard() {
   const pts = [28, 35, 30, 52, 48, 65, 58, 74, 70, 88, 82, 95];
   const max = Math.max(...pts), min = Math.min(...pts);
@@ -83,7 +80,7 @@ function AnalyticsCard() {
         <circle cx={x(pts.length - 1)} cy={y(pts[pts.length - 1])} r="4" fill="#2563EB" />
       </svg>
       <div className="flex justify-between text-[11px] text-gray-300 font-medium">
-        {["Jan","Mar","May","Jul","Sep","Nov","Now"].map((m) => <span key={m}>{m}</span>)}
+        {["Jan","Mar","May","Jul","Sep","Nov","Now"].map((month) => <span key={month}>{month}</span>)}
       </div>
       <div className="mt-5 pt-5 border-t border-gray-100 grid grid-cols-3 gap-4 text-center">
         {[["142","Deck Views"],["$420K","Raised"],["14","Investors"]].map(([v,l]) => (
@@ -97,7 +94,6 @@ function AnalyticsCard() {
   );
 }
 
-/* ── Advisors visual ── */
 function AdvisorsCard() {
   const people = [
     { initials:"SK", name:"Sarah Kim",        role:"CFO · SoftBank alum",      color:"#2563EB", available:true  },
@@ -146,7 +142,6 @@ function AdvisorsCard() {
   );
 }
 
-/* ── Spotlight block ── */
 function Spotlight({
   tag, headline, body, cta, flip, bg, children,
 }: {
@@ -159,7 +154,7 @@ function Spotlight({
     <section ref={ref} className={`py-24 px-6 border-t border-gray-100 ${bg ?? "bg-white"}`}>
       <div className="max-w-5xl mx-auto">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center ${flip ? "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1" : ""}`}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: E }}
@@ -170,32 +165,30 @@ function Spotlight({
             <a href="#waitlist" className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
               {cta} <ArrowRight size={14} />
             </a>
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.12, ease: E }}
             className="flex justify-center lg:justify-end"
           >
             {children}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ── Main export ── */
 export default function Features() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <>
-      {/* Feature cards grid */}
       <section id="features" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: E }}
@@ -206,12 +199,12 @@ export default function Features() {
             <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
               The full stack for SoCal founders — fundraising tools, investor access, analytics, and expert guidance in one place.
             </p>
-          </motion.div>
+          </m.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
-                <motion.div
+                <m.div
                   key={f.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -223,14 +216,13 @@ export default function Features() {
                   </div>
                   <h3 className="text-base font-semibold text-gray-900 mb-2">{f.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{f.body}</p>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Spotlight 1 — Scorecards */}
       <Spotlight
         tag="Real-Time Scorecards"
         headline="Know your round readiness before you raise."
@@ -241,7 +233,6 @@ export default function Features() {
         <ScorecardCard />
       </Spotlight>
 
-      {/* Spotlight 2 — Analytics */}
       <Spotlight
         tag="Trend-Forecasting & Analytics"
         headline="AI-powered insights to time your raise perfectly."
@@ -253,7 +244,6 @@ export default function Features() {
         <AnalyticsCard />
       </Spotlight>
 
-      {/* Spotlight 3 — Advisors */}
       <Spotlight
         tag="On-Demand Advisor Network"
         headline="Real guidance from operators who've been there."

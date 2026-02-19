@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Leaf, Zap, Microscope, ArrowRight } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -59,10 +59,10 @@ export default function Industries() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
+    <section id="industries" ref={ref} className="bg-gray-50 py-28 px-6 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
@@ -75,14 +75,14 @@ export default function Industries() {
           <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
             Wone focuses on the high-impact industries reshaping Southern California — connecting founders with investors who specialize in their sector.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Industry cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
           {industries.map((ind, i) => {
             const Icon = ind.icon;
             return (
-              <motion.div
+              <m.div
                 key={ind.label}
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -130,13 +130,13 @@ export default function Industries() {
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
         {/* Bottom note */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.35, ease: EASE }}
@@ -152,7 +152,7 @@ export default function Industries() {
             Join the waitlist and tell us your industry
             <ArrowRight size={14} />
           </a>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
