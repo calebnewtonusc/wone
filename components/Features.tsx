@@ -7,7 +7,7 @@ import { BarChart3, Users, LineChart, TrendingUp, Shield, Zap, ArrowRight } from
 const E: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const features = [
-  { icon: BarChart3, color: "#2563EB", bg: "#EFF6FF", border: "#BFDBFE", title: "Transparent Fundraising", body: "Live campaign tracking, data room management, and round analytics. Every metric that matters, in one dashboard." },
+  { icon: BarChart3, color: "#4f46e5", bg: "#eef2ff", border: "#c7d2fe", title: "Transparent Fundraising", body: "Live campaign tracking, data room management, and round analytics. Every metric that matters, in one dashboard." },
   { icon: Users,    color: "#7C3AED", bg: "#F5F3FF", border: "#DDD6FE", title: "Expert Mentorship",      body: "On-demand sessions with operators who've scaled companies like yours. Real guidance, not generic advice." },
   { icon: TrendingUp, color: "#0891B2", bg: "#ECFEFF", border: "#A5F3FC", title: "Real-Time Scorecards", body: "Know your investor fit, pitch quality, and traction score before you send a single deck." },
   { icon: LineChart, color: "#059669", bg: "#ECFDF5", border: "#A7F3D0", title: "Predictive Analytics",  body: "AI-powered trend forecasting helps you time your raise, benchmark valuations, and surface signals early." },
@@ -30,7 +30,7 @@ function ScorecardCard() {
       </div>
       <div className="space-y-4">
         {[
-          { label: "Investor Fit",  pct: 96, color: "#2563EB" },
+          { label: "Investor Fit",  pct: 96, color: "#4f46e5" },
           { label: "Pitch Quality", pct: 87, color: "#7C3AED" },
           { label: "Market Timing", pct: 82, color: "#0891B2" },
         ].map((item) => (
@@ -71,13 +71,13 @@ function AnalyticsCard() {
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-28 mt-4 mb-2" preserveAspectRatio="none">
         <defs>
           <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2563EB" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
+            <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#4f46e5" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d={area} fill="url(#ag)" />
-        <path d={path} fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx={x(pts.length - 1)} cy={y(pts[pts.length - 1])} r="4" fill="#2563EB" />
+        <path d={path} fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx={x(pts.length - 1)} cy={y(pts[pts.length - 1])} r="4" fill="#4f46e5" />
       </svg>
       <div className="flex justify-between text-[11px] text-gray-300 font-medium">
         {["Jan","Mar","May","Jul","Sep","Nov","Now"].map((month) => <span key={month}>{month}</span>)}
@@ -96,7 +96,7 @@ function AnalyticsCard() {
 
 function AdvisorsCard() {
   const people = [
-    { initials:"SK", name:"Sarah Kim",        role:"CFO · SoftBank alum",      color:"#2563EB", available:true  },
+    { initials:"SK", name:"Sarah Kim",        role:"CFO · SoftBank alum",      color:"#4f46e5", available:true  },
     { initials:"JR", name:"James Rodriguez",  role:"GTM Lead · 3 exits",       color:"#7C3AED", available:true  },
     { initials:"AT", name:"Aisha Tran",        role:"Legal · Tech specialist",  color:"#0891B2", available:false },
   ];
@@ -129,7 +129,7 @@ function AdvisorsCard() {
             </div>
             <button
               className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${
-                p.available ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                p.available ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-gray-100 text-gray-400 cursor-not-allowed"
               }`}
             >
               {p.available ? "Book" : "Full"}
@@ -159,10 +159,10 @@ function Spotlight({
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: E }}
           >
-            <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-4">{tag}</p>
+            <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-4">{tag}</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-5 leading-tight">{headline}</h2>
             <p className="text-lg text-gray-500 leading-relaxed mb-7">{body}</p>
-            <a href="#waitlist" className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+            <a href="#waitlist" className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
               {cta} <ArrowRight size={14} />
             </a>
           </m.div>
@@ -194,7 +194,7 @@ export default function Features() {
             transition={{ duration: 0.55, ease: E }}
             className="text-center mb-14"
           >
-            <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Platform</p>
+            <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Platform</p>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">Why Choose Wone?</h2>
             <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
               The full stack for SoCal founders — fundraising tools, investor access, analytics, and expert guidance in one place.

@@ -37,7 +37,7 @@ function ScoreGauge({ score }: { score: number }) {
       />
       <m.path
         d={`M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-        fill="none" stroke="#2563EB" strokeWidth="5.5" strokeLinecap="round"
+        fill="none" stroke="#4f46e5" strokeWidth="5.5" strokeLinecap="round"
         initial={{ strokeDasharray: `0 ${arcLen}` }}
         animate={{ strokeDasharray: `${filled} ${arcLen}` }}
         transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -55,9 +55,9 @@ function ScoreGauge({ score }: { score: number }) {
 /* ── Full dashboard mockup ── */
 function DashboardMockup() {
   const matches = [
-    { name: "Andreessen Capital", type: "Series A–C VC",  pct: "98", color: "#2563EB" },
-    { name: "Sarah Kim",          type: "Angel Investor",  pct: "94", color: "#7C3AED" },
-    { name: "SoCal Ventures",     type: "Regional VC",     pct: "91", color: "#0891B2" },
+    { name: "Alta Capital",   type: "Series A–C VC",  pct: "98", color: "#4f46e5" },
+    { name: "Sarah Kim",      type: "Angel Investor",  pct: "94", color: "#7C3AED" },
+    { name: "SoCal Ventures", type: "Regional VC",     pct: "91", color: "#0891B2" },
   ];
 
   return (
@@ -81,18 +81,18 @@ function DashboardMockup() {
         {/* App nav */}
         <div className="flex items-center justify-between px-4 h-10 border-b border-gray-100 bg-white">
           <div className="flex items-center gap-1.5">
-            <div className="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center">
+            <div className="w-5 h-5 rounded-md bg-indigo-700 flex items-center justify-center">
               <span className="text-white font-black text-[8px]">W</span>
             </div>
             <span className="text-[11px] font-bold text-gray-900">Wone</span>
           </div>
           <div className="flex items-center gap-3.5 text-[10px] font-medium text-gray-400">
-            <span className="text-blue-600 font-semibold border-b border-blue-600 pb-px">Dashboard</span>
+            <span className="text-indigo-600 font-semibold border-b border-indigo-600 pb-px">Dashboard</span>
             <span>Investors</span><span>Analytics</span><span>Advisors</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-6 h-6 rounded-md border border-gray-200 flex items-center justify-center text-gray-400 text-xs">🔔</div>
-            <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-[9px] font-bold">TC</div>
+            <div className="w-6 h-6 rounded-full bg-indigo-700 flex items-center justify-center text-white text-[9px] font-bold">TC</div>
           </div>
         </div>
         {/* Dashboard body */}
@@ -118,18 +118,18 @@ function DashboardMockup() {
             <div className="bg-white rounded-xl border border-gray-200 p-3">
               <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Investor Views</p>
               <p className="text-[22px] font-black text-gray-900 leading-none"><Counter to={47} /></p>
-              <p className="text-[9px] text-blue-600 font-semibold mt-1">+12 this week</p>
+              <p className="text-[9px] text-indigo-600 font-semibold mt-1">+12 this week</p>
             </div>
             <div className="bg-white rounded-xl border border-gray-200 p-3">
               <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Capital Raised</p>
-              <p className="text-[22px] font-black text-gray-900 leading-none">$<Counter to={12} suffix="M" /></p>
+              <p className="text-[22px] font-black text-gray-900 leading-none">$<Counter to={420} suffix="K" /></p>
               <p className="text-[9px] text-green-600 font-semibold mt-1">↑ 23% MTM</p>
             </div>
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-3">
             <div className="flex items-center justify-between mb-2.5">
               <p className="text-[10px] font-bold text-gray-800">Top Investor Matches</p>
-              <button className="text-[9px] text-blue-600 font-semibold">View all →</button>
+              <button className="text-[9px] text-indigo-600 font-semibold">View all →</button>
             </div>
             <div className="space-y-2">
               {matches.map((match, i) => (
@@ -145,7 +145,7 @@ function DashboardMockup() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-[10px] font-bold text-green-600">{match.pct}%</span>
-                    <button className="text-[8px] font-bold text-white bg-blue-600 px-2 py-0.5 rounded-md">Connect</button>
+                    <button className="text-[8px] font-bold text-white bg-indigo-600 px-2 py-0.5 rounded-md">Connect</button>
                   </div>
                 </div>
               ))}
@@ -163,7 +163,7 @@ function DashboardMockup() {
         className="absolute -right-4 top-24 z-20"
       >
         <div className="bg-white rounded-xl border border-gray-200 shadow-xl p-2.5 flex items-center gap-2.5 min-w-[158px]">
-          <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0 text-base">🎯</div>
+          <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0 text-base">🎯</div>
           <div>
             <p className="text-[11px] font-bold text-gray-900">New Match!</p>
             <p className="text-[9px] text-gray-400">SoCal VC · 97% fit</p>
@@ -220,7 +220,7 @@ function MobilePreview() {
             <p className="text-[9px] text-gray-400 font-semibold uppercase tracking-wider mt-1">Investor Views</p>
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-3.5 text-center">
-            <p className="text-2xl font-black text-gray-900 leading-none">$1.2M</p>
+            <p className="text-2xl font-black text-gray-900 leading-none">$420K</p>
             <p className="text-[9px] text-gray-400 font-semibold uppercase tracking-wider mt-1">Capital Raised</p>
           </div>
           <div className="bg-green-50 border border-green-100 rounded-xl p-3.5 text-center">
@@ -231,8 +231,8 @@ function MobilePreview() {
         <div className="bg-white rounded-xl border border-gray-200 p-3">
           <p className="text-[10px] font-bold text-gray-700 mb-2">Top Matches</p>
           {[
-            { name: "Andreessen Capital", pct: "98%", color: "#2563EB" },
-            { name: "SoCal Ventures",     pct: "91%", color: "#0891B2" },
+            { name: "Alta Capital",   pct: "98%", color: "#4f46e5" },
+            { name: "SoCal Ventures", pct: "91%", color: "#0891B2" },
           ].map((inv) => (
             <div key={inv.name} className="flex items-center justify-between py-1.5 border-t border-gray-50 first:border-0">
               <div className="flex items-center gap-2">
@@ -250,13 +250,13 @@ function MobilePreview() {
 
 export default function Hero() {
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #eef2ff 0%, #f5f3ff 40%, #fdf4ff 70%, #ffffff 100%)" }}>
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full opacity-[0.05] blur-3xl"
-          style={{ background: "radial-gradient(#2563EB, transparent 70%)" }}
+          className="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full opacity-[0.06] blur-3xl"
+          style={{ background: "radial-gradient(#4f46e5, transparent 70%)" }}
         />
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-100 to-transparent" />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
@@ -269,9 +269,9 @@ export default function Hero() {
               transition={{ duration: 0.45, ease: E }}
               className="mb-6"
             >
-              <span className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-3.5 py-1.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                50+ SoCal Pilot Partners
+              <span className="inline-flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold px-3.5 py-1.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                🚀 Now in Beta — Join the Waitlist
               </span>
             </m.div>
 
@@ -282,7 +282,7 @@ export default function Hero() {
               className="text-5xl md:text-[3.5rem] lg:text-[4rem] font-bold tracking-[-0.03em] leading-[1.04] text-gray-950 mb-5"
             >
               The All-in-One<br />
-              <span className="text-blue-600">Startup Launchpad.</span>
+              <span className="text-indigo-600">Startup Launchpad.</span>
             </m.h1>
 
             <m.p
@@ -291,7 +291,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.14, ease: E }}
               className="text-lg text-gray-500 leading-relaxed mb-8"
             >
-              Wone connects SoCal founders with 200+ vetted investors, expert advisors, and AI-powered fundraising tools — all in one transparent platform.
+              A unified ecosystem where founders showcase progress, connect with expert advisors, and raise capital transparently. The future of startup acceleration is here.
             </m.p>
 
             <m.div
@@ -302,7 +302,10 @@ export default function Hero() {
             >
               <a
                 href="#waitlist"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-colors shadow-sm shadow-blue-200"
+                className="inline-flex items-center gap-2 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-colors shadow-sm"
+                style={{ background: "#312e81" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#1e1b4b")}
+                onMouseLeave={e => (e.currentTarget.style.background = "#312e81")}
               >
                 Request a Demo <ArrowRight size={15} />
               </a>
@@ -310,7 +313,7 @@ export default function Hero() {
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-6 py-3.5 rounded-xl transition-all"
               >
-                <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-5 h-5 rounded-full bg-indigo-700 flex items-center justify-center flex-shrink-0">
                   <svg width="7" height="8" viewBox="0 0 7 8" fill="white"><path d="M0 0.5L7 4L0 7.5V0.5Z" /></svg>
                 </div>
                 Watch Overview
@@ -321,19 +324,10 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.35, ease: E }}
-              className="flex gap-8 flex-wrap"
+              className="flex items-center gap-2 text-sm text-gray-500"
             >
-              {[
-                ["50+",   "Pilot Partners"],
-                ["200+",  "Vetted Investors"],
-                ["3",     "Focus Industries"],
-                ["Free",  "During Beta"],
-              ].map(([v, l]) => (
-                <div key={l}>
-                  <p className="text-2xl font-bold text-gray-900 tracking-tight leading-none">{v}</p>
-                  <p className="text-xs text-gray-400 font-medium mt-1">{l}</p>
-                </div>
-              ))}
+              <span className="text-green-600 font-semibold">✓</span>
+              <span>Trusted by 50+ pilot partners</span>
             </m.div>
 
             <MobilePreview />
@@ -347,7 +341,7 @@ export default function Hero() {
       </div>
 
       {/* Ecosystem strip */}
-      <div className="border-t border-gray-100 bg-gray-50/60">
+      <div className="border-t border-indigo-100/60 bg-white/60">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5">
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
             <p className="text-[10px] font-bold tracking-widest uppercase text-gray-300 w-full sm:w-auto text-center">

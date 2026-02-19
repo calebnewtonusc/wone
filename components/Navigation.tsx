@@ -17,7 +17,7 @@ const NAV_LINKS = [
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 select-none" aria-label="Wone home">
-      <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-lg bg-indigo-700 flex items-center justify-center flex-shrink-0">
         <span className="text-white font-bold text-base leading-none">W</span>
       </div>
       <span className="text-lg font-semibold tracking-tight text-gray-900">{siteConfig.name}</span>
@@ -84,7 +84,7 @@ export default function Navigation() {
                     href={link.href}
                     className={`px-3.5 py-2 text-sm rounded-lg transition-colors duration-150 ${
                       isActive
-                        ? "text-blue-600 font-semibold bg-blue-50"
+                        ? "text-indigo-600 font-semibold bg-indigo-50"
                         : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                   >
@@ -105,13 +105,13 @@ export default function Navigation() {
               </a>
               <a
                 href="#contact"
-                className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors duration-150"
+                className="text-sm text-violet-600 hover:text-violet-800 font-medium px-3 py-2 transition-colors duration-150"
               >
                 Donate
               </a>
               <a
                 href="#waitlist"
-                className="text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-150"
+                className="text-sm font-medium text-white bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg transition-colors duration-150"
               >
                 Get Early Access
               </a>
@@ -165,7 +165,7 @@ export default function Navigation() {
                 <a
                   href="#waitlist"
                   onClick={() => setMobileOpen(false)}
-                  className="block text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-xl transition-colors"
+                  className="block text-center text-sm font-medium text-white bg-indigo-700 hover:bg-indigo-800 px-4 py-3 rounded-xl transition-colors"
                 >
                   Get Early Access
                 </a>

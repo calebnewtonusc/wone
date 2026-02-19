@@ -79,7 +79,7 @@ export default function Pricing() {
           transition={{ duration: 0.55, ease: EASE }}
           className="text-center mb-10"
         >
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">Pricing</p>
+          <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Pricing</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
             Simple, transparent pricing.
           </h2>
@@ -90,7 +90,7 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-          className="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-center mb-8"
+          className="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 text-center mb-8"
         >
           <p className="text-sm font-bold text-blue-900 mb-1">
             All plans are <span className="underline">free during our Q2 2026 beta</span>.
@@ -109,7 +109,7 @@ export default function Pricing() {
           <span className={`text-sm font-semibold ${!annual ? "text-gray-900" : "text-gray-400"}`}>Monthly</span>
           <button
             onClick={() => setAnnual((a) => !a)}
-            className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${annual ? "bg-blue-600" : "bg-gray-200"}`}
+            className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${annual ? "bg-indigo-600" : "bg-gray-200"}`}
             aria-label="Toggle annual billing"
           >
             <span
@@ -135,9 +135,10 @@ export default function Pricing() {
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.09, ease: EASE }}
                 className={`relative flex flex-col rounded-2xl p-7 transition-all duration-200 ${
                   plan.featured
-                    ? "bg-blue-600 ring-2 ring-blue-600 ring-offset-2 ring-offset-gray-50 shadow-lg shadow-blue-100"
+                    ? "ring-2 ring-indigo-700 ring-offset-2 ring-offset-gray-50 shadow-lg shadow-indigo-100"
                     : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm"
                 }`}
+                style={plan.featured ? { background: "#312e81" } : undefined}
               >
                 {plan.featured && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
@@ -147,7 +148,7 @@ export default function Pricing() {
                   </div>
                 )}
                 <div className="mb-7">
-                  <p className={`text-[11px] font-bold uppercase tracking-widest mb-3 ${plan.featured ? "text-blue-200" : "text-gray-400"}`}>
+                  <p className={`text-[11px] font-bold uppercase tracking-widest mb-3 ${plan.featured ? "text-indigo-200" : "text-gray-400"}`}>
                     {plan.name}
                   </p>
                   <div className="flex items-baseline gap-1 mb-3">
@@ -156,17 +157,17 @@ export default function Pricing() {
                     ) : (
                       <>
                         <span className={`text-4xl font-bold ${plan.featured ? "text-white" : "text-gray-900"}`}>${price}</span>
-                        <span className={`text-sm ${plan.featured ? "text-blue-200" : "text-gray-400"}`}>/mo{annual ? " billed annually" : ""}</span>
+                        <span className={`text-sm ${plan.featured ? "text-indigo-200" : "text-gray-400"}`}>/mo{annual ? " billed annually" : ""}</span>
                       </>
                     )}
                   </div>
-                  <p className={`text-sm leading-relaxed ${plan.featured ? "text-blue-100" : "text-gray-500"}`}>{plan.description}</p>
+                  <p className={`text-sm leading-relaxed ${plan.featured ? "text-indigo-100" : "text-gray-500"}`}>{plan.description}</p>
                 </div>
                 <ul className="flex-1 space-y-3 mb-8">
                   {plan.features.map((feat) => (
                     <li key={feat} className="flex items-start gap-2.5 text-sm">
-                      <Check size={14} className={`mt-0.5 flex-shrink-0 ${plan.featured ? "text-blue-200" : "text-blue-600"}`} />
-                      <span className={plan.featured ? "text-blue-50" : "text-gray-600"}>{feat}</span>
+                      <Check size={14} className={`mt-0.5 flex-shrink-0 ${plan.featured ? "text-indigo-200" : "text-indigo-600"}`} />
+                      <span className={plan.featured ? "text-indigo-50" : "text-gray-600"}>{feat}</span>
                     </li>
                   ))}
                 </ul>
@@ -174,7 +175,7 @@ export default function Pricing() {
                   href={plan.ctaHref}
                   className={`block text-center text-sm font-semibold py-3 rounded-xl transition-colors duration-150 ${
                     plan.featured
-                      ? "bg-white text-blue-600 hover:bg-blue-50"
+                      ? "bg-white text-indigo-600 hover:bg-indigo-50"
                       : "bg-gray-900 text-white hover:bg-gray-800"
                   }`}
                 >

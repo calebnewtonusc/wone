@@ -24,9 +24,9 @@ const steps = [
         <p className="text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-3">Profile Completeness</p>
         <div className="space-y-2.5">
           {[
-            { label: "Pitch Deck",       pct: 100, color: "#2563EB" },
+            { label: "Pitch Deck",       pct: 100, color: "#4f46e5" },
             { label: "Traction Metrics", pct: 85,  color: "#059669" },
-            { label: "Team Bios",        pct: 100, color: "#2563EB" },
+            { label: "Team Bios",        pct: 100, color: "#4f46e5" },
             { label: "Funding Targets",  pct: 60,  color: "#D97706" },
           ].map((item) => (
             <div key={item.label}>
@@ -42,7 +42,7 @@ const steps = [
         </div>
         <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
           <span className="text-[10px] text-gray-400">Readiness Score</span>
-          <span className="text-sm font-black text-blue-600">86 / 100</span>
+          <span className="text-sm font-black text-indigo-600">86 / 100</span>
         </div>
       </div>
     ),
@@ -58,7 +58,7 @@ const steps = [
       <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
         <p className="text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-3">Investor Matches</p>
         {[
-          { initials: "AC", name: "Andreessen Capital", match: "98%", color: "#2563EB" },
+          { initials: "AC", name: "Alta Capital",       match: "98%", color: "#4f46e5" },
           { initials: "SK", name: "Sarah Kim · Angel",   match: "94%", color: "#7C3AED" },
           { initials: "SV", name: "SoCal Ventures",      match: "91%", color: "#0891B2" },
         ].map((inv) => (
@@ -71,11 +71,11 @@ const steps = [
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold text-green-600">{inv.match}</span>
-              <button className="text-[8px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded">Intro</button>
+              <button className="text-[8px] font-bold text-white bg-indigo-600 px-1.5 py-0.5 rounded">Intro</button>
             </div>
           </div>
         ))}
-        <p className="text-[9px] text-blue-600 font-semibold mt-2 text-center">+ 11 more matches waiting</p>
+        <p className="text-[9px] text-indigo-600 font-semibold mt-2 text-center">+ 11 more matches waiting</p>
       </div>
     ),
   },
@@ -94,7 +94,7 @@ const steps = [
             <div
               key={bar.w}
               className="flex-1 rounded-sm"
-              style={{ height: `${bar.h}%`, background: i === 7 ? "#2563EB" : `rgba(37,99,235,${0.15 + i * 0.1})` }}
+              style={{ height: `${bar.h}%`, background: i === 7 ? "#4f46e5" : `rgba(37,99,235,${0.15 + i * 0.1})` }}
             />
           ))}
         </div>
@@ -106,7 +106,7 @@ const steps = [
             <p className="text-base font-black text-gray-900">$420K</p>
             <p className="text-[9px] text-gray-400 font-medium">Committed</p>
           </div>
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-2 text-center">
+          <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-2 text-center">
             <p className="text-base font-black text-blue-700">Day 38</p>
             <p className="text-[9px] text-blue-500 font-medium">Into Round</p>
           </div>
@@ -129,7 +129,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.55, ease: EASE }}
           className="text-center mb-20"
         >
-          <p className="text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">How It Works</p>
+          <p className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">How It Works</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
             From signup to funded.
           </h2>
@@ -149,11 +149,11 @@ export default function HowItWorks() {
               >
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
                       <Icon size={18} className="text-white" />
                     </div>
                     <span className="text-xs font-bold tracking-widest uppercase text-gray-300">{step.number}</span>
-                    <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-full">
                       {step.detail}
                     </span>
                   </div>
