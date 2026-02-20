@@ -1,10 +1,59 @@
 "use client";
 
-import { useRef } from "react";
-import { m, useInView } from "framer-motion";
-import { BarChart3, Users, LineChart, TrendingUp, Shield, Zap, ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
+import { m, useInView, AnimatePresence } from "framer-motion";
+import { BarChart3, Users, LineChart, TrendingUp, Shield, Zap, ArrowRight, Target, DollarSign, Handshake } from "lucide-react";
 
 const E: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const STRATEGY_TABS = [
+  {
+    id: "fundraising",
+    label: "Fundraising",
+    icon: DollarSign,
+    color: "#4f46e5",
+    headline: "End-to-end fundraising infrastructure.",
+    body: "From building your data room to closing your round, Wone handles every step. Live campaign tracking, investor CRM, and real-time scorecard updates keep you in control throughout the entire process.",
+    bullets: [
+      "Data room with version control",
+      "Live investor engagement tracking",
+      "Round analytics and benchmarking",
+      "Built-in SPV deal tools",
+    ],
+    metric: { value: "$420K", label: "Avg committed per campaign" },
+  },
+  {
+    id: "matching",
+    label: "Investor Matching",
+    icon: Target,
+    color: "#7C3AED",
+    headline: "AI-matched investors, not cold lists.",
+    body: "Our matching engine analyzes 50+ data points — your sector, stage, traction, team background, and more — to surface only investors who are statistically likely to invest in companies like yours.",
+    bullets: [
+      "50+ matching parameters",
+      "Stage and check-size alignment",
+      "Warm intro facilitation",
+      "Investor response analytics",
+    ],
+    metric: { value: "14", label: "Avg qualified matches per startup" },
+  },
+  {
+    id: "advisory",
+    label: "Advisory Network",
+    icon: Handshake,
+    color: "#059669",
+    headline: "Real operators, on-demand.",
+    body: "80+ advisors with actual operating experience — CFOs, GTM leads, legal specialists — available for booking within 48 hours. No retainers, no lock-in. Pay per session or roll into your plan.",
+    bullets: [
+      "CFOs, lawyers, GTM experts",
+      "Book within 48 hours",
+      "Session notes and follow-ups",
+      "No retainer required",
+    ],
+    metric: { value: "4.9", label: "Average advisor rating" },
+  },
+];
+
 
 const features = [
   { icon: BarChart3, color: "#4f46e5", bg: "#eef2ff", border: "#c7d2fe", title: "Transparent Fundraising", body: "Live campaign tracking, data room management, and round analytics. Every metric that matters, in one dashboard." },
@@ -184,6 +233,9 @@ function Spotlight({
 export default function Features() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [activeTab, setActiveTab] = useState("fundraising");
+
+  const activeStrategy = STRATEGY_TABS.find((t) => t.id === activeTab)!;
 
   return (
     <>
@@ -201,7 +253,7 @@ export default function Features() {
               Revolutionizing how startups, investors, and advisors connect and collaborate in the modern economy.
             </p>
           </m.div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 80 }}>
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
@@ -210,17 +262,136 @@ export default function Features() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.07, ease: E }}
-                  style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, padding: 32, textAlign: "center", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
+                  whileHover={{ y: -6, boxShadow: `0 12px 32px ${f.color}18` }}
+                  style={{
+                    background: "#fff",
+                    border: `1px solid #e5e7eb`,
+                    borderRadius: 16,
+                    padding: 32,
+                    textAlign: "center",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+                    cursor: "default",
+                    transition: "border-color 0.2s",
+                  }}
+                  className="group hover:border-gray-300"
                 >
-                  <div style={{ width: 56, height: 56, borderRadius: 14, background: f.bg, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                  <m.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ width: 56, height: 56, borderRadius: 14, background: f.bg, border: `1px solid ${f.border}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}
+                  >
                     <Icon size={26} style={{ color: f.color }} />
-                  </div>
+                  </m.div>
                   <h3 style={{ fontSize: 17, fontWeight: 700, color: "#111827", margin: "0 0 10px" }}>{f.title}</h3>
                   <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.65, margin: 0 }}>{f.body}</p>
                 </m.div>
               );
             })}
           </div>
+
+          {/* Tabbed Strategy Section */}
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.3, ease: E }}
+          >
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4338ca", marginBottom: 12, textAlign: "center" }}>
+              Deep Dive
+            </p>
+            <h3 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 800, letterSpacing: "-0.025em", color: "#111827", margin: "0 0 32px", textAlign: "center" }}>
+              Explore what Wone does for you.
+            </h3>
+
+            {/* Tab buttons */}
+            <div style={{ display: "flex", gap: 8, justifyContent: "center", marginBottom: 32, flexWrap: "wrap" }}>
+              {STRATEGY_TABS.map((tab) => {
+                const TabIcon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "10px 20px",
+                      borderRadius: 12,
+                      border: isActive ? `1.5px solid ${tab.color}` : "1.5px solid #e5e7eb",
+                      background: isActive ? `${tab.color}10` : "#fff",
+                      color: isActive ? tab.color : "#6b7280",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      transition: "color 0.15s, background 0.15s, border-color 0.15s",
+                    }}
+                  >
+                    <TabIcon size={15} />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab content */}
+            <AnimatePresence mode="wait">
+              <m.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: E }}
+                style={{
+                  background: "#fff",
+                  border: `1px solid #e5e7eb`,
+                  borderRadius: 20,
+                  padding: 40,
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: 48,
+                  alignItems: "center",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                }}
+                className="grid-cols-1 sm:grid-cols-[1fr_auto]"
+              >
+                <div>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 16, padding: "4px 12px", borderRadius: 999, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", background: `${activeStrategy.color}12`, color: activeStrategy.color, border: `1px solid ${activeStrategy.color}25` }}>
+                    {activeStrategy.label}
+                  </div>
+                  <h4 style={{ fontSize: "clamp(1.2rem, 2vw, 1.6rem)", fontWeight: 800, color: "#111827", margin: "0 0 12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+                    {activeStrategy.headline}
+                  </h4>
+                  <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.7, marginBottom: 20 }}>
+                    {activeStrategy.body}
+                  </p>
+                  <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 10 }}>
+                    {activeStrategy.bullets.map((b) => (
+                      <li key={b} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: "#374151" }}>
+                        <div style={{ width: 6, height: 6, borderRadius: "50%", background: activeStrategy.color, flexShrink: 0 }} />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#waitlist"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: "#fff", background: activeStrategy.color, borderRadius: 12, padding: "12px 24px", textDecoration: "none", boxShadow: `0 4px 16px ${activeStrategy.color}35`, transition: "opacity 0.15s" }}
+                  >
+                    Get Access <ArrowRight size={15} />
+                  </a>
+                </div>
+
+                {/* Metric highlight */}
+                <div style={{ textAlign: "center", background: `${activeStrategy.color}08`, border: `1.5px solid ${activeStrategy.color}25`, borderRadius: 20, padding: "32px 28px", minWidth: 160 }}>
+                  <div style={{ fontSize: 48, fontWeight: 900, color: activeStrategy.color, lineHeight: 1, letterSpacing: "-0.04em" }}>
+                    {activeStrategy.metric.value}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#6b7280", marginTop: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                    {activeStrategy.metric.label}
+                  </div>
+                </div>
+              </m.div>
+            </AnimatePresence>
+          </m.div>
         </div>
       </section>
 

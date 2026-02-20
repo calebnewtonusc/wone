@@ -65,7 +65,8 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
-                className="bg-gray-50 rounded-2xl border border-gray-100 p-6"
+                whileHover={{ y: -4, boxShadow: "0 8px 24px rgba(79,70,229,0.08)", borderColor: "#c7d2fe" }}
+                className="bg-gray-50 rounded-2xl border border-gray-100 p-6 cursor-default transition-colors duration-200"
               >
                 <h3 className="text-sm font-bold text-gray-900 mb-2">{v.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{v.body}</p>

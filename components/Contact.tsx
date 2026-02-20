@@ -120,7 +120,8 @@ export default function Contact() {
                   href={opt.href}
                   target={opt.href.startsWith("http") ? "_blank" : undefined}
                   rel={opt.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  style={{ display: "flex", alignItems: "flex-start", gap: 16, padding: 20, borderRadius: 16, border: "1px solid #e5e7eb", textDecoration: "none" }}
+                  style={{ display: "flex", alignItems: "flex-start", gap: 16, padding: 20, borderRadius: 16, border: "1px solid #e5e7eb", textDecoration: "none", transition: "border-color 0.2s, box-shadow 0.2s", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}
+                  className="group hover:border-gray-300 hover:shadow-md"
                 >
                   <div
                     style={{ width: 44, height: 44, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: opt.bg, border: `1px solid ${opt.border}` }}

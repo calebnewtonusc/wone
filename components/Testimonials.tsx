@@ -72,6 +72,7 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
+              whileHover={{ y: -6, boxShadow: `0 16px 40px ${t.color}15` }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -80,6 +81,8 @@ export default function Testimonials() {
                 borderRadius: 20,
                 padding: 32,
                 boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+                cursor: "default",
+                transition: "border-color 0.2s",
               }}
             >
               {/* Quote mark */}

@@ -86,7 +86,8 @@ export default function Industries() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
-                className="bg-white rounded-2xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
+                whileHover={{ y: -8, boxShadow: `0 20px 48px ${ind.color}18` }}
+                className="bg-white rounded-2xl border border-gray-200 transition-colors duration-200 overflow-hidden flex flex-col cursor-default hover:border-gray-300"
               >
                 {/* Card header */}
                 <div className="p-6 pb-5">

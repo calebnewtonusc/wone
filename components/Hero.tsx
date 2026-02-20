@@ -108,11 +108,28 @@ function Screenshot() {
 
 export default function Hero() {
   return (
-    <section style={{ background: "#fff", borderBottom: `1px solid ${BORDER}` }}>
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "88px 24px 72px", textAlign: "center" }}>
-        <m.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }} style={{ marginBottom: 28 }}>
+    <section style={{ background: "#fff", borderBottom: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
+      {/* Subtle gradient backdrop */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 600,
+          background: "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79,70,229,0.07) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: "96px 24px 80px", textAlign: "center", position: "relative", zIndex: 1 }}>
+        <m.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }} style={{ marginBottom: 32 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, color: BRAND, background: BRAND_LT, border: `1px solid ${BRAND_BR}`, borderRadius: 20, padding: "7px 16px" }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: BRAND, display: "inline-block" }} />
+            <m.span
+              animate={{ scale: [1, 1.4, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e", display: "inline-block" }}
+            />
             Now in Beta — Free for SoCal Founders
           </span>
         </m.div>
@@ -121,49 +138,60 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
-          style={{ fontSize: "clamp(2.6rem, 5.5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.08, color: GRAY1, margin: "0 0 24px" }}
+          style={{ fontSize: "clamp(2.8rem, 6vw, 4.4rem)", fontWeight: 900, letterSpacing: "-0.035em", lineHeight: 1.05, color: GRAY1, margin: "0 0 28px" }}
         >
           The All-in-One<br />
-          <span style={{ color: BRAND }}>Startup Launchpad.</span>
+          <span style={{ color: BRAND, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            Startup Launchpad.
+          </span>
         </m.h1>
 
         <m.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.14, ease: EASE }}
-          style={{ fontSize: 19, color: GRAY2, lineHeight: 1.65, margin: "0 0 40px", maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}
+          style={{ fontSize: 20, color: GRAY2, lineHeight: 1.65, margin: "0 0 44px", maxWidth: 580, marginLeft: "auto", marginRight: "auto", fontWeight: 400 }}
         >
-          A unified platform where SoCal founders connect with 200+ vetted investors, access expert advisors, and raise capital transparently.
+          A unified platform where SoCal founders connect with <strong style={{ color: GRAY1 }}>200+ vetted investors</strong>, access expert advisors, and raise capital transparently.
         </m.p>
 
         <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2, ease: EASE }}
-          style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 24 }}
+          style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 28 }}
         >
-          <a
+          <m.a
             href="#waitlist"
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600, color: "#fff", background: DARK, borderRadius: 12, padding: "14px 28px", textDecoration: "none", boxShadow: "0 4px 16px rgba(49,46,129,0.32)" }}
+            whileHover={{ scale: 1.03, boxShadow: "0 8px 28px rgba(49,46,129,0.42)" }}
+            whileTap={{ scale: 0.98 }}
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 700, color: "#fff", background: DARK, borderRadius: 14, padding: "15px 30px", textDecoration: "none", boxShadow: "0 4px 16px rgba(49,46,129,0.32)", transition: "background 0.2s" }}
           >
             Get Early Access <ArrowRight size={16} />
-          </a>
-          <a
+          </m.a>
+          <m.a
             href="#how-it-works"
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600, color: GRAY1, background: "#fff", border: `1.5px solid ${BORDER}`, borderRadius: 12, padding: "14px 28px", textDecoration: "none" }}
+            whileHover={{ scale: 1.02, background: "#f9fafb" }}
+            whileTap={{ scale: 0.98 }}
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600, color: GRAY1, background: "#fff", border: `1.5px solid ${BORDER}`, borderRadius: 14, padding: "15px 30px", textDecoration: "none" }}
           >
             See How It Works
-          </a>
+          </m.a>
         </m.div>
 
-        <m.p
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
-          style={{ fontSize: 13, color: GRAY4, margin: 0 }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, fontSize: 13, color: GRAY4 }}
         >
-          ✓ Free during beta &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; SoCal founders only
-        </m.p>
+          {["Free during beta", "No credit card", "SoCal founders only"].map((item, i) => (
+            <span key={item} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+              {i > 0 && <span style={{ opacity: 0.3 }}>·</span>}
+              <span style={{ color: "#22c55e", fontWeight: 700 }}>✓</span> {item}
+            </span>
+          ))}
+        </m.div>
       </div>
 
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px 0" }}>
@@ -173,17 +201,24 @@ export default function Hero() {
 
       {/* Stats bar */}
       <div style={{ borderTop: `1px solid ${BORDER}`, background: SURF }}>
-        <div className="grid grid-cols-2 sm:grid-cols-4" style={{ maxWidth: 960, margin: "0 auto", padding: "24px" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-4" style={{ maxWidth: 960, margin: "0 auto", padding: "28px 24px" }}>
           {[
-            { value: "50+",  label: "Pilot Partners"   },
-            { value: "200+", label: "Vetted Investors"  },
-            { value: "80+",  label: "Expert Advisors"   },
-            { value: "Q2 '26", label: "Beta Launch"     },
+            { value: "50+",   label: "Pilot Partners",  sub: "Active beta founders"  },
+            { value: "200+",  label: "Vetted Investors", sub: "Ready to back you"     },
+            { value: "80+",   label: "Expert Advisors",  sub: "4.9 avg rating"        },
+            { value: "Q2 '26", label: "Beta Launch",     sub: "Spots limited"         },
           ].map((s, i) => (
-            <div key={s.label} style={{ textAlign: "center", borderLeft: i > 0 ? `1px solid ${BORDER}` : "none" }}>
-              <div style={{ fontSize: 24, fontWeight: 800, color: GRAY1, lineHeight: 1 }}>{s.value}</div>
-              <div style={{ fontSize: 12, color: GRAY4, fontWeight: 500, marginTop: 6 }}>{s.label}</div>
-            </div>
+            <m.div
+              key={s.label}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 + i * 0.08, ease: EASE }}
+              style={{ textAlign: "center", borderLeft: i > 0 ? `1px solid ${BORDER}` : "none", padding: "0 16px" }}
+            >
+              <div style={{ fontSize: 26, fontWeight: 900, color: GRAY1, lineHeight: 1, letterSpacing: "-0.03em" }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: GRAY1, fontWeight: 600, marginTop: 5 }}>{s.label}</div>
+              <div style={{ fontSize: 10, color: GRAY4, fontWeight: 400, marginTop: 2 }}>{s.sub}</div>
+            </m.div>
           ))}
         </div>
       </div>

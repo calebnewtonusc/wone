@@ -62,10 +62,34 @@
   }
   .animate-spin { animation: spin 1s linear infinite; }
 
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(1.4); }
+  }
+  .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to   { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.5) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
+
+  /* Card hover ring utilities */
+  .card-hover {
+    transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), box-shadow 0.2s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

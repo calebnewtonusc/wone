@@ -156,6 +156,7 @@ export default function Pricing() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.09, ease: EASE }}
+                whileHover={!plan.featured ? { y: -6, boxShadow: "0 16px 40px rgba(0,0,0,0.1)" } : { y: -4 }}
                 style={{
                   position: "relative",
                   display: "flex",
@@ -164,7 +165,8 @@ export default function Pricing() {
                   padding: 28,
                   background: plan.featured ? "#312e81" : "#fff",
                   border: plan.featured ? "none" : "1px solid #e5e7eb",
-                  boxShadow: plan.featured ? "0 8px 40px rgba(49,46,129,0.3), 0 0 0 2px #4338ca" : "none",
+                  boxShadow: plan.featured ? "0 8px 40px rgba(49,46,129,0.3), 0 0 0 2px #4338ca" : "0 1px 4px rgba(0,0,0,0.05)",
+                  cursor: "default",
                 }}
               >
                 {plan.featured && (

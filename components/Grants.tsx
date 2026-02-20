@@ -77,7 +77,8 @@ export default function Grants() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.09, ease: EASE }}
-                className="bg-white rounded-2xl border border-gray-200 hover:border-gray-300 hover:shadow-sm p-6 flex flex-col transition-all duration-200"
+                whileHover={{ y: -6, boxShadow: `0 12px 32px ${g.color}15` }}
+                className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col transition-colors duration-200 cursor-default hover:border-gray-300"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border flex-shrink-0"

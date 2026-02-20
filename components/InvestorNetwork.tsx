@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
-import { ArrowRight, Lock, MapPin } from "lucide-react";
+import { ArrowRight, Lock, MapPin, LayoutGrid, Map } from "lucide-react";
 import { EASE, BRAND, ACCENT } from "@/lib/brand";
+import InvestorLandscapeMap from "@/components/InvestorLandscapeMap";
 
 type Filter = "All" | "Angel" | "VC Fund" | "Corporate Strategic" | "Angel Network" | "Regional VC";
 
@@ -87,6 +88,7 @@ export default function InvestorNetwork() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
 
   const filtered = FILTER_TABS.find((t) => t.label === activeFilter);
   const visible  = filtered?.match
@@ -132,108 +134,160 @@ export default function InvestorNetwork() {
           ))}
         </m.div>
 
-        {/* Filter tabs */}
+        {/* Filter tabs + view toggle */}
         <m.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.2, ease: EASE }}
-          className="flex items-center gap-2 mb-6 flex-wrap"
+          className="flex items-center justify-between gap-2 mb-6 flex-wrap"
         >
-          {FILTER_TABS.map((tab) => (
+          <div className="flex items-center gap-2 flex-wrap">
+            {FILTER_TABS.map((tab) => (
+              <button
+                key={tab.label}
+                onClick={() => setActiveFilter(tab.label)}
+                className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border"
+                style={
+                  activeFilter === tab.label
+                    ? { background: BRAND, color: "#fff", borderColor: BRAND }
+                    : { background: "#f3f4f6", color: "#6b7280", borderColor: "#e5e7eb" }
+                }
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1">
             <button
-              key={tab.label}
-              onClick={() => setActiveFilter(tab.label)}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border"
-              style={
-                activeFilter === tab.label
-                  ? { background: BRAND, color: "#fff", borderColor: BRAND }
-                  : { background: "#f3f4f6", color: "#6b7280", borderColor: "#e5e7eb" }
-              }
+              onClick={() => setViewMode("grid")}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150"
+              style={viewMode === "grid" ? { background: "#fff", color: BRAND, boxShadow: "0 1px 3px rgba(0,0,0,0.1)" } : { color: "#6b7280" }}
             >
-              {tab.label}
+              <LayoutGrid size={12} /> Grid
             </button>
-          ))}
+            <button
+              onClick={() => setViewMode("map")}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150"
+              style={viewMode === "map" ? { background: "#fff", color: BRAND, boxShadow: "0 1px 3px rgba(0,0,0,0.1)" } : { color: "#6b7280" }}
+            >
+              <Map size={12} /> Map
+            </button>
+          </div>
         </m.div>
 
-        {/* Investor cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          <AnimatePresence mode="popLayout">
-            {visible.map((inv, i) => (
-              <m.div
-                key={inv.name}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.35, delay: i * 0.04, ease: EASE }}
-                className="group rounded-2xl border border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm p-5 transition-all duration-200"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                      style={{ background: inv.color }}
-                    >
-                      {inv.initials}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900 leading-tight">{inv.name}</p>
-                      <p className="text-[11px] text-gray-400 leading-tight mt-0.5">{inv.type}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full text-green-600 bg-green-50 border border-green-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                    Active
-                  </div>
-                </div>
-                <div className="space-y-2 mb-4">
-                  {[["Stage", inv.stage], ["Check Size", inv.check], ["Location", inv.location]].map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between text-[11px]">
-                      <span className="text-gray-400 font-medium">{k}</span>
-                      <span className="text-gray-700 font-semibold">{v}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {inv.focus.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-semibold px-2 py-0.5 rounded-md border"
-                      style={{ color: inv.color, background: `${inv.color}15`, borderColor: `${inv.color}30` }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </m.div>
-            ))}
-          </AnimatePresence>
-
-          {/* Locked teaser card */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
-            className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-5 flex flex-col items-center justify-center text-center gap-3"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center">
-              <Lock size={16} className="text-gray-400" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-700">150+ more investors</p>
-              <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-                Join Wone to unlock the full investor network — filtered by your stage, sector, and check size.
-              </p>
-            </div>
-            <a
-              href="#waitlist"
-              className="text-xs font-bold transition-opacity hover:opacity-80"
-              style={{ color: BRAND }}
+        {/* Map view */}
+        <AnimatePresence mode="wait">
+          {viewMode === "map" && (
+            <m.div
+              key="map"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: EASE }}
+              className="mb-12"
             >
-              Get access →
-            </a>
+              <InvestorLandscapeMap />
+            </m.div>
+          )}
+        </AnimatePresence>
+
+        {/* Investor cards */}
+        {viewMode === "grid" && (
+          <m.div
+            key="grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12"
+          >
+            <AnimatePresence mode="popLayout">
+              {visible.map((inv, i) => (
+                <m.div
+                  key={inv.name}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, delay: i * 0.04, ease: EASE }}
+                  whileHover={{ y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}
+                  className="group rounded-2xl border border-gray-200 bg-white p-5 transition-colors duration-200 cursor-pointer"
+                  style={{ transition: "border-color 0.2s" }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0 group-hover:scale-110 transition-transform duration-200"
+                        style={{ background: inv.color }}
+                      >
+                        {inv.initials}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-900 leading-tight">{inv.name}</p>
+                        <p className="text-[11px] text-gray-400 leading-tight mt-0.5">{inv.type}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full text-green-600 bg-green-50 border border-green-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                      Active
+                    </div>
+                  </div>
+                  <div className="space-y-2 mb-4">
+                    {[["Stage", inv.stage], ["Check Size", inv.check], ["Location", inv.location]].map(([k, v]) => (
+                      <div key={k} className="flex items-center justify-between text-[11px]">
+                        <span className="text-gray-400 font-medium">{k}</span>
+                        <span className="text-gray-700 font-semibold">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {inv.focus.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded-md border"
+                        style={{ color: inv.color, background: `${inv.color}15`, borderColor: `${inv.color}30` }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href="#waitlist"
+                    className="block text-center text-xs font-bold py-2 rounded-xl text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    style={{ background: inv.color }}
+                  >
+                    Request Intro
+                  </a>
+                </m.div>
+              ))}
+            </AnimatePresence>
+
+            {/* Locked teaser card */}
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
+              className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-5 flex flex-col items-center justify-center text-center gap-3"
+            >
+              <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center">
+                <Lock size={16} className="text-gray-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-700">150+ more investors</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  Join Wone to unlock the full investor network — filtered by your stage, sector, and check size.
+                </p>
+              </div>
+              <a
+                href="#waitlist"
+                className="text-xs font-bold transition-opacity hover:opacity-80"
+                style={{ color: BRAND }}
+              >
+                Get access →
+              </a>
+            </m.div>
           </m.div>
-        </div>
+        )}
 
         {/* CTA */}
         <m.div

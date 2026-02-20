@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import TopBanner from "@/components/TopBanner";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
@@ -5,15 +6,24 @@ import SocialProof from "@/components/SocialProof";
 import About from "@/components/About";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
+import MetricsTraction from "@/components/MetricsTraction";
 import InvestorNetwork from "@/components/InvestorNetwork";
+import GoToMarketTimeline from "@/components/GoToMarketTimeline";
 import Grants from "@/components/Grants";
 import Industries from "@/components/Industries";
 import Testimonials from "@/components/Testimonials";
+import MidCTA from "@/components/MidCTA";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Wone — The SoCal Startup Fundraising Platform",
+  description:
+    "Wone connects SoCal founders with investors, advisors, and the infrastructure they need to raise smarter. AI-matched investors, real-time scorecards, and on-demand expert sessions.",
+};
 
 export default function Home() {
   return (
@@ -29,10 +39,13 @@ export default function Home() {
         <About />
         <Features />
         <HowItWorks />
+        <MetricsTraction />
         <InvestorNetwork />
+        <GoToMarketTimeline />
         <Grants />
         <Industries />
         <Testimonials />
+        <MidCTA />
         <Pricing />
         <FAQ />
         <Contact />

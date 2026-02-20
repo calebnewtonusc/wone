@@ -5,6 +5,7 @@ import { m, useInView } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+
 // TODO: Replace text logos with actual SVG logos from confirmed partners
 const logos: { name: string; sub: string }[] = [
   { name: "Techstars",        sub: "LA Accelerator"         },
@@ -63,6 +64,7 @@ export default function SocialProof() {
               initial={{ opacity: 0, y: 8 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.1 + i * 0.04, ease: EASE }}
+              whileHover={{ y: -3, boxShadow: "0 6px 20px rgba(0,0,0,0.08)", borderColor: "#c7d2fe" }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -73,6 +75,8 @@ export default function SocialProof() {
                 border: "1px solid #e5e7eb",
                 borderRadius: 12,
                 minWidth: 130,
+                cursor: "default",
+                transition: "border-color 0.2s",
               }}
             >
               <span style={{ fontSize: 13, fontWeight: 700, color: "#374151", letterSpacing: "-0.01em", lineHeight: 1 }}>

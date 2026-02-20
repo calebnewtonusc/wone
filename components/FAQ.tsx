@@ -120,17 +120,33 @@ export default function FAQ() {
           ))}
         </div>
 
-        <m.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.5, ease: EASE }}
-          style={{ textAlign: "center", fontSize: 14, color: "#9ca3af", marginTop: 32 }}
+          style={{ marginTop: 40, background: "#fff", border: "1px solid #e5e7eb", borderRadius: 20, padding: "28px 32px", textAlign: "center" }}
         >
-          Still have questions?{" "}
-          <a href="#contact" style={{ color: ACCENT, fontWeight: 600, textDecoration: "none" }}>
-            Contact us →
-          </a>
-        </m.p>
+          <p style={{ fontSize: 16, fontWeight: 700, color: "#111827", marginBottom: 8 }}>
+            Still have questions?
+          </p>
+          <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 20, lineHeight: 1.6 }}>
+            Our team responds within 1–2 business days. Or jump straight in — the beta is free.
+          </p>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+            <a
+              href="#contact"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 600, color: ACCENT, border: `1.5px solid #c7d2fe`, padding: "10px 20px", borderRadius: 12, textDecoration: "none", background: "#f0f4ff" }}
+            >
+              Contact Us
+            </a>
+            <a
+              href="#waitlist"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 700, color: "#fff", background: BRAND, padding: "10px 20px", borderRadius: 12, textDecoration: "none" }}
+            >
+              Apply for Beta →
+            </a>
+          </div>
+        </m.div>
       </div>
     </section>
   );

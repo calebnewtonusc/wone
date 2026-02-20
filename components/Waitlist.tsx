@@ -1,25 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useReducer } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { EASE } from "@/lib/brand";
 
-type State = "idle" | "loading" | "success" | "error";
+type FormStatus = "idle" | "loading" | "success" | "error";
+
+type WaitlistState = {
+  name: string;
+  company: string;
+  stage: string;
+  email: string;
+  status: FormStatus;
+};
+
+type WaitlistAction =
+  | { type: "SET_FIELD"; field: "name" | "company" | "stage" | "email"; value: string }
+  | { type: "SET_STATUS"; status: FormStatus }
+  | { type: "RESET_FIELDS" };
+
+const initialState: WaitlistState = {
+  name: "",
+  company: "",
+  stage: "",
+  email: "",
+  status: "idle",
+};
+
+function waitlistReducer(state: WaitlistState, action: WaitlistAction): WaitlistState {
+  switch (action.type) {
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "SET_STATUS":
+      return { ...state, status: action.status };
+    case "RESET_FIELDS":
+      return { ...state, name: "", company: "", stage: "", email: "" };
+    default:
+      return state;
+  }
+}
 
 const STAGES = ["Idea Stage", "Pre-Revenue", "Pre-Seed", "Seed", "Series A+"];
 
 export default function Waitlist() {
-  const [name,    setName]    = useState("");
-  const [company, setCompany] = useState("");
-  const [stage,   setStage]   = useState("");
-  const [email,   setEmail]   = useState("");
-  const [state,   setState]   = useState<State>("idle");
+  const [{ name, company, stage, email, status }, dispatch] = useReducer(
+    waitlistReducer,
+    initialState
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || state !== "idle") return;
-    setState("loading");
+    if (!email || status !== "idle") return;
+    dispatch({ type: "SET_STATUS", status: "loading" });
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
@@ -27,11 +60,11 @@ export default function Waitlist() {
         body: JSON.stringify({ name, company, stage, email }),
       });
       if (!res.ok) throw new Error("Failed");
-      setState("success");
-      setName(""); setCompany(""); setStage(""); setEmail("");
+      dispatch({ type: "SET_STATUS", status: "success" });
+      dispatch({ type: "RESET_FIELDS" });
     } catch {
-      setState("error");
-      setTimeout(() => setState("idle"), 3000);
+      dispatch({ type: "SET_STATUS", status: "error" });
+      setTimeout(() => dispatch({ type: "SET_STATUS", status: "idle" }), 3000);
     }
   };
 
@@ -78,15 +111,21 @@ export default function Waitlist() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 800, letterSpacing: "-0.025em", color: "#fff", marginBottom: 16, lineHeight: 1.1 }}>
-            Ready to Transform Your<br />Startup Journey?
+          {/* Urgency badge */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24, padding: "6px 16px", borderRadius: 999, background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e", display: "inline-block", animation: "pulse 2s infinite" }} />
+            <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>Spots filling fast — Beta closes Q2 2026</span>
+          </div>
+
+          <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)", fontWeight: 900, letterSpacing: "-0.03em", color: "#fff", marginBottom: 16, lineHeight: 1.05 }}>
+            Your SoCal raise<br />starts here.
           </h2>
           <p style={{ fontSize: 17, color: "#c7d2fe", maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.65 }}>
-            We&apos;re onboarding a select group of SoCal founders for our Q2 2026 beta launch. Free during beta — no credit card required.
+            Join 50+ founders already in early access. Free during beta — no credit card required. SoCal only.
           </p>
 
           <AnimatePresence mode="wait">
-            {state === "success" ? (
+            {status === "success" ? (
               <m.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -115,7 +154,7 @@ export default function Waitlist() {
                       id="wl-name"
                       type="text"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => dispatch({ type: "SET_FIELD", field: "name", value: e.target.value })}
                       placeholder="Jane Smith"
                       required
                       style={inputStyle}
@@ -127,7 +166,7 @@ export default function Waitlist() {
                       id="wl-company"
                       type="text"
                       value={company}
-                      onChange={(e) => setCompany(e.target.value)}
+                      onChange={(e) => dispatch({ type: "SET_FIELD", field: "company", value: e.target.value })}
                       placeholder="Acme Inc."
                       required
                       style={inputStyle}
@@ -140,7 +179,7 @@ export default function Waitlist() {
                     <select
                       id="wl-stage"
                       value={stage}
-                      onChange={(e) => setStage(e.target.value)}
+                      onChange={(e) => dispatch({ type: "SET_FIELD", field: "stage", value: e.target.value })}
                       required
                       style={{ ...inputStyle, cursor: "pointer" }}
                     >
@@ -156,7 +195,7 @@ export default function Waitlist() {
                       id="wl-email"
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => dispatch({ type: "SET_FIELD", field: "email", value: e.target.value })}
                       placeholder="you@startup.com"
                       required
                       style={inputStyle}
@@ -164,7 +203,7 @@ export default function Waitlist() {
                   </div>
                 </div>
 
-                {state === "error" && (
+                {status === "error" && (
                   <m.p
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -177,15 +216,15 @@ export default function Waitlist() {
 
                 <button
                   type="submit"
-                  disabled={state === "loading"}
+                  disabled={status === "loading"}
                   style={{
                     display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                     fontSize: 14, fontWeight: 700, color: "#312e81", background: "#fff",
                     padding: "14px 24px", borderRadius: 12, border: "none", cursor: "pointer",
-                    whiteSpace: "nowrap", opacity: state === "loading" ? 0.7 : 1, marginTop: 4,
+                    whiteSpace: "nowrap", opacity: status === "loading" ? 0.7 : 1, marginTop: 4,
                   }}
                 >
-                  {state === "loading" ? (
+                  {status === "loading" ? (
                     <Loader2 size={15} className="animate-spin" />
                   ) : (
                     <>Apply for Early Access <ArrowRight size={15} /></>

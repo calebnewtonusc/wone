@@ -199,7 +199,16 @@ export default function HowItWorks() {
                     </span>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                  <p className="text-base text-gray-500 leading-relaxed">{step.description}</p>
+                  <p className="text-base text-gray-500 leading-relaxed mb-5">{step.description}</p>
+                  {i === steps.length - 1 && (
+                    <a
+                      href="#waitlist"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-white px-5 py-2.5 rounded-xl transition-opacity hover:opacity-90"
+                      style={{ background: "#312e81" }}
+                    >
+                      Start Your Journey
+                    </a>
+                  )}
                 </div>
                 <div>{step.visual}</div>
               </m.div>

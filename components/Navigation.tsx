@@ -10,7 +10,9 @@ import { siteConfig } from "@/config/site";
 const NAV_LINKS = [
   { label: "Features",     href: "#features"     },
   { label: "How It Works", href: "#how-it-works"  },
+  { label: "Traction",     href: "#traction"      },
   { label: "Investors",    href: "#investors"     },
+  { label: "Roadmap",      href: "#roadmap"       },
   { label: "Pricing",      href: "#pricing"       },
   { label: "Contact",      href: "#contact"       },
 ];
@@ -70,10 +72,11 @@ export default function Navigation() {
       <header
         className="sticky top-0 z-40 transition-all duration-200 w-full"
         style={{
-          background: "rgba(255,255,255,0.96)",
+          background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.92)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
           borderBottom: scrolled ? "1px solid #E5E7EB" : "1px solid transparent",
+          boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.06)" : "none",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
