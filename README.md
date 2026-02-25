@@ -4,7 +4,7 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-purple?style=flat-square&logo=framer)
 ![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=flat-square&logo=vercel)
 
-# Wone — The SoCal Startup Fundraising Platform
+# Wone: The SoCal Startup Fundraising Platform
 
 A marketing strategy deliverable site for Wone, an all-in-one startup acceleration platform that connects SoCal founders with investors, advisors, and fundraising infrastructure. Built for Avenues Tech Consulting, Spring 2026.
 
@@ -14,12 +14,12 @@ A marketing strategy deliverable site for Wone, an all-in-one startup accelerati
 
 ## Features
 
-- **AI-Matched Investor Discovery** — matching engine analyzes 50+ parameters (sector, stage, traction, team background) to surface only statistically relevant investors, with warm intro facilitation
-- **Real-Time Fundraising Scorecards** — live readiness scores across Investor Fit, Pitch Quality, and Market Timing dimensions, updated as founders improve their profile
-- **End-to-End Fundraising Infrastructure** — data room with version control, investor CRM, SPV deal tools, and round analytics in one dashboard
-- **On-Demand Advisor Network** — 80+ advisors (CFOs, GTM leads, legal specialists) bookable within 48 hours, no retainer required
-- **Predictive Analytics** — AI-powered trend forecasting for raise timing, valuation benchmarking, and early signal detection
-- **SoCal Investor Landscape Map** — curated mapping of regional investors for targeted fundraising outreach, developed as a consulting deliverable
+- **AI-Matched Investor Discovery:** matching engine analyzes 50+ parameters (sector, stage, traction, team background) to surface only statistically relevant investors, with warm intro facilitation
+- **Real-Time Fundraising Scorecards:** live readiness scores across Investor Fit, Pitch Quality, and Market Timing dimensions, updated as founders improve their profile
+- **End-to-End Fundraising Infrastructure:** data room with version control, investor CRM, SPV deal tools, and round analytics in one dashboard
+- **On-Demand Advisor Network:** 80+ advisors (CFOs, GTM leads, legal specialists) bookable within 48 hours, no retainer required
+- **Predictive Analytics:** AI-powered trend forecasting for raise timing, valuation benchmarking, and early signal detection
+- **SoCal Investor Landscape Map:** curated mapping of regional investors for targeted fundraising outreach, developed as a consulting deliverable
 
 ## Tech Stack
 
@@ -56,4 +56,4 @@ npm run lint    # ESLint check
 
 ## Author
 
-**Caleb Newton** — [calebnewton.me](https://calebnewton.me)
+**Caleb Newton** ([calebnewton.me](https://calebnewton.me))
