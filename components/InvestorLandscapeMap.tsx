@@ -321,7 +321,7 @@ export default function InvestorLandscapeMap() {
           return (
             <m.button
               key={node.id}
-              initial={{ opacity: 0, scale: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.07, ease: EASE }}
               whileHover={{ scale: 1.15 }}

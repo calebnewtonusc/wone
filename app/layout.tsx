@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import MotionProvider from "@/components/MotionProvider";
 import { siteConfig } from "@/config/site";
@@ -111,12 +110,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={geist.variable}>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-geist-sans)]">
-        <Script
+        <script
           id="json-ld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          strategy="beforeInteractive"
-        />
+          // eslint-disable-next-line react/no-danger -- safe: content is JSON.stringify of a static object literal, not user input
+        >{JSON.stringify(jsonLd)}</script>
         <MotionProvider>
           {children}
         </MotionProvider>

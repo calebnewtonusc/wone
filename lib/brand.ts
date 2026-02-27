@@ -18,11 +18,3 @@ export const SURF   = "#f9fafb";   // gray-50  — surface / alternate bg
 
 // Framer Motion easing — spring-like cubic bezier
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-// Reusable transition presets
-export const T = {
-  fast:   { duration: 0.35, ease: EASE },
-  base:   { duration: 0.5,  ease: EASE },
-  slow:   { duration: 0.7,  ease: EASE },
-  stagger: (i: number) => ({ duration: 0.5, delay: i * 0.08, ease: EASE }),
-} as const;

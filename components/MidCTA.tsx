@@ -23,7 +23,7 @@ export default function MidCTA() {
           <div className="flex -space-x-2">
             {["#4f46e5", "#7c3aed", "#059669", "#d97706"].map((color, i) => (
               <div
-                key={i}
+                key={color}
                 className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-[9px] font-bold"
                 style={{ background: color, zIndex: 4 - i }}
               />

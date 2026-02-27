@@ -1,25 +1,38 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useReducer } from "react";
 import { m, useInView } from "framer-motion";
 import { TrendingUp, Users, DollarSign, Zap, Star, ArrowUpRight } from "lucide-react";
 import { EASE, BRAND, ACCENT, BRAND_LT, BRAND_BR, DARK } from "@/lib/brand";
 
 // Animated counter hook
+type CounterAction = { type: "SET"; value: number } | { type: "RESET" };
+
+function counterReducer(_state: number, action: CounterAction): number {
+  switch (action.type) {
+    case "SET": return action.value;
+    case "RESET": return 0;
+    default: return _state;
+  }
+}
+
 function useCounter(target: number, duration: number, trigger: boolean) {
-  const [count, setCount] = useState(0);
+  const [count, dispatch] = useReducer(counterReducer, 0);
 
   useEffect(() => {
-    if (!trigger) return;
+    if (!trigger) {
+      dispatch({ type: "RESET" });
+      return;
+    }
     let start = 0;
     const step = target / (duration / 16);
     const timer = setInterval(() => {
       start += step;
       if (start >= target) {
-        setCount(target);
+        dispatch({ type: "SET", value: target });
         clearInterval(timer);
       } else {
-        setCount(Math.floor(start));
+        dispatch({ type: "SET", value: Math.floor(start) });
       }
     }, 16);
     return () => clearInterval(timer);
